@@ -5,10 +5,14 @@ import { motion, useSpring, useTransform, animate } from 'framer-motion';
 import { usePersona } from '@/lib/store/use-persona';
 
 export const AreaComparator = () => {
-    const { getCurrentContent } = usePersona();
+    const { getCurrentContent, language } = usePersona();
     const content = getCurrentContent();
     const [sliderValue, setSliderValue] = useState(50);
     const [displayArea, setDisplayArea] = useState(506);
+
+    // Safety check - if content is missing, return null or defaults
+    const spaceHackLabel = content.SpaceHack_Label?.[language] || '';
+    const spaceHackDesc = content.SpaceHack_Desc?.[language] || '';
 
     const legalArea = 506;
     const totalArea = 746;
@@ -29,20 +33,20 @@ export const AreaComparator = () => {
             {/* Header Content */}
             <div className="z-10 text-center mb-12 max-w-2xl px-4">
                 <motion.h2
-                    key={content.SpaceHack_Label}
+                    key={spaceHackLabel}
                     initial={{ opacity: 0, y: 10 }}
                     animate={{ opacity: 1, y: 0 }}
                     className="text-primary text-sm tracking-[0.2em] uppercase font-bold mb-2"
                 >
-                    {content.SpaceHack_Label}
+                    {spaceHackLabel}
                 </motion.h2>
                 <motion.p
-                    key={content.SpaceHack_Desc}
+                    key={spaceHackDesc}
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     className="text-2xl md:text-3xl font-light text-white/90"
                 >
-                    {content.SpaceHack_Desc}
+                    {spaceHackDesc}
                 </motion.p>
             </div>
 

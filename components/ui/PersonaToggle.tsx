@@ -5,12 +5,18 @@ import { usePersona } from '@/lib/store/use-persona';
 import { PersonaType } from '@/data/house-data';
 
 export const PersonaToggle = () => {
-    const { activePersona, setPersona } = usePersona();
+    const { activePersona, setPersona, language } = usePersona();
+
+    const labels: Record<PersonaType, Record<string, string>> = {
+        Target_Family: { en: 'Family', ru: 'Семья' },
+        Target_Investor: { en: 'Investor', ru: 'Инвестор' },
+        Target_Party: { en: 'Lifestyle', ru: 'Светская жизнь' },
+    };
 
     const tabs: { id: PersonaType; label: string }[] = [
-        { id: 'Target_Family', label: 'Family' },
-        { id: 'Target_Investor', label: 'Investor' },
-        { id: 'Target_Party', label: 'Lifestyle' },
+        { id: 'Target_Family', label: labels['Target_Family'][language] },
+        { id: 'Target_Investor', label: labels['Target_Investor'][language] },
+        { id: 'Target_Party', label: labels['Target_Party'][language] },
     ];
 
     return (
