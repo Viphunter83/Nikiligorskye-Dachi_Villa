@@ -37,7 +37,13 @@ export default async function LocationPage({ params }: { params: Promise<{ slug:
 
     return (
         <main>
-            <HeroSection overrideHeadline={dynamicHeadline} />
+            <HeroSection
+                cmsHeadlines={{
+                    'Target_Family': dynamicHeadline,
+                    'Target_Investor': dynamicHeadline,
+                    'Target_Party': dynamicHeadline
+                }}
+            />
 
             <section className="py-20 bg-background">
                 <div className="container px-4 mx-auto">

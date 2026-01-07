@@ -9,15 +9,13 @@ import Link from 'next/link';
 import { useState, useEffect } from 'react';
 
 interface HeroSectionProps {
-    overrideHeadline?: string;
-    overrideSubheadline?: string;
+    cmsHeadlines?: Record<string, string>; // { Target_Family: "...", ... }
     heroImage?: string;
     overlayOpacity?: number;
 }
 
 export const HeroSection = ({
-    overrideHeadline,
-    overrideSubheadline,
+    cmsHeadlines,
     heroImage: cmsHeroImage,
     overlayOpacity = 40
 }: HeroSectionProps = {}) => {
@@ -32,6 +30,24 @@ export const HeroSection = ({
     const displayPersona = mounted ? activePersona : 'Target_Family';
     const content = HOUSE_DATA.Content[displayPersona];
     const heroImage = cmsHeroImage || content.HeroImage || '/Living.jpeg'; // CMS > Data > Fallback
+
+    // Smart Headline Logic
+    // 1. Get default Russian text for this persona from code (HOUSE_DATA)
+    const defaultRussian = HOUSE_DATA.Content[displayPersona].Headline.ru;
+
+    // 2. Get what's in the DB/CMS for this persona
+    // We assume cmsHeadlines keys match PersonaType (e.g. 'Target_Family') or we map them below
+    const cmsMap: Record<string, string | undefined> = {
+        'Target_Family': cmsHeadlines?.['Target_Family'],
+        'Target_Investor': cmsHeadlines?.['Target_Investor'],
+        'Target_Party': cmsHeadlines?.['Target_Party']
+    };
+    const dbValue = cmsMap[displayPersona];
+
+    // 3. Logic: If DB value exists AND differs from default Russian code, use DB (User Custom Override).
+    // Otherwise, use content.Headline[language] (Bilingual support).
+    const isCustomized = dbValue && dbValue !== defaultRussian;
+    const finalHeadline = isCustomized ? dbValue : content.Headline?.[language as Language];
 
     // Scrim gradients for readability
     const scrims: Record<PersonaType, string> = {
@@ -118,10 +134,10 @@ export const HeroSection = ({
                             className="flex flex-col items-center"
                         >
                             <h1 className="text-4xl md:text-6xl font-bold text-white mb-6 leading-tight drop-shadow-lg">
-                                {overrideHeadline || content.Headline?.[language as Language]}
+                                {finalHeadline}
                             </h1>
                             <p className="text-lg md:text-xl text-white/90 max-w-2xl font-light mb-8 drop-shadow-md">
-                                {overrideSubheadline || content.Subheadline?.[language as Language]}
+                                {content.Subheadline?.[language as Language]}
                             </p>
 
                             {content.CallToAction && (

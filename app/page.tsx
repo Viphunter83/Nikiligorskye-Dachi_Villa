@@ -26,7 +26,11 @@ export default async function Home() {
       <HeroSection
         heroImage={heroImageOverride}
         overlayOpacity={house.hero_overlay_opacity}
-        overrideHeadline={house.headline_family} // Default to family, logic inside handles overrides
+        cmsHeadlines={{
+          'Target_Family': house.headline_family,
+          'Target_Investor': house.headline_investor,
+          'Target_Party': house.headline_party
+        }}
       />
 
       <div className="w-px h-24 bg-gradient-to-b from-transparent via-white/20 to-transparent mx-auto"></div>
