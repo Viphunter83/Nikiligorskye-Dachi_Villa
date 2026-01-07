@@ -14,23 +14,26 @@ const styles = StyleSheet.create({
         flexDirection: 'column',
         backgroundColor: '#111111',
         height: '100%',
-        padding: 40,
+        padding: 0, // Reset padding for full split
         position: 'relative',
         fontFamily: 'BrochureDebug',
     },
-    coverBg: {
-        position: 'absolute',
-        top: 0,
-        left: 0,
+    coverImageContainer: {
+        height: '65%',
+        width: '100%',
+        position: 'relative',
+    },
+    coverImage: {
         width: '100%',
         height: '100%',
-        opacity: 0.5,
-        objectFit: 'cover'
+        objectFit: 'cover',
     },
-    coverContent: {
-        marginTop: 'auto',
-        marginBottom: 60,
-        zIndex: 10,
+    coverTextContainer: {
+        height: '35%',
+        padding: 40,
+        backgroundColor: '#111111',
+        justifyContent: 'center',
+        alignItems: 'center', // Center children horizontally
     },
     projectTitle: {
         fontSize: 16,
@@ -39,18 +42,22 @@ const styles = StyleSheet.create({
         opacity: 0.8,
         letterSpacing: 2,
         textTransform: 'uppercase',
+        textAlign: 'center',
     },
     coverHeadline: {
-        fontSize: 36,
-        color: '#D4AF37', // Gold
+        fontSize: 32, // Slightly smaller to avoid aggressive wrapping
         fontWeight: 'bold',
-        marginBottom: 20,
+        color: '#D4AF37', // Gold
+        marginBottom: 15,
         lineHeight: 1.2,
+        textAlign: 'center',
     },
     coverSub: {
         fontSize: 14,
         color: '#FFFFFF',
-        lineHeight: 1.5,
+        opacity: 0.9,
+        lineHeight: 1.4,
+        textAlign: 'center',
         maxWidth: '80%',
     },
 
@@ -233,21 +240,24 @@ export const BrochureDocument = ({ persona, language = 'en', heroImagePath }: Br
         <Document>
             {/* PAGE 1: COVER */}
             <Page size="A4" style={styles.coverPage}>
-                {/* Background Image - Absolute Position */}
-                {heroImagePath && (
-                    <Image
-                        src={heroImagePath}
-                        style={styles.coverBg}
-                    />
-                )}
+                {/* Top Section: Photo */}
+                <View style={styles.coverImageContainer}>
+                    {heroImagePath && (
+                        <Image
+                            src={heroImagePath}
+                            style={styles.coverImage}
+                        />
+                    )}
+                </View>
 
-                <View style={styles.coverContent}>
+                {/* Bottom Section: Text */}
+                <View style={styles.coverTextContainer}>
                     <Text style={styles.projectTitle}>{projectTitle}</Text>
                     <Text style={styles.coverHeadline}>{headline}</Text>
                     <Text style={styles.coverSub}>{subheadline}</Text>
                 </View>
 
-                {/* Decorative Footer on Cover */}
+                {/* Decorative Footer Line */}
                 <View style={{
                     position: 'absolute',
                     bottom: 0,

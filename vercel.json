@@ -1,0 +1,7 @@
+{
+    "functions": {
+        "app/api/brochure/route.ts": {
+            "includeFiles": "public/**/*"
+        }
+    }
+}

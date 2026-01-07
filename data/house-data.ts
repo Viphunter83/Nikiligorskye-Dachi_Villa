@@ -141,8 +141,8 @@ export const HOUSE_DATA = {
                 en: "Undervalued Premium Asset"
             },
             Subheadline: {
-                ru: "Инвестиционная аномалия: платите за 506 м², получаете 746 м².",
-                en: "Investment Anomaly: Pay for 506 m², get 746 m²."
+                ru: "Уникальный актив: 746 м² реальной площади по цене 506 м².",
+                en: "Unique Asset: 746 m² of actual area for the price of 506 m²."
             },
             SpaceHack_Label: {
                 ru: "Капитализация актива",
