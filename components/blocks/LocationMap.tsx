@@ -101,7 +101,7 @@ export const LocationMap = () => {
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 md:grid-cols-3 gap-12 items-center">
 
                 {/* Text Content */}
-                <div className="col-span-1 z-10">
+                <div className="col-span-1 z-10 flex flex-col justify-center h-full">
                     <motion.div
                         initial={{ opacity: 0, x: -20 }}
                         whileInView={{ opacity: 1, x: 0 }}
@@ -117,17 +117,30 @@ export const LocationMap = () => {
                             {highlights}
                         </p>
 
+                        {/* Address Block */}
+                        <div className="mb-8 p-6 bg-white/5 border border-white/10 rounded-2xl backdrop-blur-sm">
+                            <div className="flex items-start gap-4">
+                                <div className="p-2 bg-primary/20 rounded-lg text-primary mt-1">
+                                    <MapPin size={24} />
+                                </div>
+                                <div>
+                                    <h4 className="text-white font-medium mb-2">
+                                        {language === 'ru' ? 'Коттеджный поселок "Никологорские Дачи"' : 'Nikologorskie Dachi Residence'}
+                                    </h4>
+                                    <p className="text-sm text-white/50 leading-relaxed">
+                                        {language === 'ru'
+                                            ? 'Никологорские дачи, Маслово, Московская обл., Россия, 143030'
+                                            : 'Nikologorskie Dachi, Maslovo, Moscow Region, Russia, 143030'}
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
                         <div className="space-y-4">
                             {routes.map((route) => (
                                 <div
                                     key={route.id}
-                                    onMouseEnter={() => setActiveRoute(route.id)}
-                                    // onMouseLeave={() => setActiveRoute(null)} // Keep active for demo
-                                    className={`p-4 rounded-xl border transition-all flex items-center justify-between group/route
-                                        ${activeRoute === route.id
-                                            ? 'bg-white/10 border-white/30'
-                                            : 'bg-white/5 border-white/10 hover:bg-white/10'
-                                        }`}
+                                    className="p-4 rounded-xl bg-white/5 border border-white/10 flex items-center justify-between group hover:bg-white/10 transition-colors"
                                 >
                                     <div className="flex flex-col gap-1">
                                         <div className="flex items-center gap-3">
@@ -144,7 +157,7 @@ export const LocationMap = () => {
                                         href={route.link}
                                         target="_blank"
                                         rel="noopener noreferrer"
-                                        className={`p-2 rounded-full bg-white/5 hover:bg-white/20 transition-colors ${activeRoute === route.id ? 'opacity-100' : 'opacity-0 group-hover/route:opacity-100'}`}
+                                        className="p-2 rounded-full bg-white/5 hover:bg-white/20 transition-colors opacity-0 group-hover:opacity-100"
                                         title={language === 'ru' ? "Открыть маршрут" : "Open route"}
                                     >
                                         <ExternalLink size={16} />
@@ -155,148 +168,24 @@ export const LocationMap = () => {
                     </motion.div>
                 </div>
 
-                {/* Abstract Map */}
-                <div className="col-span-1 md:col-span-2 relative h-[600px] w-full bg-[#0a0a0a] rounded-3xl border border-white/10 overflow-hidden group">
-                    {/* Filters Overlay */}
-                    <div className="absolute top-4 left-4 right-4 z-20 flex flex-wrap gap-2 pointer-events-none opacity-0 md:opacity-100 transition-opacity">
-                        {['education', 'shopping', 'dining', 'health', 'sport'].map(type => (
-                            <button
-                                key={type}
-                                onClick={() => toggleFilter(type)}
-                                className={`pointer-events-auto px-3 py-1.5 rounded-full text-xs font-medium border backdrop-blur-md transition-all
-                                    ${activeFilters.includes(type)
-                                        ? 'bg-white text-black border-white'
-                                        : 'bg-black/50 text-white border-white/20 hover:bg-black/70'}`}
-                            >
-                                {filterLabels[type][language]}
-                            </button>
-                        ))}
+                {/* Interactive Map Iframe */}
+                <div className="col-span-1 md:col-span-2 relative h-[600px] w-full bg-[#111] rounded-3xl border border-white/10 overflow-hidden shadow-2xl">
+                    <iframe
+                        src="https://yandex.ru/map-widget/v1/?ll=37.046903%2C55.736022&z=11&mode=search&text=КП%20Никологорские%20Дачи"
+                        width="100%"
+                        height="100%"
+                        frameBorder="0"
+                        allowFullScreen={true}
+                        className="w-full h-full grayscale invert brightness-75 contrast-125 hover:grayscale-0 hover:invert-0 hover:brightness-100 transition-all duration-700"
+                        style={{ filter: "grayscale(100%) invert(92%) contrast(83%)" }}
+                    ></iframe>
+
+                    {/* Overlay Tip */}
+                    <div className="absolute top-4 right-4 pointer-events-none">
+                        <div className="bg-black/80 backdrop-blur text-xs text-white/50 px-3 py-1 rounded-full border border-white/10">
+                            {language === 'ru' ? 'Интерактивная карта' : 'Interactive Map'}
+                        </div>
                     </div>
-
-                    {/* Map Background Image */}
-                    <div className="absolute inset-0 bg-[#050505]">
-                        <img
-                            src="/assets/map_nikolina_custom.png"
-                            alt="Nikolina Gora Map"
-                            className="w-full h-full object-cover opacity-60 invert grayscale contrast-125 transition-all duration-700 hover:scale-105"
-                        />
-                        <div className="absolute inset-0 bg-gradient-to-t from-[#050505] via-transparent to-transparent opacity-80"></div>
-                        <div className="absolute inset-0 bg-gradient-to-r from-[#050505]/80 via-transparent to-transparent"></div>
-                    </div>
-
-                    {/* SVG Layer */}
-                    <svg
-                        className="absolute inset-0 w-full h-full z-10"
-                        viewBox="0 0 450 450"
-                        preserveAspectRatio="xMidYMid slice"
-                    >
-
-                        {/* Routes aligned with new map roads */}
-                        {routes.map((route) => (
-                            <motion.path
-                                key={route.id}
-                                d={route.path // Keep abstract curves, they look like GPS routes
-                                    .replace("M 10 350", "M 10 400") // Start lower
-                                    .replace("T 300 150", "T 280 180")
-                                }
-                                fill="none"
-                                stroke={route.color}
-                                strokeWidth={activeRoute === route.id ? 4 : 2}
-                                strokeOpacity={activeRoute === route.id ? 1 : 0.5}
-                                initial={{ pathLength: 0 }}
-                                whileInView={{ pathLength: 1 }}
-                                transition={{ duration: 1.5, ease: "easeInOut" }}
-                                className="transition-all duration-300 drop-shadow-[0_0_8px_rgba(0,0,0,0.8)]"
-                            />
-                        ))}
-
-                        {/* Premium House Beacon */}
-                        <foreignObject x="250" y="160" width="80" height="80" style={{ overflow: 'visible' }}>
-                            <div className="relative flex items-center justify-center w-20 h-20 -ml-10 -mt-10">
-                                {/* Radar Waves */}
-                                <motion.div
-                                    className="absolute inset-0 border border-primary/30 rounded-full"
-                                    animate={{ scale: [1, 2], opacity: [0.5, 0] }}
-                                    transition={{ duration: 2, repeat: Infinity }}
-                                />
-                                <motion.div
-                                    className="absolute inset-0 border border-primary/20 rounded-full"
-                                    animate={{ scale: [1, 3], opacity: [0.3, 0] }}
-                                    transition={{ duration: 2, repeat: Infinity, delay: 0.5 }}
-                                />
-                                {/* Core */}
-                                <div className="relative w-4 h-4 bg-primary rounded-full shadow-[0_0_20px_rgba(212,175,55,1)] z-10 flex items-center justify-center">
-                                    <div className="w-2 h-2 bg-white rounded-full" />
-                                </div>
-                                <div className="absolute top-full mt-2 text-[10px] tracking-widest text-primary font-bold uppercase drop-shadow-md">
-                                    Villa
-                                </div>
-                            </div>
-                        </foreignObject>
-
-                        {/* Dynamic POIs */}
-                        <AnimatePresence>
-                            {visiblePOIs.map((poi) => (
-                                <foreignObject key={poi.id} x={poi.x} y={poi.y} width="40" height="40" style={{ overflow: 'visible' }}>
-                                    <motion.div
-                                        initial={{ opacity: 0, scale: 0 }}
-                                        animate={{ opacity: 1, scale: 1 }}
-                                        exit={{ opacity: 0, scale: 0 }}
-                                        transition={{ type: "spring", stiffness: 200, damping: 15 }}
-                                        className="relative group/poi flex items-center justify-center w-10 h-10"
-                                    >
-                                        <div className="absolute inset-0 bg-black/80 backdrop-blur-md rounded-full border border-white/20 shadow-xl" />
-                                        <div className="relative z-10 text-white">
-                                            {typeof poi.icon === 'string' ? (
-                                                <span className="text-lg">{poi.icon}</span>
-                                            ) : (
-                                                <poi.icon className="w-4 h-4" />
-                                            )}
-                                        </div>
-
-                                        {/* Premium Photo Tooltip */}
-                                        <div className={`absolute left-1/2 -translate-x-1/2 ${poi.y > 225 ? 'bottom-full mb-3 origin-bottom' : 'top-full mt-3 origin-top'} opacity-0 group-hover/poi:opacity-100 transition-all duration-300 pointer-events-none z-50`}>
-                                            <div className="bg-[#111] border border-white/10 rounded-xl overflow-hidden shadow-2xl min-w-[200px]">
-                                                {/* Image Area */}
-                                                <div className="h-24 w-full bg-gray-900 relative">
-                                                    {poi.image && (
-                                                        <img
-                                                            src={poi.image}
-                                                            alt={poi.label}
-                                                            className="w-full h-full object-cover transition-transform duration-700 group-hover/poi:scale-110"
-                                                        />
-                                                    )}
-                                                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent opacity-60"></div>
-                                                    <div className="absolute top-2 right-2 text-white/90 drop-shadow-md">
-                                                        {typeof poi.icon === 'string' ? poi.icon : <poi.icon size={16} />}
-                                                    </div>
-                                                </div>
-                                                {/* Content */}
-                                                <div className="p-3 text-center">
-                                                    <div className="text-xs font-bold text-white mb-1">{poi.label}</div>
-                                                    <div className="flex items-center justify-center gap-3 text-[10px] text-white/60">
-                                                        <span className="flex items-center gap-1 text-primary">
-                                                            <Clock size={10} />
-                                                            {poi.time}
-                                                        </span>
-                                                        <span>•</span>
-                                                        <span>{activeFilters.includes(poi.type) ? filterLabels[poi.type][language] : 'Spot'}</span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </motion.div>
-                                </foreignObject>
-                            ))}
-                        </AnimatePresence>
-
-                    </svg>
-
-                    {/* Corner Legend/Credits */}
-                    <div className="absolute bottom-4 right-4 z-20 pointer-events-none text-[10px] text-white/20">
-                        Designed for Nikiligorskye Dachi
-                    </div>
-
                 </div>
 
             </div>
