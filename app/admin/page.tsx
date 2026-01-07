@@ -1,15 +1,17 @@
-import { getLeads, getHouseProfile, updateHeadlines } from '@/lib/actions'
+import { getLeads, getHouseProfile, updateHeadlines, createSeoPage, deleteSeoPage, getSeoPages } from '@/lib/actions'
+import { revalidatePath } from 'next/cache'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
 import { Label } from "@/components/ui/label"
-import { Lead } from "@prisma/client"
+import { Lead, SeoPage } from "@prisma/client"
 
 export default async function AdminPage() {
     const leads = await getLeads()
     const house = await getHouseProfile()
+    const seoPages = await getSeoPages()
 
     if (!house) return <div>House Profile not found. Seed DB first.</div>
 
@@ -21,6 +23,7 @@ export default async function AdminPage() {
                 <TabsList className="mb-4">
                     <TabsTrigger value="marketing">Marketing Control</TabsTrigger>
                     <TabsTrigger value="crm">CRM / Leads</TabsTrigger>
+                    <TabsTrigger value="seo">SEO Engine</TabsTrigger>
                 </TabsList>
 
                 <TabsContent value="marketing">
@@ -91,6 +94,55 @@ export default async function AdminPage() {
                             </Table>
                         </CardContent>
                     </Card>
+                </TabsContent>
+
+                <TabsContent value="seo">
+                    <div className="grid gap-6 md:grid-cols-2">
+                        {/* SEO Generator */}
+                        <Card>
+                            <CardHeader>
+                                <CardTitle>AI Page Generator</CardTitle>
+                                <CardDescription>Create new landing pages in seconds.</CardDescription>
+                            </CardHeader>
+                            <CardContent>
+                                <form action={createSeoPage} className="space-y-4">
+                                    <div className="space-y-2">
+                                        <Label htmlFor="keyword">Base Keyword (e.g. "School", "Gym")</Label>
+                                        <Input id="keyword" name="keyword" placeholder="Gym" required />
+                                    </div>
+                                    <div className="space-y-2">
+                                        <Label htmlFor="minutes">Minutes by car</Label>
+                                        <Input id="minutes" name="minutes" type="number" defaultValue="10" required />
+                                    </div>
+                                    <Button type="submit" className="w-full">Generate Page</Button>
+                                </form>
+                            </CardContent>
+                        </Card>
+
+                        {/* Existing Pages List */}
+                        <Card>
+                            <CardHeader>
+                                <CardTitle>Active Pages ({seoPages.length})</CardTitle>
+                                <CardDescription>Manage your programmatic SEO pages.</CardDescription>
+                            </CardHeader>
+                            <CardContent>
+                                <div className="space-y-4">
+                                    {seoPages.map((page: SeoPage) => (
+                                        <div key={page.id} className="flex items-center justify-between p-4 border rounded-lg">
+                                            <div>
+                                                <div className="font-medium">{page.title}</div>
+                                                <div className="text-sm text-gray-500">/location/{page.slug} • {page.minutes} min</div>
+                                            </div>
+                                            <form action={deleteSeoPage.bind(null, page.id)}>
+                                                <Button variant="destructive" size="sm">Delete</Button>
+                                            </form>
+                                        </div>
+                                    ))}
+                                    {seoPages.length === 0 && <div className="text-center text-gray-500">No pages yet.</div>}
+                                </div>
+                            </CardContent>
+                        </Card>
+                    </div>
                 </TabsContent>
             </Tabs>
         </div>

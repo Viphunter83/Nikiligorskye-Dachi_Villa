@@ -33,3 +33,13 @@ model Lead {
   ai_tips   String?  // The advice Alfred gave
   createdAt DateTime @default(now())
 }
+
+model SeoPage {
+  id        String   @id @default(cuid())
+  slug      String   @unique
+  title     String
+  minutes   Int
+  keywords  String?  // Context for AI generation
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}

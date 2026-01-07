@@ -1,8 +1,8 @@
-import { PrismaClient } from '@prisma/client'
+const { PrismaClient } = require('@prisma/client')
 
 const prisma = new PrismaClient()
 
-// Hardcoded initial data from data/house-data.ts to avoid build/import issues
+// Existing House Data
 const INITIAL_DATA = {
     slug: "nikologorskie",
     headline_family: "Родовое гнездо на Новой Риге: Безопасность и приватность",
@@ -28,9 +28,19 @@ const INITIAL_DATA = {
     }
 }
 
+// Existing Static SEO Locations to Migrate
+const SEO_LOCATIONS = [
+    { slug: 'shkola-president', title: 'Дом рядом со школой Президент', minutes: 7 },
+    { slug: 'pride-wellness', title: 'Особняк у Pride Wellness Club', minutes: 12 },
+    { slug: 'moscow-river', title: 'Резиденция у Москвы-реки', minutes: 15 },
+    { slug: 'rublevka', title: 'Вилла на Рублевке', minutes: 10 },
+    { slug: 'barvikha', title: 'Рядом с Барвиха Luxury Village', minutes: 14 }
+];
+
 async function main() {
     console.log('Start seeding ...')
 
+    // 1. Seed House Profile
     const house = await prisma.houseProfile.upsert({
         where: { slug: INITIAL_DATA.slug },
         update: {},
@@ -43,8 +53,23 @@ async function main() {
             features_json: INITIAL_DATA.features_json,
         },
     })
-
     console.log(`Created/Updated house profile: ${house.slug}`)
+
+    // 2. Seed SEO Pages
+    for (const loc of SEO_LOCATIONS) {
+        await prisma.seoPage.upsert({
+            where: { slug: loc.slug },
+            update: {},
+            create: {
+                slug: loc.slug,
+                title: loc.title,
+                minutes: loc.minutes,
+                keywords: loc.title, // Use title as initial keyword context
+            }
+        })
+    }
+    console.log(`Seeded ${SEO_LOCATIONS.length} SEO pages.`)
+
 }
 
 main()

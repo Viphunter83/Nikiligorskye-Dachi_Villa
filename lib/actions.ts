@@ -3,6 +3,9 @@
 import prisma from './db'
 import { revalidatePath } from 'next/cache'
 
+
+// --- Existing Actions ---
+
 export async function updateHeadlines(formData: FormData) {
     const headline_family = formData.get('headline_family') as string
     const headline_investor = formData.get('headline_investor') as string
@@ -33,5 +36,44 @@ export async function getLeads() {
 export async function getHouseProfile() {
     return await prisma.houseProfile.findUnique({
         where: { slug: 'nikologorskie' },
+    })
+}
+
+// --- SEO Actions ---
+
+export async function createSeoPage(formData: FormData) {
+    const keyword = formData.get('keyword') as string
+    const minutes = parseInt(formData.get('minutes') as string)
+
+    // AI-Light Generation Logic (Simulated for now, can be replaced with real LLM)
+    // In a real scenario, this would call OpenAI/Gemini to generate text
+    const title = `${keyword.charAt(0).toUpperCase() + keyword.slice(1)}`
+    // Basic slug generation - in prod use a proper slugify library
+    const slug = keyword.toLowerCase().replace(/\s+/g, '-').replace(/[^\w\-]+/g, '')
+
+    try {
+        await prisma.seoPage.create({
+            data: {
+                slug,
+                title: `Дом рядом с "${title}"`,
+                minutes,
+                keywords: keyword
+            }
+        })
+
+        revalidatePath('/admin')
+    } catch (e) {
+        console.error("Failed to create page", e)
+    }
+}
+
+export async function deleteSeoPage(id: string) {
+    await prisma.seoPage.delete({ where: { id } })
+    revalidatePath('/admin')
+}
+
+export async function getSeoPages() {
+    return await prisma.seoPage.findMany({
+        orderBy: { createdAt: 'desc' }
     })
 }
