@@ -34,6 +34,7 @@ export const AlfredConcierge = ({ background }: AlfredConciergeProps) => {
     }, [language, content.Concierge_Greeting]);
 
     const [intent, setIntent] = useState<'booking' | 'question' | 'callback' | null>(null);
+    const [consent, setConsent] = useState(false);
 
     const quickReplies = [
         { id: 'visit', label: language === 'ru' ? "📅 Записаться на просмотр" : "📅 Book a Viewing", intent: 'booking' },
@@ -78,6 +79,10 @@ export const AlfredConcierge = ({ background }: AlfredConciergeProps) => {
         e.preventDefault();
 
         if (!inputRef.current?.value) return;
+        if (!consent) {
+            alert(language === 'ru' ? 'Пожалуйста, подтвердите согласие на обработку данных.' : 'Please agree to data processing.');
+            return;
+        }
 
         setState('typing');
 
@@ -224,16 +229,42 @@ export const AlfredConcierge = ({ background }: AlfredConciergeProps) => {
                                     onSubmit={handleSubmit}
                                     className="flex gap-2 items-center"
                                 >
-                                    <input
-                                        ref={inputRef}
-                                        type="text"
-                                        autoFocus
-                                        placeholder={language === 'ru' ? "Ваш телефон..." : "Your Phone..."}
-                                        className="flex-1 bg-white/5 border border-white/10 rounded-xl px-4 py-3.5 text-white placeholder:text-white/20 focus:outline-none focus:border-primary/40 focus:bg-white/10 text-sm transition-all shadow-inner"
-                                    />
-                                    <button type="submit" className="p-3.5 bg-primary text-black rounded-xl hover:bg-[#c5a028] transition-all hover:scale-105 shadow-[0_0_15px_rgba(212,175,55,0.4)]">
-                                        <Send size={18} />
-                                    </button>
+                                    <div className="flex flex-col gap-2 w-full">
+                                        <div className="flex gap-2 items-center">
+                                            <input
+                                                ref={inputRef}
+                                                type="text"
+                                                autoFocus
+                                                placeholder={language === 'ru' ? "Ваш телефон..." : "Your Phone..."}
+                                                className="flex-1 bg-white/5 border border-white/10 rounded-xl px-4 py-3.5 text-white placeholder:text-white/20 focus:outline-none focus:border-primary/40 focus:bg-white/10 text-sm transition-all shadow-inner"
+                                            />
+                                            <button type="submit" className="p-3.5 bg-primary text-black rounded-xl hover:bg-[#c5a028] transition-all hover:scale-105 shadow-[0_0_15px_rgba(212,175,55,0.4)]">
+                                                <Send size={18} />
+                                            </button>
+                                        </div>
+
+                                        <label className="flex items-start gap-2 cursor-pointer mt-1 ml-1 group">
+                                            <div className="relative flex items-center">
+                                                <input
+                                                    type="checkbox"
+                                                    checked={consent}
+                                                    onChange={(e) => setConsent(e.target.checked)}
+                                                    className="peer h-4 w-4 appearance-none rounded border border-white/20 bg-white/5 checked:border-primary checked:bg-primary transition-all cursor-pointer"
+                                                />
+                                                <div className="pointer-events-none absolute inset-0 flex items-center justify-center text-black opacity-0 peer-checked:opacity-100">
+                                                    <svg className="h-3 w-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="3">
+                                                        <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 12.75l6 6 9-13.5" />
+                                                    </svg>
+                                                </div>
+                                            </div>
+                                            <span className="text-[10px] text-white/50 group-hover:text-white/70 transition-colors leading-tight">
+                                                {language === 'ru' ? 'Я согласен на ' : 'I agree to '}
+                                                <a href="/privacy" target="_blank" className="underline hover:text-primary">
+                                                    {language === 'ru' ? 'обработку персональных данных' : 'personal data processing'}
+                                                </a>
+                                            </span>
+                                        </label>
+                                    </div>
                                 </motion.form>
                             </div>
                         )}
@@ -261,6 +292,6 @@ export const AlfredConcierge = ({ background }: AlfredConciergeProps) => {
                 </div>
             </div>
 
-        </section>
+        </section >
     );
 };

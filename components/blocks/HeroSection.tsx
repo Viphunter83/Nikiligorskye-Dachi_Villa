@@ -72,8 +72,8 @@ export const HeroSection = ({
                         <span className="text-[10px] tracking-[0.2em] text-[#D4AF37] uppercase mb-0.5">
                             {language === 'ru' ? 'Закрытая продажа' : 'Private Sale'}
                         </span>
-                        <a href="tel:+79999999999" className="text-sm font-medium text-white tracking-wider hover:text-[#D4AF37] transition-colors">
-                            +7 (999) 000-00-00
+                        <a href="tel:+79645343399" className="text-sm font-medium text-white tracking-wider hover:text-[#D4AF37] transition-colors">
+                            +7 (964) 534-33-99
                         </a>
                     </div>
                     <div className="w-px h-8 bg-white/20 hidden md:block"></div>

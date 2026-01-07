@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Inter, Playfair_Display } from "next/font/google";
 import "./globals.css";
 import { cn } from "@/lib/utils";
+import { CookieConsent } from "@/components/ui/CookieConsent";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
 const playfair = Playfair_Display({ subsets: ["latin"], variable: "--font-playfair" });
@@ -30,6 +31,7 @@ export default function RootLayout({
     <html lang="en" className="dark" suppressHydrationWarning>
       <body className={cn(inter.variable, playfair.variable, "bg-background min-h-screen")} suppressHydrationWarning>
         {children}
+        <CookieConsent />
       </body>
     </html>
   );
