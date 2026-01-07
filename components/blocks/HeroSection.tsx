@@ -11,9 +11,16 @@ import { useState, useEffect } from 'react';
 interface HeroSectionProps {
     overrideHeadline?: string;
     overrideSubheadline?: string;
+    heroImage?: string;
+    overlayOpacity?: number;
 }
 
-export const HeroSection = ({ overrideHeadline, overrideSubheadline }: HeroSectionProps = {}) => {
+export const HeroSection = ({
+    overrideHeadline,
+    overrideSubheadline,
+    heroImage: cmsHeroImage,
+    overlayOpacity = 40
+}: HeroSectionProps = {}) => {
     const { activePersona, getCurrentContent, language } = usePersona();
     const [mounted, setMounted] = useState(false);
 
@@ -24,7 +31,7 @@ export const HeroSection = ({ overrideHeadline, overrideSubheadline }: HeroSecti
     // Ensure hydration match by using default on first render
     const displayPersona = mounted ? activePersona : 'Target_Family';
     const content = HOUSE_DATA.Content[displayPersona];
-    const heroImage = content.HeroImage || '/Living.jpeg'; // Fallback
+    const heroImage = cmsHeroImage || content.HeroImage || '/Living.jpeg'; // CMS > Data > Fallback
 
     // Scrim gradients for readability
     const scrims: Record<PersonaType, string> = {
@@ -83,7 +90,11 @@ export const HeroSection = ({ overrideHeadline, overrideSubheadline }: HeroSecti
             </AnimatePresence>
 
             {/* Scrim/Overlay Layer */}
-            <div className={`absolute inset-0 z-1 transition-colors duration-1000 ${scrims[displayPersona]}`} />
+            {/* Scrim/Overlay Layer */}
+            <div
+                className={`absolute inset-0 z-1 transition-colors duration-1000 ${scrims[displayPersona]}`}
+                style={{ opacity: overlayOpacity / 100 }}
+            />
 
             {/* Grain/Noise Overlay */}
             <div className="absolute inset-0 z-2 opacity-20 bg-[url('/noise.png')] mix-blend-overlay pointer-events-none" />

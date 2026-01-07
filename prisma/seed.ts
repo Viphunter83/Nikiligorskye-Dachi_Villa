@@ -79,6 +79,9 @@ async function main() {
             headline_investor: INITIAL_DATA.headline_investor,
             headline_party: INITIAL_DATA.headline_party,
             price_display: INITIAL_DATA.price_display,
+            hero_image_url: 'https://images.unsplash.com/photo-1613490493576-7fde63acd811?q=80&w=2671&auto=format&fit=crop',
+            hero_overlay_opacity: 40,
+            accent_color: '#ea580c',
             features_json: INITIAL_DATA.features_json,
         },
     })

@@ -6,6 +6,23 @@ import { revalidatePath } from 'next/cache'
 
 // --- Existing Actions ---
 
+export async function updateVisuals(formData: FormData) {
+    const hero_image_url = formData.get('hero_image_url') as string
+    const hero_overlay_opacity = parseInt(formData.get('hero_overlay_opacity') as string)
+    const accent_color = formData.get('accent_color') as string
+
+    await prisma.houseProfile.update({
+        where: { slug: 'nikologorskie' },
+        data: {
+            hero_image_url,
+            hero_overlay_opacity,
+            accent_color
+        }
+    })
+    revalidatePath('/')
+    revalidatePath('/admin')
+}
+
 export async function updateHeadlines(formData: FormData) {
     const headline_family = formData.get('headline_family') as string
     const headline_investor = formData.get('headline_investor') as string

@@ -19,6 +19,11 @@ model HouseProfile {
   price_display      String   @default("По запросу")
   is_active          Boolean  @default(true)
 
+  // Visual Overrides (CMS)
+  hero_image_url       String   @default("/hero-bg.jpg")
+  hero_overlay_opacity Int      @default(40) // 0-100
+  accent_color         String   @default("#ea580c") // orange-600
+
   // JSON fields to store complex data without rigid schema changes
   features_json      Json?    
   

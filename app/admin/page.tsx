@@ -1,4 +1,4 @@
-import { getLeads, getHouseProfile, updateHeadlines, createSeoPage, deleteSeoPage, getSeoPages } from '@/lib/actions'
+import { getLeads, getHouseProfile, updateHeadlines, updateVisuals, createSeoPage, deleteSeoPage, getSeoPages } from '@/lib/actions'
 import { revalidatePath } from 'next/cache'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
@@ -6,7 +6,7 @@ import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
 import { Label } from "@/components/ui/label"
-import { Lead, SeoPage } from "@prisma/client"
+import type { Lead, SeoPage } from "@prisma/client"
 
 export default async function AdminPage() {
     const leads = await getLeads()
@@ -22,6 +22,7 @@ export default async function AdminPage() {
             <Tabs defaultValue="marketing" className="w-full">
                 <TabsList className="mb-4">
                     <TabsTrigger value="marketing">Marketing Control</TabsTrigger>
+                    <TabsTrigger value="visuals">Site Visuals</TabsTrigger>
                     <TabsTrigger value="crm">CRM / Leads</TabsTrigger>
                     <TabsTrigger value="seo">SEO Engine</TabsTrigger>
                 </TabsList>
@@ -55,6 +56,66 @@ export default async function AdminPage() {
                                 </div>
 
                                 <Button type="submit">Save Changes</Button>
+                            </form>
+                        </CardContent>
+                    </Card>
+                </TabsContent>
+
+                <TabsContent value="visuals">
+                    <Card>
+                        <CardHeader>
+                            <CardTitle>Visual Configuration</CardTitle>
+                            <CardDescription>Customize the look and feel of the landing page.</CardDescription>
+                        </CardHeader>
+                        <CardContent>
+                            <form action={updateVisuals} className="space-y-6">
+                                <div className="space-y-2">
+                                    <Label htmlFor="hero_image_url">Hero Background Image URL</Label>
+                                    <Input
+                                        id="hero_image_url"
+                                        name="hero_image_url"
+                                        defaultValue={house.hero_image_url}
+                                        placeholder="https://..."
+                                    />
+                                    <p className="text-xs text-muted-foreground">Link to any high-res image (Unsplash, etc).</p>
+                                </div>
+
+                                <div className="space-y-2">
+                                    <Label htmlFor="hero_overlay_opacity">Overlay Opacity (0-100%)</Label>
+                                    <div className="flex items-center gap-4">
+                                        <Input
+                                            id="hero_overlay_opacity"
+                                            name="hero_overlay_opacity"
+                                            type="number"
+                                            min="0"
+                                            max="100"
+                                            className="w-24"
+                                            defaultValue={house.hero_overlay_opacity}
+                                        />
+                                        <div className="text-sm text-gray-500">Lower = Brighter Image, Higher = Darker</div>
+                                    </div>
+                                </div>
+
+                                <div className="space-y-2">
+                                    <Label htmlFor="accent_color">Accent Color (HEX)</Label>
+                                    <div className="flex items-center gap-4">
+                                        <Input
+                                            id="accent_color"
+                                            name="accent_color"
+                                            type="color"
+                                            className="w-20 h-10 p-1 cursor-pointer"
+                                            defaultValue={house.accent_color}
+                                        />
+                                        <Input
+                                            type="text"
+                                            defaultValue={house.accent_color}
+                                            className="w-32"
+                                            readOnly
+                                        />
+                                    </div>
+                                </div>
+
+                                <Button type="submit">Save Visuals</Button>
                             </form>
                         </CardContent>
                     </Card>
