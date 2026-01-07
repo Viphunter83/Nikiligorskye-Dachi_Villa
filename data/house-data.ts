@@ -51,7 +51,7 @@ export const HOUSE_DATA = {
     // DYNAMIC CONTENT RULES
     Content: {
         Target_Family: {
-            HeroImage: '/Living2.jpeg',
+            HeroImage: '/Living.jpeg',
             Headline: {
                 ru: "Родовое гнездо на Новой Риге: Безопасность и приватность",
                 en: "Family Estate on New Riga: Safety & Privacy"
@@ -100,7 +100,7 @@ export const HOUSE_DATA = {
             }
         },
         Target_Investor: {
-            HeroImage: '/Facadee4.jpeg',
+            HeroImage: '/Facade3.jpeg',
             Headline: {
                 ru: "Недооцененный актив Premium-класса",
                 en: "Undervalued Premium Asset"

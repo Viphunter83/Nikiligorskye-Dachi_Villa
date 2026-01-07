@@ -9,7 +9,7 @@ import Image from 'next/image';
 export const HeroSection = () => {
     const { activePersona, getCurrentContent, language } = usePersona();
     const content = getCurrentContent();
-    const heroImage = content.HeroImage || '/Facade5.jpeg'; // Fallback
+    const heroImage = content.HeroImage || '/Living.jpeg'; // Fallback
 
     // Scrim gradients for readability
     const scrims: Record<PersonaType, string> = {

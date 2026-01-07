@@ -1,9 +1,9 @@
 'use client';
 
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import { usePersona } from '@/lib/store/use-persona';
-import { MapPin, Navigation, Clock } from 'lucide-react';
-import { useState } from 'react';
+import { MapPin, Navigation, Clock, ExternalLink, GraduationCap, ShoppingBag, Utensils, HeartPulse, Dumbbell } from 'lucide-react';
+import { useState, useEffect } from 'react';
 
 export const LocationMap = () => {
     const { getCurrentContent, language, activePersona } = usePersona();
@@ -19,6 +19,7 @@ export const LocationMap = () => {
             time: '25 min',
             color: '#D4AF37', // Gold
             path: "M 10 350 Q 80 300 150 250 T 300 150",
+            link: "https://yandex.ru/maps/?rtext=55.753215,37.622504~55.7417,37.0888&rtt=auto"
         },
         {
             id: 'novoriga',
@@ -26,6 +27,7 @@ export const LocationMap = () => {
             time: '35 min',
             color: '#3B82F6', // Blue
             path: "M 10 100 Q 150 120 300 150",
+            link: "https://yandex.ru/maps/?rtext=55.753215,37.622504~55.7417,37.0888&rtt=auto"
         },
         {
             id: 'ilyinskoe',
@@ -33,25 +35,57 @@ export const LocationMap = () => {
             time: '40 min',
             color: '#10B981', // Green
             path: "M 10 250 Q 100 250 200 200 T 300 150",
+            link: "https://yandex.ru/maps/?rtext=55.753215,37.622504~55.7417,37.0888&rtt=auto"
         }
     ];
 
-    const POIs = {
-        Target_Family: [
-            { id: 'school', x: 230, y: 150, label: language === 'ru' ? 'Ломоносовская школа' : 'Lomonosov School', icon: '🎓' },
-            { id: 'park', x: 280, y: 310, label: language === 'ru' ? 'Парк Раздолье' : 'Razdolye Park', icon: '🌳' }
-        ],
-        Target_Investor: [
-            { id: 'village', x: 180, y: 80, label: 'Barvikha Luxury Village', icon: '🛍️' },
-            { id: 'dream', x: 230, y: 120, label: 'Dream House', icon: '💎' }
-        ],
-        Target_Party: [
-            { id: 'city', x: 300, y: 40, label: language === 'ru' ? 'Москва-Сити' : 'Moscow City', icon: '🏙️' },
-            { id: 'rest', x: 180, y: 280, label: language === 'ru' ? 'Рестораны' : 'Restaurants', icon: '🍸' }
-        ]
+    const allPOIs = [
+        // Education
+        { id: 'school_lomonosov', x: 230, y: 150, label: language === 'ru' ? 'Ломоносовская школа' : 'Lomonosov School', type: 'education', icon: GraduationCap, time: '5 min', image: '/assets/poi/school.jpg' },
+        { id: 'school_wunder', x: 190, y: 90, label: 'Wunderpark', type: 'education', icon: GraduationCap, time: '12 min', image: '/assets/poi/wunderpark.jpg' },
+
+        // Shopping
+        { id: 'shop_barvikha', x: 180, y: 80, label: 'Barvikha Luxury Village', type: 'shopping', icon: ShoppingBag, time: '10 min', image: '/assets/poi/barvikha.jpg' },
+        { id: 'shop_dream', x: 230, y: 120, label: 'Dream House', type: 'shopping', icon: ShoppingBag, time: '8 min', image: '/assets/poi/dream.jpg' },
+
+        // Dining
+        { id: 'rest_tsarskaya', x: 180, y: 280, label: language === 'ru' ? 'Царская Охота' : 'Tsarskaya Okhota', type: 'dining', icon: Utensils, time: '7 min', image: '/assets/poi/restaurant.jpg' },
+        { id: 'rest_mario', x: 160, y: 260, label: 'Mario', type: 'dining', icon: Utensils, time: '6 min', image: '/assets/poi/mario.jpg' },
+
+        // Health & Wellness
+        { id: 'health_lapino', x: 300, y: 200, label: language === 'ru' ? 'КГ Лапино' : 'Lapino Hospital', type: 'health', icon: HeartPulse, time: '15 min', image: '/assets/poi/lapino.jpg' },
+        { id: 'sport_worldclass', x: 280, y: 310, label: 'World Class', type: 'sport', icon: Dumbbell, time: '12 min', image: '/assets/poi/worldclass.jpg' },
+
+        // Leisure
+        { id: 'park_razdolye', x: 280, y: 310, label: language === 'ru' ? 'Парк Раздолье' : 'Razdolye Park', type: 'sport', icon: '🌳', time: '12 min', image: '/assets/poi/park.jpg' }
+    ];
+
+    // Filter logic
+    const [activeFilters, setActiveFilters] = useState<string[]>([]);
+
+    useEffect(() => {
+        // Set default filters based on activePersona
+        if (activePersona === 'Target_Family') setActiveFilters(['education', 'sport', 'health']);
+        else if (activePersona === 'Target_Investor') setActiveFilters(['shopping', 'dining']);
+        else if (activePersona === 'Target_Party') setActiveFilters(['dining', 'shopping', 'sport']);
+    }, [activePersona]);
+
+    const filterLabels: Record<string, { en: string; ru: string }> = {
+        education: { en: 'Education', ru: 'Образование' },
+        shopping: { en: 'Shopping', ru: 'Шопинг' },
+        dining: { en: 'Dining', ru: 'Рестораны' },
+        health: { en: 'Health', ru: 'Здоровье' },
+        sport: { en: 'Sport', ru: 'Спорт' }
     };
 
-    const currentPOIs = POIs[activePersona as keyof typeof POIs] || POIs.Target_Family;
+    const toggleFilter = (type: string) => {
+        setActiveFilters(prev =>
+            prev.includes(type) ? prev.filter(t => t !== type) : [...prev, type]
+        );
+    };
+
+    const visiblePOIs = allPOIs.filter(poi => activeFilters.includes(poi.type));
+
 
     return (
         <section className="relative w-full py-24 bg-[#050505] text-white overflow-hidden">
@@ -80,20 +114,32 @@ export const LocationMap = () => {
                                     key={route.id}
                                     onMouseEnter={() => setActiveRoute(route.id)}
                                     // onMouseLeave={() => setActiveRoute(null)} // Keep active for demo
-                                    className={`p-4 rounded-xl border transition-all cursor-pointer flex items-center justify-between
+                                    className={`p-4 rounded-xl border transition-all flex items-center justify-between group/route
                                         ${activeRoute === route.id
                                             ? 'bg-white/10 border-white/30'
                                             : 'bg-white/5 border-white/10 hover:bg-white/10'
                                         }`}
                                 >
-                                    <div className="flex items-center gap-3">
-                                        <Navigation size={18} style={{ color: route.color }} />
-                                        <span className="font-medium">{route.name}</span>
+                                    <div className="flex flex-col gap-1">
+                                        <div className="flex items-center gap-3">
+                                            <Navigation size={18} style={{ color: route.color }} />
+                                            <span className="font-medium">{route.name}</span>
+                                        </div>
+                                        <div className="flex items-center gap-2 text-sm text-white/50 ml-8">
+                                            <Clock size={12} />
+                                            {route.time}
+                                        </div>
                                     </div>
-                                    <div className="flex items-center gap-2 text-sm text-white/50">
-                                        <Clock size={14} />
-                                        {route.time}
-                                    </div>
+
+                                    <a
+                                        href={route.link}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        className={`p-2 rounded-full bg-white/5 hover:bg-white/20 transition-colors ${activeRoute === route.id ? 'opacity-100' : 'opacity-0 group-hover/route:opacity-100'}`}
+                                        title={language === 'ru' ? "Открыть маршрут" : "Open route"}
+                                    >
+                                        <ExternalLink size={16} />
+                                    </a>
                                 </div>
                             ))}
                         </div>
@@ -101,19 +147,40 @@ export const LocationMap = () => {
                 </div>
 
                 {/* Abstract Map */}
-                <div className="col-span-1 md:col-span-2 relative h-[500px] w-full bg-[#0a0a0a] rounded-3xl border border-white/10 overflow-hidden group">
+                <div className="col-span-1 md:col-span-2 relative h-[600px] w-full bg-[#0a0a0a] rounded-3xl border border-white/10 overflow-hidden group">
+                    {/* Filters Overlay */}
+                    <div className="absolute top-4 left-4 right-4 z-20 flex flex-wrap gap-2 pointer-events-none opacity-0 md:opacity-100 transition-opacity">
+                        {['education', 'shopping', 'dining', 'health', 'sport'].map(type => (
+                            <button
+                                key={type}
+                                onClick={() => toggleFilter(type)}
+                                className={`pointer-events-auto px-3 py-1.5 rounded-full text-xs font-medium border backdrop-blur-md transition-all
+                                    ${activeFilters.includes(type)
+                                        ? 'bg-white text-black border-white'
+                                        : 'bg-black/50 text-white border-white/20 hover:bg-black/70'}`}
+                            >
+                                {filterLabels[type][language]}
+                            </button>
+                        ))}
+                    </div>
+
                     {/* Map Background Image */}
-                    <div className="absolute inset-0">
+                    <div className="absolute inset-0 bg-[#050505]">
                         <img
                             src="/assets/map_nikolina_custom.png"
                             alt="Nikolina Gora Map"
-                            className="w-full h-full object-cover opacity-80"
+                            className="w-full h-full object-cover opacity-60 invert grayscale contrast-125 transition-all duration-700 hover:scale-105"
                         />
-                        <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a0a] via-transparent to-transparent"></div>
+                        <div className="absolute inset-0 bg-gradient-to-t from-[#050505] via-transparent to-transparent opacity-80"></div>
+                        <div className="absolute inset-0 bg-gradient-to-r from-[#050505]/80 via-transparent to-transparent"></div>
                     </div>
 
-                    {/* Increased viewBox to prevent label clipping */}
-                    <svg className="absolute inset-0 w-full h-full z-10" viewBox="0 0 450 450" preserveAspectRatio="none">
+                    {/* SVG Layer */}
+                    <svg
+                        className="absolute inset-0 w-full h-full z-10"
+                        viewBox="0 0 450 450"
+                        preserveAspectRatio="xMidYMid slice"
+                    >
 
                         {/* Routes aligned with new map roads */}
                         {routes.map((route) => (
@@ -134,35 +201,92 @@ export const LocationMap = () => {
                             />
                         ))}
 
-                        {/* House Marker */}
-                        <foreignObject x="250" y="160" width="40" height="40">
-                            <motion.div
-                                initial={{ scale: 0 }}
-                                whileInView={{ scale: 1 }}
-                                className="relative flex items-center justify-center w-10 h-10"
-                            >
-                                <div className="absolute inset-0 bg-primary/30 rounded-full animate-ping"></div>
-                                <div className="relative bg-primary text-black p-2 rounded-full shadow-[0_0_15px_rgba(212,175,55,0.6)]">
-                                    <MapPin size={20} />
+                        {/* Premium House Beacon */}
+                        <foreignObject x="250" y="160" width="80" height="80" style={{ overflow: 'visible' }}>
+                            <div className="relative flex items-center justify-center w-20 h-20 -ml-10 -mt-10">
+                                {/* Radar Waves */}
+                                <motion.div
+                                    className="absolute inset-0 border border-primary/30 rounded-full"
+                                    animate={{ scale: [1, 2], opacity: [0.5, 0] }}
+                                    transition={{ duration: 2, repeat: Infinity }}
+                                />
+                                <motion.div
+                                    className="absolute inset-0 border border-primary/20 rounded-full"
+                                    animate={{ scale: [1, 3], opacity: [0.3, 0] }}
+                                    transition={{ duration: 2, repeat: Infinity, delay: 0.5 }}
+                                />
+                                {/* Core */}
+                                <div className="relative w-4 h-4 bg-primary rounded-full shadow-[0_0_20px_rgba(212,175,55,1)] z-10 flex items-center justify-center">
+                                    <div className="w-2 h-2 bg-white rounded-full" />
                                 </div>
-                            </motion.div>
+                                <div className="absolute top-full mt-2 text-[10px] tracking-widest text-primary font-bold uppercase drop-shadow-md">
+                                    Villa
+                                </div>
+                            </div>
                         </foreignObject>
 
-                        {/* Dynamic POIs with adjusted coords */}
-                        {currentPOIs.map((poi) => (
-                            <foreignObject key={poi.id} x={poi.x} y={poi.y} width="160" height="60">
-                                <motion.div
-                                    initial={{ opacity: 0, y: 10 }}
-                                    whileInView={{ opacity: 1, y: 0 }}
-                                    className="flex items-center gap-2 bg-black/80 backdrop-blur-md px-3 py-2 rounded-lg border border-white/20 shadow-xl hover:scale-105 transition-transform cursor-pointer"
-                                >
-                                    <span className="text-xl">{poi.icon}</span>
-                                    <span className="text-xs text-white font-semibold whitespace-nowrap">{poi.label}</span>
-                                </motion.div>
-                            </foreignObject>
-                        ))}
+                        {/* Dynamic POIs */}
+                        <AnimatePresence>
+                            {visiblePOIs.map((poi) => (
+                                <foreignObject key={poi.id} x={poi.x} y={poi.y} width="40" height="40" style={{ overflow: 'visible' }}>
+                                    <motion.div
+                                        initial={{ opacity: 0, scale: 0 }}
+                                        animate={{ opacity: 1, scale: 1 }}
+                                        exit={{ opacity: 0, scale: 0 }}
+                                        transition={{ type: "spring", stiffness: 200, damping: 15 }}
+                                        className="relative group/poi flex items-center justify-center w-10 h-10"
+                                    >
+                                        <div className="absolute inset-0 bg-black/80 backdrop-blur-md rounded-full border border-white/20 shadow-xl" />
+                                        <div className="relative z-10 text-white">
+                                            {typeof poi.icon === 'string' ? (
+                                                <span className="text-lg">{poi.icon}</span>
+                                            ) : (
+                                                <poi.icon className="w-4 h-4" />
+                                            )}
+                                        </div>
+
+                                        {/* Premium Photo Tooltip */}
+                                        <div className={`absolute left-1/2 -translate-x-1/2 ${poi.y > 225 ? 'bottom-full mb-3 origin-bottom' : 'top-full mt-3 origin-top'} opacity-0 group-hover/poi:opacity-100 transition-all duration-300 pointer-events-none z-50`}>
+                                            <div className="bg-[#111] border border-white/10 rounded-xl overflow-hidden shadow-2xl min-w-[200px]">
+                                                {/* Image Area */}
+                                                <div className="h-24 w-full bg-gray-900 relative">
+                                                    {poi.image && (
+                                                        <img
+                                                            src={poi.image}
+                                                            alt={poi.label}
+                                                            className="w-full h-full object-cover transition-transform duration-700 group-hover/poi:scale-110"
+                                                        />
+                                                    )}
+                                                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent opacity-60"></div>
+                                                    <div className="absolute top-2 right-2 text-white/90 drop-shadow-md">
+                                                        {typeof poi.icon === 'string' ? poi.icon : <poi.icon size={16} />}
+                                                    </div>
+                                                </div>
+                                                {/* Content */}
+                                                <div className="p-3 text-center">
+                                                    <div className="text-xs font-bold text-white mb-1">{poi.label}</div>
+                                                    <div className="flex items-center justify-center gap-3 text-[10px] text-white/60">
+                                                        <span className="flex items-center gap-1 text-primary">
+                                                            <Clock size={10} />
+                                                            {poi.time}
+                                                        </span>
+                                                        <span>•</span>
+                                                        <span>{activeFilters.includes(poi.type) ? filterLabels[poi.type][language] : 'Spot'}</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </motion.div>
+                                </foreignObject>
+                            ))}
+                        </AnimatePresence>
 
                     </svg>
+
+                    {/* Corner Legend/Credits */}
+                    <div className="absolute bottom-4 right-4 z-20 pointer-events-none text-[10px] text-white/20">
+                        Designed for Nikiligorskye Dachi
+                    </div>
 
                 </div>
 

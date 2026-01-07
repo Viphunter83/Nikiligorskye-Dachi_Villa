@@ -47,7 +47,7 @@ const SCENES: ScrollyScene[] = [
     },
     {
         id: 'scene-2',
-        imageSrc: '/Living2.jpeg',
+        imageSrc: '/Living.jpeg',
         content: {
             Target_Family: {
                 ru: "Сердце дома — гостиная со вторым светом (7м). Здесь достаточно воздуха для семейных праздников, а панорамные окна стирают границу с природой, наполняя дом светом.",
