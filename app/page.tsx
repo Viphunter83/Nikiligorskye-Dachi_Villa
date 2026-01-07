@@ -16,11 +16,15 @@ export default async function Home() {
   // Safely access JSON
   const cmsData = house.cms_data as any || {};
 
+  // Ignore default placeholder to allow persona images to show
+  const isDefaultHero = house.hero_image_url === '/hero-bg.jpg';
+  const heroImageOverride = isDefaultHero ? undefined : house.hero_image_url;
+
   return (
     <main className="bg-[#0a0a0a]">
       <LanguageToggle />
       <HeroSection
-        heroImage={house.hero_image_url}
+        heroImage={heroImageOverride}
         overlayOpacity={house.hero_overlay_opacity}
         overrideHeadline={house.headline_family} // Default to family, logic inside handles overrides
       />
