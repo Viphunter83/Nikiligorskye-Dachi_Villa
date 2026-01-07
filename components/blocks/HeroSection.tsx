@@ -39,7 +39,7 @@ export const HeroSection = () => {
                     Journal
                 </Link>
 
-                <div className="flex items-center gap-6">
+                <div className="flex items-center gap-6 mr-28">
                     <div className="hidden md:flex flex-col items-end">
                         <span className="text-[10px] tracking-[0.2em] text-[#D4AF37] uppercase mb-0.5">
                             {language === 'ru' ? 'Закрытая продажа' : 'Private Sale'}

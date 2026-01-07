@@ -22,7 +22,7 @@ export const LanguageToggle = () => {
     ];
 
     return (
-        <div className="fixed top-6 right-6 z-50 flex space-x-1 bg-black/40 backdrop-blur-md border border-white/10 rounded-lg p-1">
+        <div className="fixed top-8 right-8 z-50 flex space-x-1 bg-black/40 backdrop-blur-md border border-white/10 rounded-lg p-1">
             {languages.map((lang) => (
                 <button
                     key={lang.id}
