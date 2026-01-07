@@ -8,7 +8,10 @@ export function middleware(req: NextRequest) {
             const authValue = basicAuth.split(' ')[1];
             const [user, pwd] = atob(authValue).split(':');
 
-            if (user === 'admin' && pwd === 'kp2026') {
+            const validUser = process.env.ADMIN_USER || 'admin';
+            const validPass = process.env.ADMIN_PASSWORD || 'kp2026';
+
+            if (user === validUser && pwd === validPass) {
                 return NextResponse.next();
             }
         }
