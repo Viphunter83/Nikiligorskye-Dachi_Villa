@@ -1,0 +1,35 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model HouseProfile {
+  id        String   @id @default(cuid())
+  slug      String   @unique @default("nikologorskie")
+  
+  // Marketing Texts (Editable via Admin)
+  headline_family    String   @default("Родовое гнездо на Новой Риге")
+  headline_investor  String   @default("Недооцененный актив Premium-класса")
+  headline_party     String   @default("Резиденция в стиле Райта с видом на Сити")
+  
+  price_display      String   @default("По запросу")
+  is_active          Boolean  @default(true)
+
+  // JSON fields to store complex data without rigid schema changes
+  features_json      Json?    
+  
+  updatedAt DateTime @updatedAt
+}
+
+model Lead {
+  id        String   @id @default(cuid())
+  phone     String
+  persona   String   // 'Target_Family', etc.
+  status    String   @default("new") // new, contacted, viewing
+  ai_tips   String?  // The advice Alfred gave
+  createdAt DateTime @default(now())
+}
