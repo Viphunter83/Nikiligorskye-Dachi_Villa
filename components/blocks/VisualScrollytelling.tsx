@@ -29,55 +29,55 @@ interface ScrollyScene {
 const SCENES: ScrollyScene[] = [
     {
         id: 'scene-1',
-        imageSrc: '/photos/facade.jpg',
+        imageSrc: '/Facade5.jpeg',
         content: {
             Target_Family: {
-                ru: "Безопасный двор и терраса для семейных завтраков.",
-                en: "Safe yard and terrace for family breakfasts."
+                ru: "Ваша крепость в сосновом лесу. Закрытая территория поселка, круглосуточная охрана и видеонаблюдение по периметру участка обеспечивают полную безопасность для игр детей на свежем воздухе.",
+                en: "Your fortress in a pine forest. Closed territory, 24/7 security, and perimeter surveillance ensure complete safety for children playing outdoors."
             },
             Target_Investor: {
-                ru: "Монументальный фасад. Кирпич ручной формовки.",
-                en: "Monumental facade. Hand-molded brick."
+                ru: "Архитектура вне времени. Кирпич ручной формовки и натуральная медь — материалы, которые с годами только дорожают, увеличивая капитализацию объекта.",
+                en: "Timeless architecture. Hand-molded brick and natural copper — materials that appreciate over time, increasing the asset's capitalization."
             },
             Target_Party: {
-                ru: "Патио для вечеринок на свежем воздухе.",
-                en: "Outdoor party patio."
+                ru: "Идеальная площадка для open-air ивентов. Просторное патио перед домом, ландшафтная подсветка и отсутствие плотной застройки рядом для максимальной приватности.",
+                en: "The ideal venue for open-air events. Spacious patio, landscape lighting, and no dense neighbors for maximum privacy."
             }
         }
     },
     {
         id: 'scene-2',
-        imageSrc: '/photos/living.jpg',
+        imageSrc: '/Living2.jpeg',
         content: {
             Target_Family: {
-                ru: "Просторная гостиная, где соберется вся семья.",
-                en: "Spacious living room for the whole family."
+                ru: "Сердце дома — гостиная со вторым светом (7м). Здесь достаточно воздуха для семейных праздников, а панорамные окна стирают границу с природой, наполняя дом светом.",
+                en: "The heart of the home — a living room with 7m ceilings. Enough air for family celebrations, while panoramic windows blur the line with nature, filling the house with light."
             },
             Target_Investor: {
-                ru: "Второй свет повышает ликвидность объекта.",
-                en: "Second light increases property liquidity."
+                ru: "Правильная планировка = Ликвидность. Второй свет и панорамное остекление — ключевые факторы, повышающие оценочную стоимость метра в премиум-сегменте.",
+                en: "Correct layout = Liquidity. Second light and panoramic glazing are key factors increasing the valuation per meter in the premium segment."
             },
             Target_Party: {
-                ru: "Атриум высотой 7 метров — вау-эффект для гостей.",
-                en: "7-meter atrium — a wow effect for guests."
+                ru: "Атриум, который впечатляет. Высота потолков 7 метров создает вау-эффект, а акустика помещения идеально подходит для живой музыки и качественного звука.",
+                en: "An atrium that impresses. 7-meter ceilings create a wow effect, and the acoustics are perfect for live music and high-quality sound."
             }
         }
     },
     {
         id: 'scene-3',
-        imageSrc: '/photos/cinema.jpg',
+        imageSrc: '/Cinema1.jpeg',
         content: {
             Target_Family: {
-                ru: "Игровая зона, где дети могут шуметь.",
-                en: "Play zone where kids can be loud."
+                ru: "Развлечения для всех возрастов. Пока родители отдыхают в SPA-зоне, дети могут смотреть мультфильмы в собственном кинотеатре или играть в безопасной игровой зоне.",
+                en: "Entertainment for all ages. While parents relax in the SPA zone, kids can watch cartoons in their own cinema or play in the safe play zone."
             },
             Target_Investor: {
-                ru: "Полноценный развлекательный комплекс в цоколе.",
-                en: "Full entertainment complex in the basement."
+                ru: "Цоколь, который работает. Полноценный развлекательный комплекс увеличивает полезную площадь и функционал дома, делая его уникальным предложением на рынке.",
+                en: "A basement that works. A full entertainment complex increases usable area and functionality, making it a unique market offer."
             },
             Target_Party: {
-                ru: "Приватный кинозал и лаунж-зона.",
-                en: "Private cinema and lounge zone."
+                ru: "Ваш частный ночной клуб. Профессиональный кинозал легко трансформируется в зал для караоке или видеоигр. Шумоизоляция позволяет веселиться до утра.",
+                en: "Your private night club. The professional cinema easily transforms into a karaoke or video game hall. Soundproofing lets you party until dawn."
             }
         }
     }

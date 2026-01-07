@@ -4,24 +4,52 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { usePersona } from '@/lib/store/use-persona';
 import { PersonaToggle } from '../ui/PersonaToggle';
 import { PersonaType, Language } from '@/data/house-data';
-
-const gradients: Record<PersonaType, string> = {
-    Target_Family: 'bg-gradient-to-br from-[#0f172a] via-[#1e1b4b] to-[#312e81]', // Warm/Safe (Deep Blue/Indigo)
-    Target_Investor: 'bg-gradient-to-br from-[#0c0a09] via-[#1c1917] to-[#292524]', // Serious/Solid (Stone/Dark Grey)
-    Target_Party: 'bg-gradient-to-br from-[#270b1b] via-[#4a044e] to-[#0f0727]', // Vibrant/Night (Deep Purple)
-};
+import Image from 'next/image';
 
 export const HeroSection = () => {
     const { activePersona, getCurrentContent, language } = usePersona();
     const content = getCurrentContent();
+    const heroImage = content.HeroImage || '/Facade5.jpeg'; // Fallback
+
+    // Scrim gradients for readability
+    const scrims: Record<PersonaType, string> = {
+        Target_Family: 'bg-gradient-to-t from-black/80 via-black/20 to-black/30 mix-blend-multiply', // Warm/Cozy
+        Target_Investor: 'bg-gradient-to-t from-black/90 via-slate-900/40 to-black/40', // Cold/Serious
+        Target_Party: 'bg-gradient-to-t from-purple-900/80 via-black/40 to-black/60', // Vibrant/Dark
+    };
 
     return (
-        <section className={`relative flex min-h-screen flex-col items-center justify-center overflow-hidden transition-colors duration-1000 ${gradients[activePersona]}`}>
+        <section className="relative flex min-h-screen flex-col items-center justify-center overflow-hidden bg-black">
 
-            {/* Background elements (noise, overlay) could go here */}
-            <div className="absolute inset-0 opacity-20 bg-[url('/noise.png')] mix-blend-overlay pointer-events-none"></div>
+            {/* Background Image Layer */}
+            <AnimatePresence mode="popLayout">
+                <motion.div
+                    key={activePersona}
+                    initial={{ opacity: 0, scale: 1.1 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    exit={{ opacity: 0 }}
+                    transition={{ duration: 1.5, ease: "easeInOut" }}
+                    className="absolute inset-0 z-0"
+                >
+                    <Image
+                        src={heroImage}
+                        alt="Hero Background"
+                        fill
+                        className="object-cover"
+                        priority
+                    />
+                    {/* Ken Burns Effect Layer - Slow Zoom */}
+                    <div className="absolute inset-0 bg-black/0 animate-ken-burns" />
+                </motion.div>
+            </AnimatePresence>
 
-            <div className="z-10 flex flex-col items-center w-full max-w-4xl px-4 text-center">
+            {/* Scrim/Overlay Layer */}
+            <div className={`absolute inset-0 z-1 transition-colors duration-1000 ${scrims[activePersona]}`} />
+
+            {/* Grain/Noise Overlay */}
+            <div className="absolute inset-0 z-2 opacity-20 bg-[url('/noise.png')] mix-blend-overlay pointer-events-none" />
+
+            <div className="z-10 flex flex-col items-center w-full max-w-4xl px-4 text-center mt-20">
 
                 {/* Persona Toggle */}
                 <div className="mb-12">
@@ -39,10 +67,10 @@ export const HeroSection = () => {
                             transition={{ duration: 0.5, ease: "easeOut" }}
                             className="flex flex-col items-center"
                         >
-                            <h1 className="text-4xl md:text-6xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-white via-white/90 to-white/70 mb-6 leading-tight">
+                            <h1 className="text-4xl md:text-6xl font-bold text-white mb-6 leading-tight drop-shadow-lg">
                                 {content.Headline?.[language as Language]}
                             </h1>
-                            <p className="text-lg md:text-xl text-white/80 max-w-2xl font-light mb-8">
+                            <p className="text-lg md:text-xl text-white/90 max-w-2xl font-light mb-8 drop-shadow-md">
                                 {content.Subheadline?.[language as Language]}
                             </p>
 

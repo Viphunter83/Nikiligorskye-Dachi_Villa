@@ -7,16 +7,21 @@ export type BilingualText = Record<Language, string>;
 
 export interface PersonaContent {
     Headline: BilingualText;
+    HeroImage?: string; // Main background for Hero
     Subheadline: BilingualText;
     Description?: BilingualText;
     Tags?: BilingualText[];
     CallToAction?: BilingualText;
+    Amenities?: BilingualText[];
+    Detailed_Description?: BilingualText;
     SpaceHack_Label?: BilingualText;
     SpaceHack_Desc?: BilingualText;
     Engineering_Focus?: {
         Title: BilingualText;
         Text: BilingualText;
     };
+    Location_Highlights?: BilingualText;
+    Concierge_Greeting?: BilingualText;
 }
 
 export const HOUSE_DATA = {
@@ -31,14 +36,22 @@ export const HOUSE_DATA = {
         Area_Legal: 506,
         Area_Total: 746,
         Plot: 14,
-        Bedrooms: 7,
-        Bathrooms: 7,
-        CeilingHeight: 7, // meters
+        Bedrooms: 7, // 1 on 1st, 4 on 2nd, 2 staff rooms in basement
+        Bathrooms: 7, // 2 on 1st, 3 on 2nd, 2 in basement + staff
+        CeilingHeight: 7, // meters (Living room)
         YearBuilt: 2025,
+        // PDF Extracted Tech Specs
+        Tech: {
+            Heating: "Buderus (Germany)",
+            Electric: "ABB, Schneider",
+            Appliances: "Liebherr, Bosch",
+            Climate: "Channel Inverter AC + Supply Ventilation"
+        }
     },
     // DYNAMIC CONTENT RULES
     Content: {
         Target_Family: {
+            HeroImage: '/Living2.jpeg',
             Headline: {
                 ru: "Родовое гнездо на Новой Риге: Безопасность и приватность",
                 en: "Family Estate on New Riga: Safety & Privacy"
@@ -55,19 +68,39 @@ export const HOUSE_DATA = {
                 ru: "Лишние метры — это безопасное пространство для игр на террасе, за которые не нужно переплачивать налог.",
                 en: "Extra meters mean safe play space on the terrace, without the extra tax burden."
             },
+            Amenities: [
+                { ru: "Детская игровая зона", en: "Kids Play Zone" },
+                { ru: "Безопасный периметр", en: "Safe Perimeter" },
+                { ru: "Комната для няни", en: "Nanny Room" },
+                { ru: "Эко-материалы", en: "Eco Materials" },
+                { ru: "Рядом школы", en: "Nearby Schools" }
+            ],
+            Detailed_Description: {
+                ru: "Дом спроектирован так, чтобы каждый член семьи чувствовал себя комфортно. Просторная гостиная для общих вечеров, безопасная терраса для детских игр и приватные зоны для отдыха родителей. Интерьеры в неоклассическом стиле с использованием натуральных материалов создают атмосферу уюта и статуса.",
+                en: "The house is designed so that every family member feels comfortable. A spacious living room for shared evenings, a safe terrace for children's games, and private relaxation zones for parents. Neoclassical interiors using natural materials create an atmosphere of comfort and status."
+            },
             Engineering_Focus: {
                 Title: { ru: "Здоровье семьи", en: "Family Health" },
                 Text: {
-                    ru: "5-ступенчатая очистка воды и гипоаллергенная вентиляция.",
-                    en: "5-stage water purification and hypoallergenic ventilation."
+                    ru: "5-ступенчатая очистка воды, гипоаллергенная вентиляция, техника Bosch/Liebherr.",
+                    en: "5-stage water purification, hypoallergenic ventilation, Bosch/Liebherr appliances."
                 }
             },
             CallToAction: {
                 ru: "Запланировать семейную экскурсию",
                 en: "Schedule a Family Tour"
+            },
+            Location_Highlights: {
+                ru: "24 км от МКАД. Рядом: Ломоносовская школа, парк Раздолье.",
+                en: "24 km from MKAD. Nearby: Lomonosov School, Razdolye Park."
+            },
+            Concierge_Greeting: {
+                ru: "Здравствуйте! Готовы запланировать семейный визит?",
+                en: "Hello! Ready to schedule a family visit?"
             }
         },
         Target_Investor: {
+            HeroImage: '/Facadee4.jpeg',
             Headline: {
                 ru: "Недооцененный актив Premium-класса",
                 en: "Undervalued Premium Asset"
@@ -84,19 +117,39 @@ export const HOUSE_DATA = {
                 ru: "Эффективная стоимость квадратного метра ниже рынка за счет неучтенных 240 м² полезной площади.",
                 en: "Effective cost per sq.m. below market due to 240 m² of unaccounted useful area."
             },
+            Amenities: [
+                { ru: "Высокая ликвидность", en: "High Liquidity" },
+                { ru: "Рост стоимости", en: "Value Growth" },
+                { ru: "Арендный потенциал", en: "Rental Potential" },
+                { ru: "Премиальная локация", en: "Premium Location" },
+                { ru: "Низкие расходы", en: "Low Expenses" }
+            ],
+            Detailed_Description: {
+                ru: "Сдержанная стилистика американского архитектора Ллойда Райта. Фасад из кирпича ручной формовки и натуральной меди гарантирует долговечность. Уникальное предложение: площадь фактически 746 м² (по документам 506 м²). Идеальный актив для сохранения капитала.",
+                en: "Restrained style of American architect Lloyd Wright. Facade made of hand-molded brick and natural copper guarantees durability. Unique offer: actual area 746 m² (legal 506 m²). The ideal asset for capital preservation."
+            },
             Engineering_Focus: {
                 Title: { ru: "Низкий OPEX", en: "Low OPEX" },
                 Text: {
-                    ru: "Энергоэффективный Buderus и ABB снижают стоимость владения.",
-                    en: "Energy-efficient Buderus and ABB systems reduce ownership costs."
+                    ru: "Котельная Buderus и автоматика ABB снижают стоимость владения.",
+                    en: "Buderus boiler and ABB automation reduce ownership costs."
                 }
             },
             CallToAction: {
                 ru: "Получить расчет ROI и техпаспорт",
                 en: "Get ROI Calculation & Tech Passport"
+            },
+            Location_Highlights: {
+                ru: "Ильинское шоссе, 24 км. Инфраструктура: Рестораны, SPA.",
+                en: "Ilyinskoe highway, 24 km. Infrastructure: Restaurants, SPA."
+            },
+            Concierge_Greeting: {
+                ru: "Добрый день. Отправить расчет инвестиционной модели?",
+                en: "Good day. Send the investment model calculation?"
             }
         },
         Target_Party: {
+            HeroImage: '/Cinema1.jpeg',
             Headline: {
                 ru: "Резиденция в стиле Райта с видом на Сити",
                 en: "Wright-Style Residence with City Views"
@@ -113,6 +166,17 @@ export const HOUSE_DATA = {
                 ru: "Патио и крышные террасы — идеальные локации для вечеринок, вынесенные за пределы жилого контура.",
                 en: "Patios and roof terraces are perfect party locations, extended beyond the living quarters."
             },
+            Amenities: [
+                { ru: "Кинотеатр", en: "Home Cinema" },
+                { ru: "Зона BBQ", en: "BBQ Zone" },
+                { ru: "Паркинг на 10 авто", en: "Parking for 10" },
+                { ru: "SPA комплекс", en: "SPA Complex" },
+                { ru: "Приватность", en: "Privacy" }
+            ],
+            Detailed_Description: {
+                ru: "Это не просто дом, а ваша личная резиденция для развлечений. Огромный атриум для вечеринок, профессиональный кинозал в цоколе и лаунж-зоны на свежем воздухе. Здесь можно устроить шумную вечеринку или расслабиться в кругу близких друзей, не мешая соседям.",
+                en: "This is not just a house, but your personal entertainment residence. A huge atrium for parties, a professional cinema in the basement, and outdoor lounge zones. Here you can throw a loud party or relax with close friends without disturbing the neighbors."
+            },
             Engineering_Focus: {
                 Title: { ru: "Smart & Fast", en: "Smart & Fast" },
                 Text: {
@@ -123,6 +187,14 @@ export const HOUSE_DATA = {
             CallToAction: {
                 ru: "Заехать на кофе вечером",
                 en: "Drop by for evening coffee"
+            },
+            Location_Highlights: {
+                ru: "25 минут до Сити по платке. Такси бизнес-класса.",
+                en: "25 min to City via toll road. Business class taxi."
+            },
+            Concierge_Greeting: {
+                ru: "Привет! Хочешь увидеть дом вживую?",
+                en: "Hi! Want to see the house in real life?"
             }
         }
     } as Record<PersonaType, PersonaContent>
