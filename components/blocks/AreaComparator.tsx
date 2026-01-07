@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { usePersona } from "@/lib/store/use-persona";
 import Image from "next/image";
@@ -251,8 +251,17 @@ const ScannerFrame = ({ activeLevel, currentLevel, t, areaLabels }: ScannerFrame
 export const AreaComparator = () => {
     const [activeLevel, setActiveLevel] = useState<LevelType>('floor1');
     const { language } = usePersona();
-    const t = UI_TEXT[language as keyof typeof UI_TEXT] || UI_TEXT.en;
-    const areaLabels = AREA_LABELS[language as keyof typeof AREA_LABELS] || AREA_LABELS.en;
+    const [mounted, setMounted] = useState(false);
+
+    useEffect(() => {
+        setMounted(true);
+    }, []);
+
+    // Default to 'ru' (server default) until mounted
+    const displayLanguage = mounted ? language : 'ru';
+
+    const t = UI_TEXT[displayLanguage as keyof typeof UI_TEXT] || UI_TEXT.en;
+    const areaLabels = AREA_LABELS[displayLanguage as keyof typeof AREA_LABELS] || AREA_LABELS.en;
 
     const currentLevel = LEVEL_DATA[activeLevel];
 

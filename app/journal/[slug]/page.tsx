@@ -18,14 +18,18 @@ interface ArticlePageProps {
 export default function ArticlePage({ params }: ArticlePageProps) {
     const { slug } = use(params);
     const router = useRouter();
-    const { language } = usePersona();
+    const { language, setPersona, activePersona } = usePersona();
     const [mounted, setMounted] = useState(false);
+
+    const post = JOURNAL_POSTS.find((p) => p.slug === slug);
 
     useEffect(() => {
         setMounted(true);
-    }, []);
-
-    const post = JOURNAL_POSTS.find((p) => p.slug === slug);
+        // Smart Personalization: Auto-switch persona based on content
+        if (post && post.relatedPersona !== activePersona) {
+            setPersona(post.relatedPersona);
+        }
+    }, [post, setPersona, activePersona]);
 
     if (!post) {
         notFound();

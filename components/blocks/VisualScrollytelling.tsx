@@ -11,7 +11,7 @@
  * Ensure the directory 'public/photos' exists.
  */
 
-import { useRef, useMemo } from 'react';
+import { useRef, useMemo, useState, useEffect } from 'react';
 import { motion, useScroll, useTransform, useMotionTemplate, MotionValue, useSpring } from 'framer-motion';
 import { usePersona } from '@/lib/store/use-persona';
 import { PersonaType, Language } from '@/data/house-data';
@@ -232,6 +232,13 @@ const SceneContent = ({
     progress: MotionValue<number>;
 }) => {
     const { activePersona, language } = usePersona();
+    const [mounted, setMounted] = useState(false);
+
+    useEffect(() => {
+        setMounted(true);
+    }, []);
+
+    const displayPersona = mounted ? activePersona : 'Target_Family';
     const step = 1 / totalScenes;
 
     // Determine current active index based on progress value for React render key
@@ -269,10 +276,10 @@ const SceneContent = ({
                     >
                         <div className="bg-white/10 backdrop-blur-md border border-white/20 p-6 rounded-xl shadow-2xl">
                             <div className="text-primary text-xs uppercase tracking-widest font-bold mb-2">
-                                {activePersona.replace('Target_', '')} Perspective
+                                {displayPersona.replace('Target_', '')} Perspective
                             </div>
                             <p className="text-xl md:text-3xl text-white font-serif leading-tight">
-                                {scene.content[activePersona][language]}
+                                {scene.content[displayPersona][language]}
                             </p>
                         </div>
                     </motion.div>

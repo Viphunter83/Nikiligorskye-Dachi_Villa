@@ -14,32 +14,40 @@ export async function POST(req: Request) {
         const { phone, persona } = body;
 
         let salesTip = '';
+        let icebreaker = '';
 
-        // 1. Analyze Persona -> Generate AI Sales Tip
+        // 1. Analyze Persona -> Generate AI Sales Tip (Russian)
         switch (persona) {
             case 'Target_Investor':
-                salesTip = "Focus on ROI, square meters hack (506 vs 746), and engineering quality (Buderus, ABB). Emphasize low OPEX.";
+                salesTip = "Акцент на ROI, хак с площадью (506 vs 746) и качество инженерии (Buderus, ABB). Подчеркните низкий OPEX.";
+                icebreaker = "Добрый день! Вижу, вас заинтересовали детали проекта. Подготовил данные по капитализации актива (506 м² как 746 м²) и расчет доходности.";
                 break;
             case 'Target_Family':
-                salesTip = "Focus on security, perimeter safety, nearby schools (Lomonosov), and the staff block privacy. Emphasize the 14 acres freedom.";
+                salesTip = "Акцент на безопасность, периметр, школу (Ломоносовская) и приватность блока персонала. Подчеркните свободу на 14 сотках.";
+                icebreaker = "Здравствуйте! Хотели бы обсудить нюансы безопасности и инфраструктуры для детей? У нас как раз есть уникальное решение с блоком для персонала.";
                 break;
             case 'Target_Party':
-                salesTip = "Focus on the cinema soundproofing, patio flow, BBQ zone, and fast views to Moscow City. Mention 8K streaming.";
+                salesTip = "Акцент на шумоизоляцию кинотеатра, поток патио-гостиная, зону BBQ и быстрый выезд в Сити. Упомяните стриминг 8K.";
+                icebreaker = "Приветствую! Готовы оценить scale проекта вживую? Второй свет, зона патио и кинотеатр лучше всего смотрятся вечером.";
                 break;
             default:
-                salesTip = "General inquiry. Focus on total area (746 m²) and premium location.";
+                salesTip = "Общий запрос. Сделайте акцент на реальной площади (746 м²) и премиальной локации.";
+                icebreaker = "Добрый день! Подсказать детали по расположению и планировке?";
         }
 
-        // 2. Construct Message
+        // 2. Construct Message (HTML)
         const message = `
-🚨 *NEW LEAD DETECTED*
+🚨 <b>НОВЫЙ ЛИД</b>
 
-📞 *Phone:* \`${phone}\`
-🎭 *Archetype:* ${persona}
-💡 *AI Sales Tip:* ${salesTip}
+📞 <b>Телефон:</b> <code>${phone}</code>
+🎭 <b>Архетип:</b> ${persona}
+💡 <b>AI Совет:</b> ${salesTip}
+
+💬 <b>Скрипт начала (Icebreaker):</b>
+<i>"${icebreaker}"</i>
 
 ----------------------
-_Sent via Residence Digital Twin_
+<i>Отправлено из Цифрового Двойника</i>
     `.trim();
 
         // 3. Send Telegram Message

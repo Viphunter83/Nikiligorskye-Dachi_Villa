@@ -8,10 +8,20 @@ import Image from 'next/image';
 
 // Reusable Glass Card
 import { GlassCard } from '@/components/ui/GlassCard';
+import { useState, useEffect } from 'react';
+import { HOUSE_DATA } from '@/data/house-data';
 
 export const EngineeringBento = () => {
-    const { getCurrentContent, language } = usePersona();
-    const content = getCurrentContent();
+    const { activePersona, language } = usePersona();
+    const [mounted, setMounted] = useState(false);
+
+    useEffect(() => {
+        setMounted(true);
+    }, []);
+
+    // Hydration safe content loading
+    const displayPersona = mounted ? activePersona : 'Target_Family';
+    const content = HOUSE_DATA.Content[displayPersona];
     const engineeringFocus = content.Engineering_Focus;
 
     const cards = [

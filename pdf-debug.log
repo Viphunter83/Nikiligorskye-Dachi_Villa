@@ -1,0 +1,70 @@
+2026-01-07T13:49:00.675Z: --- FONT REGISTRATION DEBUG ---
+2026-01-07T13:49:00.675Z: Base Font Path: /Users/apple/Nikiligorskye Dachi_Villa/public/fonts
+2026-01-07T13:49:00.682Z: DEBUG: Font Path: /Users/apple/Nikiligorskye Dachi_Villa/public/fonts
+2026-01-07T13:49:00.682Z: DEBUG: Regular Exists: true
+2026-01-07T13:49:00.682Z: DEBUG: Regular Base64 (first 20): AAEAAAATAQAABAAwR0RF
+2026-01-07T13:49:00.683Z: ✅ Fonts registered as "BrochureDebug"
+2026-01-07T13:49:00.683Z: -------------------------------
+2026-01-07T13:52:51.642Z: --- FONT REGISTRATION DEBUG ---
+2026-01-07T13:52:51.642Z: Base Font Path: /Users/apple/Nikiligorskye Dachi_Villa/public/fonts
+2026-01-07T13:52:51.643Z: DEBUG: Font Path: /Users/apple/Nikiligorskye Dachi_Villa/public/fonts
+2026-01-07T13:52:51.644Z: DEBUG: Regular Exists: true
+2026-01-07T13:52:51.644Z: DEBUG: Regular Base64 (first 20): AAEAAAATAQAABAAwR0RF
+2026-01-07T13:52:51.644Z: ✅ Fonts registered as "BrochureDebug"
+2026-01-07T13:52:51.644Z: -------------------------------
+2026-01-07T13:52:51.644Z: Generating PDF to temp file: /var/folders/qx/3ftsc0gn5bq386h4hzhkfp580000gn/T/brochure_1767793971644.pdf
+2026-01-07T13:52:51.733Z: PDF generated successfully, size: 5176
+2026-01-07T13:53:25.818Z: --- FONT REGISTRATION DEBUG ---
+2026-01-07T13:53:25.819Z: Base Font Path: /Users/apple/Nikiligorskye Dachi_Villa/public/fonts
+2026-01-07T13:53:25.821Z: DEBUG: Font Path: /Users/apple/Nikiligorskye Dachi_Villa/public/fonts
+2026-01-07T13:53:25.821Z: DEBUG: Regular Exists: true
+2026-01-07T13:53:25.821Z: DEBUG: Regular Base64 (first 20): AAEAAAATAQAABAAwR0RF
+2026-01-07T13:53:25.821Z: ✅ Fonts registered as "BrochureDebug"
+2026-01-07T13:53:25.821Z: -------------------------------
+2026-01-07T13:53:25.821Z: Generating PDF to temp file: /var/folders/qx/3ftsc0gn5bq386h4hzhkfp580000gn/T/brochure_1767794005821.pdf
+2026-01-07T13:53:25.863Z: PDF generated successfully, size: 5176
+2026-01-07T13:53:38.797Z: --- FONT REGISTRATION DEBUG ---
+2026-01-07T13:53:38.797Z: Base Font Path: /Users/apple/Nikiligorskye Dachi_Villa/public/fonts
+2026-01-07T13:53:38.798Z: DEBUG: Font Path: /Users/apple/Nikiligorskye Dachi_Villa/public/fonts
+2026-01-07T13:53:38.798Z: DEBUG: Regular Exists: true
+2026-01-07T13:53:38.798Z: DEBUG: Regular Base64 (first 20): AAEAAAATAQAABAAwR0RF
+2026-01-07T13:53:38.798Z: ✅ Fonts registered as "BrochureDebug"
+2026-01-07T13:53:38.798Z: -------------------------------
+2026-01-07T13:53:38.798Z: Generating PDF to temp file: /var/folders/qx/3ftsc0gn5bq386h4hzhkfp580000gn/T/brochure_1767794018798.pdf
+2026-01-07T13:53:38.820Z: PDF generated successfully, size: 5176
+2026-01-07T13:53:50.523Z: --- FONT REGISTRATION DEBUG ---
+2026-01-07T13:53:50.524Z: Base Font Path: /Users/apple/Nikiligorskye Dachi_Villa/public/fonts
+2026-01-07T13:53:50.525Z: DEBUG: Font Path: /Users/apple/Nikiligorskye Dachi_Villa/public/fonts
+2026-01-07T13:53:50.525Z: DEBUG: Regular Exists: true
+2026-01-07T13:53:50.525Z: DEBUG: Regular Base64 (first 20): AAEAAAATAQAABAAwR0RF
+2026-01-07T13:53:50.525Z: ✅ Fonts registered as "BrochureDebug"
+2026-01-07T13:53:50.525Z: -------------------------------
+2026-01-07T13:53:50.525Z: Generating PDF to temp file: /var/folders/qx/3ftsc0gn5bq386h4hzhkfp580000gn/T/brochure_1767794030525.pdf
+2026-01-07T13:53:50.601Z: PDF generated successfully, size: 10633
+2026-01-07T13:55:06.535Z: --- FONT REGISTRATION DEBUG ---
+2026-01-07T13:55:06.535Z: Base Font Path: /Users/apple/Nikiligorskye Dachi_Villa/public/fonts
+2026-01-07T13:55:06.536Z: DEBUG: Font Path: /Users/apple/Nikiligorskye Dachi_Villa/public/fonts
+2026-01-07T13:55:06.537Z: DEBUG: Regular Exists: true
+2026-01-07T13:55:06.537Z: DEBUG: Regular Base64 (first 20): AAEAAAATAQAABAAwR0RF
+2026-01-07T13:55:06.537Z: ✅ Fonts registered as "BrochureDebug"
+2026-01-07T13:55:06.537Z: -------------------------------
+2026-01-07T13:55:06.537Z: Generating PDF to temp file: /var/folders/qx/3ftsc0gn5bq386h4hzhkfp580000gn/T/brochure_1767794106537.pdf
+2026-01-07T13:55:06.559Z: PDF generated successfully, size: 5176
+2026-01-07T13:55:28.259Z: --- FONT REGISTRATION DEBUG ---
+2026-01-07T13:55:28.259Z: Base Font Path: /Users/apple/Nikiligorskye Dachi_Villa/public/fonts
+2026-01-07T13:55:28.260Z: DEBUG: Font Path: /Users/apple/Nikiligorskye Dachi_Villa/public/fonts
+2026-01-07T13:55:28.260Z: DEBUG: Regular Exists: true
+2026-01-07T13:55:28.260Z: DEBUG: Regular Base64 (first 20): AAEAAAATAQAABAAwR0RF
+2026-01-07T13:55:28.260Z: ✅ Fonts registered as "BrochureDebug"
+2026-01-07T13:55:28.260Z: -------------------------------
+2026-01-07T13:55:28.260Z: Generating PDF to temp file: /var/folders/qx/3ftsc0gn5bq386h4hzhkfp580000gn/T/brochure_1767794128260.pdf
+2026-01-07T13:55:28.317Z: PDF generated successfully, size: 25813
+2026-01-07T13:57:35.702Z: --- FONT REGISTRATION DEBUG ---
+2026-01-07T13:57:35.702Z: Base Font Path: /Users/apple/Nikiligorskye Dachi_Villa/public/fonts
+2026-01-07T13:57:35.704Z: DEBUG: Font Path: /Users/apple/Nikiligorskye Dachi_Villa/public/fonts
+2026-01-07T13:57:35.704Z: DEBUG: Regular Exists: true
+2026-01-07T13:57:35.704Z: DEBUG: Regular Base64 (first 20): AAEAAAATAQAABAAwR0RF
+2026-01-07T13:57:35.704Z: ✅ Fonts registered as "BrochureDebug"
+2026-01-07T13:57:35.704Z: -------------------------------
+2026-01-07T13:57:35.704Z: Generating PDF to temp file: /var/folders/qx/3ftsc0gn5bq386h4hzhkfp580000gn/T/brochure_1767794255704.pdf
+2026-01-07T13:57:35.746Z: PDF generated successfully, size: 25339

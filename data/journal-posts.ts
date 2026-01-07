@@ -1,8 +1,9 @@
-import { Language } from './house-data';
+import { Language, PersonaType } from './house-data';
 
 export interface BlogPost {
   id: string;
   slug: string;
+  relatedPersona: PersonaType;
   title: Record<Language, string>;
   excerpt: Record<Language, string>;
   coverImage: string;
@@ -15,6 +16,7 @@ export const JOURNAL_POSTS: BlogPost[] = [
   {
     id: '1',
     slug: 'privacy-ultimate-luxury',
+    relatedPersona: 'Target_Family',
     title: {
       ru: 'Приватность как главная роскошь: Почему 14 соток важнее, чем кажется',
       en: 'Privacy as the Ultimate Luxury: Why 14 Acres Matter More Than You Think'
@@ -64,6 +66,7 @@ export const JOURNAL_POSTS: BlogPost[] = [
   {
     id: '2',
     slug: 'invest-in-engineering',
+    relatedPersona: 'Target_Investor',
     title: {
       ru: 'Инвестируйте в инженерию, а не просто в стены',
       en: 'Invest in Engineering, Not Just Walls'
@@ -123,6 +126,7 @@ export const JOURNAL_POSTS: BlogPost[] = [
   {
     id: '3',
     slug: 'art-of-entertainment',
+    relatedPersona: 'Target_Party',
     title: {
       ru: 'Искусство развлечений: Дом, который живет в вашем ритме',
       en: 'The Art of Entertainment: A House That Lives in Your Rhythm'

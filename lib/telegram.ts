@@ -8,6 +8,9 @@ export async function sendTelegramMessage(message: string): Promise<boolean> {
     }
 
     try {
+        const controller = new AbortController();
+        const timeoutId = setTimeout(() => controller.abort(), 10000); // 10s timeout
+
         const response = await fetch(`https://api.telegram.org/bot${token}/sendMessage`, {
             method: 'POST',
             headers: {
@@ -16,9 +19,10 @@ export async function sendTelegramMessage(message: string): Promise<boolean> {
             body: JSON.stringify({
                 chat_id: chatId,
                 text: message,
-                parse_mode: 'Markdown',
+                parse_mode: 'HTML',
             }),
-        });
+            signal: controller.signal
+        }).finally(() => clearTimeout(timeoutId));
 
         if (!response.ok) {
             const error = await response.json();
@@ -28,7 +32,11 @@ export async function sendTelegramMessage(message: string): Promise<boolean> {
 
         return true;
     } catch (error) {
-        console.error('Failed to send Telegram message:', error);
+        if (error instanceof Error && error.name === 'AbortError') {
+            console.error('Telegram request timed out');
+        } else {
+            console.error('Failed to send Telegram message:', error);
+        }
         return false;
     }
 }

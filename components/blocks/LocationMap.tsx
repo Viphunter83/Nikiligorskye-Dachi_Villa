@@ -5,10 +5,19 @@ import { usePersona } from '@/lib/store/use-persona';
 import { MapPin, Navigation, Clock, ExternalLink, GraduationCap, ShoppingBag, Utensils, HeartPulse, Dumbbell } from 'lucide-react';
 import { useState, useEffect } from 'react';
 
+import { HOUSE_DATA } from '@/data/house-data';
+
 export const LocationMap = () => {
-    const { getCurrentContent, language, activePersona } = usePersona();
-    const content = getCurrentContent();
+    const { language, activePersona } = usePersona();
     const [activeRoute, setActiveRoute] = useState<string | null>(null);
+    const [mounted, setMounted] = useState(false);
+
+    useEffect(() => {
+        setMounted(true);
+    }, []);
+
+    const displayPersona = mounted ? activePersona : 'Target_Family';
+    const content = HOUSE_DATA.Content[displayPersona];
 
     const highlights = content.Location_Highlights?.[language];
 
@@ -65,10 +74,10 @@ export const LocationMap = () => {
 
     useEffect(() => {
         // Set default filters based on activePersona
-        if (activePersona === 'Target_Family') setActiveFilters(['education', 'sport', 'health']);
-        else if (activePersona === 'Target_Investor') setActiveFilters(['shopping', 'dining']);
-        else if (activePersona === 'Target_Party') setActiveFilters(['dining', 'shopping', 'sport']);
-    }, [activePersona]);
+        if (displayPersona === 'Target_Family') setActiveFilters(['education', 'sport', 'health']);
+        else if (displayPersona === 'Target_Investor') setActiveFilters(['shopping', 'dining']);
+        else if (displayPersona === 'Target_Party') setActiveFilters(['dining', 'shopping', 'sport']);
+    }, [displayPersona]);
 
     const filterLabels: Record<string, { en: string; ru: string }> = {
         education: { en: 'Education', ru: 'Образование' },

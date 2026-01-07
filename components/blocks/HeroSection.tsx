@@ -3,13 +3,22 @@
 import { motion, AnimatePresence } from 'framer-motion';
 import { usePersona } from '@/lib/store/use-persona';
 import { PersonaToggle } from '../ui/PersonaToggle';
-import { PersonaType, Language } from '@/data/house-data';
+import { PersonaType, Language, HOUSE_DATA } from '@/data/house-data';
 import Image from 'next/image';
 import Link from 'next/link';
+import { useState, useEffect } from 'react';
 
 export const HeroSection = () => {
     const { activePersona, getCurrentContent, language } = usePersona();
-    const content = getCurrentContent();
+    const [mounted, setMounted] = useState(false);
+
+    useEffect(() => {
+        setMounted(true);
+    }, []);
+
+    // Ensure hydration match by using default on first render
+    const displayPersona = mounted ? activePersona : 'Target_Family';
+    const content = HOUSE_DATA.Content[displayPersona];
     const heroImage = content.HeroImage || '/Living.jpeg'; // Fallback
 
     // Scrim gradients for readability
@@ -34,7 +43,7 @@ export const HeroSection = () => {
             {/* Background Image Layer */}
             <AnimatePresence mode="popLayout">
                 <motion.div
-                    key={activePersona}
+                    key={displayPersona}
                     initial={{ opacity: 0, scale: 1.1 }}
                     animate={{ opacity: 1, scale: 1 }}
                     exit={{ opacity: 0 }}
@@ -54,7 +63,7 @@ export const HeroSection = () => {
             </AnimatePresence>
 
             {/* Scrim/Overlay Layer */}
-            <div className={`absolute inset-0 z-1 transition-colors duration-1000 ${scrims[activePersona]}`} />
+            <div className={`absolute inset-0 z-1 transition-colors duration-1000 ${scrims[displayPersona]}`} />
 
             {/* Grain/Noise Overlay */}
             <div className="absolute inset-0 z-2 opacity-20 bg-[url('/noise.png')] mix-blend-overlay pointer-events-none" />
@@ -70,7 +79,7 @@ export const HeroSection = () => {
                 <div className="min-h-[300px] flex flex-col items-center justify-center">
                     <AnimatePresence mode="wait">
                         <motion.div
-                            key={`${activePersona}-${language}`}
+                            key={`${displayPersona}-${language}`}
                             initial={{ opacity: 0, y: 20 }}
                             animate={{ opacity: 1, y: 0 }}
                             exit={{ opacity: 0, y: -20 }}

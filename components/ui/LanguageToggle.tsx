@@ -4,8 +4,17 @@ import { motion } from 'framer-motion';
 import { usePersona } from '@/lib/store/use-persona';
 import { Language } from '@/data/house-data';
 
+import { useState, useEffect } from 'react';
+
 export const LanguageToggle = () => {
     const { language, setLanguage } = usePersona();
+    const [mounted, setMounted] = useState(false);
+
+    useEffect(() => {
+        setMounted(true);
+    }, []);
+
+    const displayLanguage = mounted ? language : 'ru';
 
     const languages: { id: Language; label: string }[] = [
         { id: 'ru', label: 'RU' },
@@ -18,10 +27,10 @@ export const LanguageToggle = () => {
                 <button
                     key={lang.id}
                     onClick={() => setLanguage(lang.id)}
-                    className={`relative px-3 py-1 text-xs font-medium transition-colors ${language === lang.id ? 'text-black' : 'text-white/60 hover:text-white'
+                    className={`relative px-3 py-1 text-xs font-medium transition-colors ${displayLanguage === lang.id ? 'text-black' : 'text-white/60 hover:text-white'
                         }`}
                 >
-                    {language === lang.id && (
+                    {displayLanguage === lang.id && (
                         <motion.div
                             layoutId="lang-highlight"
                             className="absolute inset-0 bg-white rounded shadow-sm"

@@ -4,12 +4,20 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { usePersona } from '@/lib/store/use-persona';
 import { useState, useRef, useEffect } from 'react';
 import { Send, User, Bot, Loader2 } from 'lucide-react';
+import { HOUSE_DATA } from '@/data/house-data';
 
 type MessageState = 'greeting' | 'typing' | 'input' | 'success';
 
 export const AlfredConcierge = () => {
-    const { getCurrentContent, language, activePersona } = usePersona();
-    const content = getCurrentContent();
+    const { activePersona, language } = usePersona();
+    const [mounted, setMounted] = useState(false);
+
+    useEffect(() => {
+        setMounted(true);
+    }, []);
+
+    const displayPersona = mounted ? activePersona : 'Target_Family';
+    const content = HOUSE_DATA.Content[displayPersona];
     const [state, setState] = useState<MessageState>('greeting');
     const inputRef = useRef<HTMLInputElement>(null);
 
@@ -162,23 +170,36 @@ export const AlfredConcierge = () => {
 
                         {/* Input Form */}
                         {state === 'input' && (
-                            <motion.form
-                                initial={{ opacity: 0, scale: 0.95 }}
-                                animate={{ opacity: 1, scale: 1 }}
-                                onSubmit={handleSubmit}
-                                className="flex gap-2 items-center mt-4"
-                            >
-                                <input
-                                    ref={inputRef}
-                                    type="text"
-                                    autoFocus
-                                    placeholder={language === 'ru' ? "Ваш телефон..." : "Your Phone..."}
-                                    className="flex-1 bg-white/5 border border-white/10 rounded-xl px-4 py-3.5 text-white placeholder:text-white/20 focus:outline-none focus:border-primary/40 focus:bg-white/10 text-sm transition-all shadow-inner"
-                                />
-                                <button type="submit" className="p-3.5 bg-primary text-black rounded-xl hover:bg-[#c5a028] transition-all hover:scale-105 shadow-[0_0_15px_rgba(212,175,55,0.4)]">
-                                    <Send size={18} />
-                                </button>
-                            </motion.form>
+                            <div className="flex flex-col gap-2 mt-4">
+                                {/* Dynamic PDF Download */}
+                                <a
+                                    href={`/api/brochure?persona=${activePersona}&lang=${language}`}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="flex items-center justify-center gap-2 px-4 py-3 bg-[#0A0A0A] border border-[#D4AF37]/30 rounded-lg text-xs text-[#D4AF37] hover:bg-[#D4AF37]/10 transition-colors w-full uppercase tracking-wider mb-2"
+                                >
+                                    <span className="text-lg">📄</span>
+                                    {language === 'ru' ? 'Скачать PDF Презентацию' : 'Download PDF Brochure'}
+                                </a>
+
+                                <motion.form
+                                    initial={{ opacity: 0, scale: 0.95 }}
+                                    animate={{ opacity: 1, scale: 1 }}
+                                    onSubmit={handleSubmit}
+                                    className="flex gap-2 items-center"
+                                >
+                                    <input
+                                        ref={inputRef}
+                                        type="text"
+                                        autoFocus
+                                        placeholder={language === 'ru' ? "Ваш телефон..." : "Your Phone..."}
+                                        className="flex-1 bg-white/5 border border-white/10 rounded-xl px-4 py-3.5 text-white placeholder:text-white/20 focus:outline-none focus:border-primary/40 focus:bg-white/10 text-sm transition-all shadow-inner"
+                                    />
+                                    <button type="submit" className="p-3.5 bg-primary text-black rounded-xl hover:bg-[#c5a028] transition-all hover:scale-105 shadow-[0_0_15px_rgba(212,175,55,0.4)]">
+                                        <Send size={18} />
+                                    </button>
+                                </motion.form>
+                            </div>
                         )}
 
                         {/* Success Message */}

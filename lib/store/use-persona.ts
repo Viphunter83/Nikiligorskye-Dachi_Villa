@@ -1,5 +1,5 @@
-// lib/store/use-persona.ts
 import { create } from 'zustand';
+import { persist } from 'zustand/middleware';
 import { HOUSE_DATA, PersonaType, PersonaContent, Language } from '@/data/house-data';
 
 interface PersonaState {
@@ -12,15 +12,22 @@ interface PersonaState {
     getCurrentContent: () => PersonaContent;
 }
 
-export const usePersona = create<PersonaState>((set, get) => ({
-    activePersona: 'Target_Family', // Default state
-    language: 'ru', // Default language
+export const usePersona = create<PersonaState>()(
+    persist(
+        (set, get) => ({
+            activePersona: 'Target_Family', // Default state will be overwritten by storage if exists
+            language: 'ru', // Default language
 
-    setPersona: (persona) => set({ activePersona: persona }),
-    setLanguage: (lang) => set({ language: lang }),
+            setPersona: (persona) => set({ activePersona: persona }),
+            setLanguage: (lang) => set({ language: lang }),
 
-    getCurrentContent: () => {
-        const { activePersona } = get();
-        return HOUSE_DATA.Content[activePersona];
-    }
-}));
+            getCurrentContent: () => {
+                const { activePersona } = get();
+                return HOUSE_DATA.Content[activePersona];
+            }
+        }),
+        {
+            name: 'persona-storage', // unique name for localStorage key
+        }
+    )
+);

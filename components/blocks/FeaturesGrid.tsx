@@ -4,10 +4,19 @@ import { usePersona } from '@/lib/store/use-persona';
 import { motion } from 'framer-motion';
 import { GlassCard } from '@/components/ui/GlassCard';
 import { Check, Star, Shield, Zap, Heart } from 'lucide-react';
+import { useState, useEffect } from 'react';
+import { HOUSE_DATA } from '@/data/house-data';
 
 export const FeaturesGrid = () => {
-    const { getCurrentContent, language } = usePersona();
-    const content = getCurrentContent();
+    const { activePersona, language } = usePersona();
+    const [mounted, setMounted] = useState(false);
+
+    useEffect(() => {
+        setMounted(true);
+    }, []);
+
+    const displayPersona = mounted ? activePersona : 'Target_Family';
+    const content = HOUSE_DATA.Content[displayPersona];
 
     const amenities = content.Amenities || [];
     const description = content.Detailed_Description?.[language];
