@@ -253,7 +253,7 @@ export const HOUSE_DATA = {
             },
             Amenities: [
                 { ru: "Кинотеатр", en: "Home Cinema", image: '/Cinema1.jpeg' },
-                { ru: "Зона BBQ", en: "BBQ Zone", image: '/Openzone.jpeg' },
+                { ru: "Зона BBQ", en: "BBQ Zone", image: '/photos/bbq_patio_zone.png' },
                 { ru: "Паркинг на 10 авто", en: "Parking for 10", image: '/Garage.jpeg' },
                 { ru: "SPA комплекс", en: "SPA Complex", image: '/Bathroom1.jpeg' },
                 { ru: "Приватность", en: "Privacy", image: '/Facade5.jpeg' }
