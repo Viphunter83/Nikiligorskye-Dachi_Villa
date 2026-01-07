@@ -62,7 +62,17 @@ export default function ArticlePage({ params }: ArticlePageProps) {
     if (!mounted) return null;
 
     return (
-        <div className="min-h-screen bg-[#0A0A0A] text-white selection:bg-[#D4AF37]/30 selection:text-[#D4AF37]">
+        <div className="min-h-screen bg-[#111] text-white selection:bg-[#D4AF37]/30 selection:text-[#D4AF37] relative">
+            {/* Background Texture */}
+            <div className="fixed inset-0 z-0">
+                <div className="absolute inset-0 bg-[#1a1a1a]/80 z-10" />
+                <img
+                    src="/assets/bg_texture_luxury.png"
+                    alt=""
+                    className="w-full h-full object-cover opacity-40 mix-blend-overlay"
+                />
+            </div>
+
             {/* Progress Bar */}
             <div className="fixed top-0 left-0 right-0 h-1 bg-[#D4AF37]/20 z-50">
                 <div className="h-full bg-[#D4AF37] w-0" id="reading-progress" />
