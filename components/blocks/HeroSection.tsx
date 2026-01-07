@@ -31,13 +31,28 @@ export const HeroSection = () => {
     return (
         <section className="relative flex min-h-screen flex-col items-center justify-center overflow-hidden bg-black">
             {/* Navigation */}
-            <nav className="absolute top-0 w-full z-50 p-8 flex justify-start max-w-[1800px] mx-auto">
+            <nav className="absolute top-0 w-full z-50 p-8 flex justify-between items-center max-w-[1800px] mx-auto">
                 <Link
                     href="/journal"
-                    className="text-sm font-medium tracking-widest text-white/70 hover:text-[#D4AF37] transition-colors uppercase"
+                    className="text-xs font-medium tracking-[0.2em] text-white/50 hover:text-[#D4AF37] transition-colors uppercase border border-white/10 px-4 py-2 rounded-full hover:bg-white/5"
                 >
                     Journal
                 </Link>
+
+                <div className="flex items-center gap-6">
+                    <div className="hidden md:flex flex-col items-end">
+                        <span className="text-[10px] tracking-[0.2em] text-[#D4AF37] uppercase mb-0.5">
+                            {language === 'ru' ? 'Закрытая продажа' : 'Private Sale'}
+                        </span>
+                        <a href="tel:+79999999999" className="text-sm font-medium text-white tracking-wider hover:text-[#D4AF37] transition-colors">
+                            +7 (999) 000-00-00
+                        </a>
+                    </div>
+                    <div className="w-px h-8 bg-white/20 hidden md:block"></div>
+                    <div className="px-3 py-1 bg-[#D4AF37]/10 border border-[#D4AF37]/30 rounded text-[#D4AF37] text-[10px] font-bold tracking-widest uppercase">
+                        Lot #42
+                    </div>
+                </div>
             </nav>
 
             {/* Background Image Layer */}

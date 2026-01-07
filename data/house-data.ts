@@ -68,8 +68,8 @@ export const HOUSE_DATA = {
                 en: "Family Estate on New Riga: Safety & Privacy"
             },
             Subheadline: {
-                ru: "506 м² уюта + 240 м² свободы для игр ваших детей на участке 14 сот.",
-                en: "506 m² of comfort + 240 m² of freedom for your children on 14 acres."
+                ru: "506 м² фамильного уюта и 240 м² свободы для игр на 14 сотках приватной территории.",
+                en: "506 m² of family comfort and 240 m² of freedom for games on 14 acres of private land."
             },
             SpaceHack_Label: {
                 ru: "Игровые зоны на воздухе",
@@ -159,14 +159,14 @@ export const HOUSE_DATA = {
                         label: { ru: "Средняя цена в поселке", en: "Avg Market Price" },
                         value: "350",
                         prefix: "$",
-                        suffix: "k / сот.",
+                        suffix: "k / сотка",
                         barPercent: 100
                     },
                     {
                         label: { ru: "Цена предложения", en: "Offer Price" },
                         value: "290",
                         prefix: "$",
-                        suffix: "k / сот.",
+                        suffix: "k / сотка",
                         barPercent: 82,
                         highlight: true
                     },
@@ -233,7 +233,7 @@ export const HOUSE_DATA = {
                     {
                         label: { ru: "Вместимость (Event)", en: "Event Capacity" },
                         value: "50+",
-                        suffix: " чел.",
+                        suffix: " гостей",
                         barPercent: 100,
                         highlight: true
                     },
@@ -246,7 +246,7 @@ export const HOUSE_DATA = {
                     {
                         label: { ru: "Паркинг", en: "Parking" },
                         value: "10",
-                        suffix: " авто",
+                        suffix: " машин",
                         barPercent: 20
                     }
                 ]
@@ -274,7 +274,7 @@ export const HOUSE_DATA = {
                 en: "Drop by for evening coffee"
             },
             Location_Highlights: {
-                ru: "25 минут до Сити по платке. Такси бизнес-класса.",
+                ru: "25 минут до Сити по платной трассе. Такси бизнес-класса.",
                 en: "25 min to City via toll road. Business class taxi."
             },
             Concierge_Greeting: {
