@@ -74,6 +74,21 @@ export async function deleteSeoPage(id: string) {
 
 export async function getSeoPages() {
     return await prisma.seoPage.findMany({
-        orderBy: { createdAt: 'desc' }
+        orderBy: { views: 'desc' } // Sort by popularity
     })
+}
+
+export async function incrementSeoView(slug: string) {
+    try {
+        await prisma.seoPage.update({
+            where: { slug },
+            data: {
+                views: { increment: 1 },
+                lastVisitedAt: new Date()
+            }
+        })
+        revalidatePath('/admin') // Update admin stats in real-time
+    } catch (e) {
+        console.error("Failed to track view", e)
+    }
 }

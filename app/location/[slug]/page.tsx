@@ -3,6 +3,7 @@ import prisma from '@/lib/db'
 import { notFound } from 'next/navigation'
 import Link from 'next/link'
 import { Button } from '@/components/ui/button'
+import { SeoTracker } from '@/components/analytics/SeoTracker'
 
 // Use ISR (Incremental Static Regeneration) or Force Dynamic if intended to see immediate changes
 // For SEO performance, we typically wan't static, but we want it to update on build.

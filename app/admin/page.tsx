@@ -131,7 +131,10 @@ export default async function AdminPage() {
                                         <div key={page.id} className="flex items-center justify-between p-4 border rounded-lg">
                                             <div>
                                                 <div className="font-medium">{page.title}</div>
-                                                <div className="text-sm text-gray-500">/location/{page.slug} • {page.minutes} min</div>
+                                                <div className="text-sm text-gray-500">
+                                                    /location/{page.slug} • {page.minutes} min •
+                                                    <span className="text-green-600 font-bold ml-1">{page.views} views</span>
+                                                </div>
                                             </div>
                                             <form action={deleteSeoPage.bind(null, page.id)}>
                                                 <Button variant="destructive" size="sm">Delete</Button>
