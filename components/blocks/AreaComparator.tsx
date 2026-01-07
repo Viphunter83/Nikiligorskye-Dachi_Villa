@@ -220,10 +220,12 @@ const ScannerFrame = ({ activeLevel, currentLevel, t, areaLabels }: ScannerFrame
                 </div>
 
                 {/* Animated Difference Indicator */}
+                {/* Animated Difference Indicator */}
                 <motion.div
                     initial={{ opacity: 0, scale: 0.8 }}
                     animate={{ opacity: sliderValue > 60 ? 1 : 0, scale: sliderValue > 60 ? 1 : 0.8 }}
-                    className="mb-4 px-4 py-2 bg-primary-500 text-black font-bold rounded-lg shadow-[0_0_20px_rgba(212,175,55,0.4)]"
+                    className="mb-4 px-4 py-2 font-bold rounded-lg shadow-[0_0_20px_rgba(212,175,55,0.4)] z-50"
+                    style={{ backgroundColor: '#D4AF37', color: 'black' }}
                 >
                     {t.diffValue}
                 </motion.div>
