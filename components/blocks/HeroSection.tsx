@@ -5,6 +5,7 @@ import { usePersona } from '@/lib/store/use-persona';
 import { PersonaToggle } from '../ui/PersonaToggle';
 import { PersonaType, Language } from '@/data/house-data';
 import Image from 'next/image';
+import Link from 'next/link';
 
 export const HeroSection = () => {
     const { activePersona, getCurrentContent, language } = usePersona();
@@ -20,6 +21,15 @@ export const HeroSection = () => {
 
     return (
         <section className="relative flex min-h-screen flex-col items-center justify-center overflow-hidden bg-black">
+            {/* Navigation */}
+            <nav className="absolute top-0 w-full z-50 p-8 flex justify-start max-w-[1800px] mx-auto">
+                <Link
+                    href="/journal"
+                    className="text-sm font-medium tracking-widest text-white/70 hover:text-[#D4AF37] transition-colors uppercase"
+                >
+                    Journal
+                </Link>
+            </nav>
 
             {/* Background Image Layer */}
             <AnimatePresence mode="popLayout">
