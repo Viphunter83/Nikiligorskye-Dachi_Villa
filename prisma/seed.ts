@@ -83,6 +83,18 @@ async function main() {
             hero_overlay_opacity: 40,
             accent_color: '#ea580c',
             features_json: INITIAL_DATA.features_json,
+            cms_data: {
+                engineering: [
+                    '/photos/bento_heating.png',
+                    '/photos/bento_focus.png',
+                    '/photos/bento_water.png',
+                    '/photos/bento_tech.png'
+                ],
+                concierge: '/Facade3.jpeg',
+                features: [
+                    // Placeholders for 6 amenity cards if needed, currently using icon logic
+                ]
+            }
         },
     })
     console.log(`Created/Updated house profile: ${house.slug}`)

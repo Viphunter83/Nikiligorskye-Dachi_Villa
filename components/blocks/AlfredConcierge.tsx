@@ -8,7 +8,11 @@ import { HOUSE_DATA } from '@/data/house-data';
 
 type MessageState = 'greeting' | 'typing' | 'input' | 'success';
 
-export const AlfredConcierge = () => {
+interface AlfredConciergeProps {
+    background?: string;
+}
+
+export const AlfredConcierge = ({ background }: AlfredConciergeProps) => {
     const { activePersona, language } = usePersona();
     const [mounted, setMounted] = useState(false);
 
@@ -108,7 +112,7 @@ export const AlfredConcierge = () => {
             {/* Human Luminous Background */}
             <div className="absolute inset-0 z-0">
                 <img
-                    src="/Facade3.jpeg"
+                    src={background || "/Facade3.jpeg"}
                     alt="Atmosphere"
                     className="w-full h-full object-cover opacity-100 blur-[1px] contrast-125 brightness-110"
                 />

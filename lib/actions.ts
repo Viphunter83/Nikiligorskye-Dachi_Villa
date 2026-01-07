@@ -11,12 +11,25 @@ export async function updateVisuals(formData: FormData) {
     const hero_overlay_opacity = parseInt(formData.get('hero_overlay_opacity') as string)
     const accent_color = formData.get('accent_color') as string
 
+    // CMS Data Construction
+    const cms_data = {
+        engineering: [
+            formData.get('eng_img_1') as string || '',
+            formData.get('eng_img_2') as string || '',
+            formData.get('eng_img_3') as string || '',
+            formData.get('eng_img_4') as string || ''
+        ],
+        concierge: formData.get('concierge_bg') as string || '',
+        features: [] // Expandable
+    }
+
     await prisma.houseProfile.update({
         where: { slug: 'nikologorskie' },
         data: {
             hero_image_url,
             hero_overlay_opacity,
-            accent_color
+            accent_color,
+            cms_data
         }
     })
     revalidatePath('/')

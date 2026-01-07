@@ -26,6 +26,7 @@ model HouseProfile {
 
   // JSON fields to store complex data without rigid schema changes
   features_json      Json?    
+  cms_data           Json?    @default("{}") // Stores { engineering: {}, concierge: {}, features: {} }
   
   updatedAt DateTime @updatedAt
 }

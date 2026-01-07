@@ -1,3 +1,4 @@
+import { getHouseProfile } from '@/lib/actions';
 import { HeroSection } from '@/components/blocks/HeroSection';
 import { AreaComparator } from '@/components/blocks/AreaComparator';
 import { LanguageToggle } from '@/components/ui/LanguageToggle';
@@ -7,25 +8,37 @@ import { VisualScrollytelling } from '@/components/blocks/VisualScrollytelling';
 import { LocationMap } from '@/components/blocks/LocationMap';
 import { AlfredConcierge } from '@/components/blocks/AlfredConcierge';
 
-export default function Home() {
+export default async function Home() {
+  const house = await getHouseProfile();
+
+  if (!house) return <div className="text-white text-center py-20">Loading...</div>
+
+  // Safely access JSON
+  const cmsData = house.cms_data as any || {};
+
   return (
     <main className="bg-[#0a0a0a]">
       <LanguageToggle />
-      <HeroSection />
+      <HeroSection
+        heroImage={house.hero_image_url}
+        overlayOpacity={house.hero_overlay_opacity}
+        overrideHeadline={house.headline_family} // Default to family, logic inside handles overrides
+      />
 
       <div className="w-px h-24 bg-gradient-to-b from-transparent via-white/20 to-transparent mx-auto"></div>
       <AreaComparator />
 
       <div className="w-px h-24 bg-gradient-to-b from-transparent via-white/20 to-transparent mx-auto"></div>
-      <EngineeringBento />
+      <EngineeringBento photos={cmsData.engineering} />
 
       <FeaturesGrid />
 
+      {/* VisualScrollytelling could also be genericized later */}
       <VisualScrollytelling />
 
       <LocationMap />
 
-      <AlfredConcierge />
+      <AlfredConcierge background={cmsData.concierge} />
 
       {/* Simple Footer */}
       <footer className="w-full py-8 text-center text-white/30 text-xs border-t border-white/5">

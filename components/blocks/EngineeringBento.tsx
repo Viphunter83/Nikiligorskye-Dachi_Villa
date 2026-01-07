@@ -11,7 +11,11 @@ import { GlassCard } from '@/components/ui/GlassCard';
 import { useState, useEffect } from 'react';
 import { HOUSE_DATA } from '@/data/house-data';
 
-export const EngineeringBento = () => {
+interface EngineeringBentoProps {
+    photos?: string[];
+}
+
+export const EngineeringBento = ({ photos }: EngineeringBentoProps) => {
     const { activePersona, language } = usePersona();
     const [mounted, setMounted] = useState(false);
 
@@ -33,7 +37,7 @@ export const EngineeringBento = () => {
             text: language === 'ru'
                 ? 'Котельная Buderus (Германия). Погодозависимая автоматика.'
                 : 'Buderus Boiler (Germany). Weather-dependent automation.',
-            image: '/photos/bento_heating.png'
+            image: photos?.[0] || '/photos/bento_heating.png'
         },
         {
             id: 'dynamic',
@@ -42,7 +46,7 @@ export const EngineeringBento = () => {
             title: engineeringFocus?.Title?.[language],
             icon: ShieldCheck,
             text: engineeringFocus?.Text?.[language],
-            image: '/photos/bento_focus.png'
+            image: photos?.[1] || '/photos/bento_focus.png'
         },
         {
             id: 'health',
@@ -52,7 +56,7 @@ export const EngineeringBento = () => {
             text: language === 'ru'
                 ? '5-ступенчатая водоочистка + Приточная вентиляция.'
                 : '5-stage water purification + Fresh air supply.',
-            image: '/photos/bento_water.png'
+            image: photos?.[2] || '/photos/bento_water.png'
         },
         {
             id: 'connectivity',
@@ -62,7 +66,7 @@ export const EngineeringBento = () => {
             text: language === 'ru'
                 ? 'Оптический канал связи. Бесшовный Wi-Fi на участке и в доме.'
                 : 'Optical fiber channel. Seamless Wi-Fi indoors and outdoors.',
-            image: '/photos/bento_tech.png'
+            image: photos?.[3] || '/photos/bento_tech.png'
         }
     ];
 

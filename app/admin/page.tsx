@@ -15,6 +15,8 @@ export default async function AdminPage() {
 
     if (!house) return <div>House Profile not found. Seed DB first.</div>
 
+    const cmsData = house.cms_data as any || {};
+
     return (
         <div className="container mx-auto py-10">
             <h1 className="text-3xl font-bold mb-8">Admin Dashboard</h1>
@@ -119,6 +121,63 @@ export default async function AdminPage() {
                             </form>
                         </CardContent>
                     </Card>
+
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
+                        <Card>
+                            <CardHeader>
+                                <CardTitle>Engineering Photos</CardTitle>
+                                <CardDescription>Update the 4 images in the Bento Grid.</CardDescription>
+                            </CardHeader>
+                            <CardContent>
+                                <form action={updateVisuals} className="space-y-4">
+                                    <input type="hidden" name="hero_image_url" value={house.hero_image_url} />
+                                    <input type="hidden" name="hero_overlay_opacity" value={house.hero_overlay_opacity} />
+                                    <input type="hidden" name="accent_color" value={house.accent_color} />
+                                    <input type="hidden" name="concierge_bg" value={cmsData.concierge || '/Facade3.jpeg'} />
+
+                                    {[1, 2, 3, 4].map((i) => (
+                                        <div key={i} className="space-y-2">
+                                            <Label>Image {i} URL</Label>
+                                            <Input
+                                                name={`eng_img_${i}`}
+                                                defaultValue={cmsData.engineering?.[i - 1] || ''}
+                                                placeholder={`/photos/bento_0${i}.png`}
+                                            />
+                                        </div>
+                                    ))}
+                                    <Button type="submit" variant="secondary">Update Bento</Button>
+                                </form>
+                            </CardContent>
+                        </Card>
+
+                        <Card>
+                            <CardHeader>
+                                <CardTitle>Concierge</CardTitle>
+                                <CardDescription>Background image for AI Assistant.</CardDescription>
+                            </CardHeader>
+                            <CardContent>
+                                <form action={updateVisuals} className="space-y-4">
+                                    {/* Preserve other values */}
+                                    <input type="hidden" name="hero_image_url" value={house.hero_image_url} />
+                                    <input type="hidden" name="hero_overlay_opacity" value={house.hero_overlay_opacity} />
+                                    <input type="hidden" name="accent_color" value={house.accent_color} />
+                                    {cmsData.engineering?.map((img: string, i: number) => (
+                                        <input key={i} type="hidden" name={`eng_img_${i + 1}`} value={img} />
+                                    ))}
+
+                                    <div className="space-y-2">
+                                        <Label>Background Image URL</Label>
+                                        <Input
+                                            name="concierge_bg"
+                                            defaultValue={cmsData.concierge || '/Facade3.jpeg'}
+                                            placeholder="https://..."
+                                        />
+                                    </div>
+                                    <Button type="submit" variant="secondary">Update Concierge</Button>
+                                </form>
+                            </CardContent>
+                        </Card>
+                    </div>
                 </TabsContent>
 
                 <TabsContent value="crm">
