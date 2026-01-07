@@ -5,13 +5,32 @@ import { PersonaType } from '@/data/house-data';
 interface ContactRequest {
     phone: string;
     persona: PersonaType;
+    intent?: 'booking' | 'question' | 'callback' | 'general';
     historySummary?: string;
 }
 
 export async function POST(req: Request) {
     try {
         const body: ContactRequest = await req.json();
-        const { phone, persona } = body;
+        const { phone, persona, intent = 'general' } = body;
+
+        let intentEmoji = '📝';
+        let intentText = 'ОБЩИЙ ЗАПРОС';
+
+        switch (intent) {
+            case 'booking':
+                intentEmoji = '📅';
+                intentText = 'ЗАПРОС НА ПРОСМОТР';
+                break;
+            case 'question':
+                intentEmoji = '❓';
+                intentText = 'ВОПРОС МЕНЕДЖЕРУ';
+                break;
+            case 'callback':
+                intentEmoji = '📞';
+                intentText = 'ПРОСЬБА ПЕРЕЗВОНИТЬ';
+                break;
+        }
 
         let salesTip = '';
         let icebreaker = '';
@@ -37,7 +56,7 @@ export async function POST(req: Request) {
 
         // 2. Construct Message (HTML)
         const message = `
-🚨 <b>НОВЫЙ ЛИД</b>
+${intentEmoji} <b>${intentText}</b>
 
 📞 <b>Телефон:</b> <code>${phone}</code>
 🎭 <b>Архетип:</b> ${persona}

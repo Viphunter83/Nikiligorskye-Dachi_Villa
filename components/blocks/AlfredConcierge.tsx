@@ -21,17 +21,49 @@ export const AlfredConcierge = () => {
     const [state, setState] = useState<MessageState>('greeting');
     const inputRef = useRef<HTMLInputElement>(null);
 
-    const greeting = content.Concierge_Greeting?.[language] || "How can I help you today?";
+    const [dynamicGreeting, setDynamicGreeting] = useState("");
+
+    // Initialize greeting on mount or language change
+    useEffect(() => {
+        const initialGreeting = content.Concierge_Greeting?.[language] || "How can I help you today?";
+        setDynamicGreeting(initialGreeting);
+    }, [language, content.Concierge_Greeting]);
+
+    const [intent, setIntent] = useState<'booking' | 'question' | 'callback' | null>(null);
 
     const quickReplies = [
-        { id: 'visit', ru: "📅 Записаться на просмотр", en: "📅 Book a Viewing" },
-        { id: 'whatsapp', ru: "💬 Написать в WhatsApp", en: "💬 WhatsApp Chat" },
-        { id: 'call', ru: "📞 Позвонить мне", en: "📞 Call Me" }
+        { id: 'visit', label: language === 'ru' ? "📅 Записаться на просмотр" : "📅 Book a Viewing", intent: 'booking' },
+        { id: 'question', label: language === 'ru' ? "❓ Задать вопрос" : "❓ Ask Question", intent: 'question' },
+        { id: 'call', label: language === 'ru' ? "📞 Позвонить мне" : "📞 Call Me", intent: 'callback' }
     ];
 
-    const handleQuickReply = () => {
+    const handleQuickReply = (selectedIntent: string) => {
         setState('typing');
+        setIntent(selectedIntent as any);
+
+        // Dynamic response based on intent
+        let responseText = "";
+        switch (selectedIntent) {
+            case 'booking':
+                responseText = language === 'ru'
+                    ? "Отличный выбор. Оставьте ваш номер телефона, и мы согласуем удобное время для визита."
+                    : "Excellent choice. Leave your phone number, and we will coordinate a convenient time for your visit.";
+                break;
+            case 'callback':
+                responseText = language === 'ru'
+                    ? "Оставьте ваш номер, и наш менеджер свяжется с вами в течение 10 минут."
+                    : "Leave your number, and our manager will contact you within 10 minutes.";
+                break;
+            case 'question':
+            default:
+                responseText = language === 'ru'
+                    ? "Что вас интересует? Оставьте ваш номер и краткий комментарий (по желанию)."
+                    : "What would you like to know? Leave your number and a short comment (optional).";
+                break;
+        }
+
         setTimeout(() => {
+            setDynamicGreeting(responseText);
             setState('input');
         }, 1200);
     };
@@ -54,7 +86,7 @@ export const AlfredConcierge = () => {
                 body: JSON.stringify({
                     phone: inputRef.current.value,
                     persona: activePersona,
-                    // We could track interaction history here later
+                    intent: intent || 'general'
                 }),
             });
 
@@ -123,7 +155,7 @@ export const AlfredConcierge = () => {
                         >
                             <div className="w-8 h-8 rounded-full bg-gradient-to-br from-primary/20 to-transparent flex-shrink-0 flex items-center justify-center text-primary border border-primary/20 text-xs shadow-[0_0_10px_rgba(212,175,55,0.2)]">A</div>
                             <div className="bg-white/5 border border-white/10 p-4 rounded-2xl rounded-tl-none text-gray-200 text-sm leading-relaxed max-w-[85%] shadow-lg backdrop-blur-md">
-                                <p>{greeting}</p>
+                                <p>{dynamicGreeting}</p>
                             </div>
                         </motion.div>
 
@@ -139,12 +171,12 @@ export const AlfredConcierge = () => {
                                     {quickReplies.map((reply) => (
                                         <button
                                             key={reply.id}
-                                            onClick={handleQuickReply}
+                                            onClick={() => handleQuickReply(reply.intent)}
                                             className="group relative bg-[#0a0a0a] hover:bg-[#111] border border-white/10 text-gray-300 py-3.5 px-5 rounded-xl text-sm transition-all text-left overflow-hidden"
                                         >
                                             <div className="absolute inset-0 bg-primary/0 group-hover:bg-primary/5 transition-colors duration-300"></div>
                                             <div className="relative flex items-center gap-3">
-                                                <span className="font-medium group-hover:text-primary transition-colors">{language === 'ru' ? reply.ru : reply.en}</span>
+                                                <span className="font-medium group-hover:text-primary transition-colors">{reply.label}</span>
                                             </div>
                                         </button>
                                     ))}
