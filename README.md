@@ -22,7 +22,7 @@ This is a premium digital experience for "Nikologorskie Dachi", built with Next.
 For the Telegram bot integration to work, you must configure the following environment variables (locally in `.env.local` and in Vercel Project Settings):
 
 - `TELEGRAM_BOT_TOKEN`: Your Telegram Bot API Token
-- `TELEGRAM_CHAT_ID`: The ID of the chat/channel where leads should be sent
+- `TELEGRAM_CHAT_ID`: The ID of the chat(s) where leads should be sent. You can specify multiple IDs separated by commas (e.g., `12345678,-100987654321`) to send notifications to multiple users or groups simultaneously.
 
 ## Getting Started
 
