@@ -8,7 +8,7 @@ import { Send, User, Bot, Loader2 } from 'lucide-react';
 type MessageState = 'greeting' | 'typing' | 'input' | 'success';
 
 export const AlfredConcierge = () => {
-    const { getCurrentContent, language } = usePersona();
+    const { getCurrentContent, language, activePersona } = usePersona();
     const content = getCurrentContent();
     const [state, setState] = useState<MessageState>('greeting');
     const inputRef = useRef<HTMLInputElement>(null);
@@ -28,12 +28,38 @@ export const AlfredConcierge = () => {
         }, 1200);
     };
 
-    const handleSubmit = (e: React.FormEvent) => {
+
+
+    const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
+
+        if (!inputRef.current?.value) return;
+
         setState('typing');
-        setTimeout(() => {
+
+        try {
+            await fetch('/api/contact', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    phone: inputRef.current.value,
+                    persona: activePersona,
+                    // We could track interaction history here later
+                }),
+            });
+
+            // Simulate typing delay for realism
+            setTimeout(() => {
+                setState('success');
+            }, 1000);
+
+        } catch (error) {
+            console.error('Failed to submit contact:', error);
+            // Fallback to success to not break UX, potentially save to local storage
             setState('success');
-        }, 1500);
+        }
     };
 
     return (
