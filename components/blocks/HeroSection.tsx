@@ -8,7 +8,12 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { useState, useEffect } from 'react';
 
-export const HeroSection = () => {
+interface HeroSectionProps {
+    overrideHeadline?: string;
+    overrideSubheadline?: string;
+}
+
+export const HeroSection = ({ overrideHeadline, overrideSubheadline }: HeroSectionProps = {}) => {
     const { activePersona, getCurrentContent, language } = usePersona();
     const [mounted, setMounted] = useState(false);
 
@@ -102,10 +107,10 @@ export const HeroSection = () => {
                             className="flex flex-col items-center"
                         >
                             <h1 className="text-4xl md:text-6xl font-bold text-white mb-6 leading-tight drop-shadow-lg">
-                                {content.Headline?.[language as Language]}
+                                {overrideHeadline || content.Headline?.[language as Language]}
                             </h1>
                             <p className="text-lg md:text-xl text-white/90 max-w-2xl font-light mb-8 drop-shadow-md">
-                                {content.Subheadline?.[language as Language]}
+                                {overrideSubheadline || content.Subheadline?.[language as Language]}
                             </p>
 
                             {content.CallToAction && (

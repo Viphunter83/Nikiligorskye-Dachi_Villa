@@ -1,0 +1,98 @@
+import { getLeads, getHouseProfile, updateHeadlines } from '@/lib/actions'
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
+import { Input } from "@/components/ui/input"
+import { Button } from "@/components/ui/button"
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
+import { Label } from "@/components/ui/label"
+import { Lead } from "@prisma/client"
+
+export default async function AdminPage() {
+    const leads = await getLeads()
+    const house = await getHouseProfile()
+
+    if (!house) return <div>House Profile not found. Seed DB first.</div>
+
+    return (
+        <div className="container mx-auto py-10">
+            <h1 className="text-3xl font-bold mb-8">Admin Dashboard</h1>
+
+            <Tabs defaultValue="marketing" className="w-full">
+                <TabsList className="mb-4">
+                    <TabsTrigger value="marketing">Marketing Control</TabsTrigger>
+                    <TabsTrigger value="crm">CRM / Leads</TabsTrigger>
+                </TabsList>
+
+                <TabsContent value="marketing">
+                    <Card>
+                        <CardHeader>
+                            <CardTitle>Manage Headlines</CardTitle>
+                            <CardDescription>Update the main selling points for each persona.</CardDescription>
+                        </CardHeader>
+                        <CardContent>
+                            <form action={updateHeadlines} className="space-y-4">
+                                <div className="grid w-full items-center gap-1.5">
+                                    <Label htmlFor="headline_family">Family Persona Headline</Label>
+                                    <Input id="headline_family" name="headline_family" defaultValue={house.headline_family} />
+                                </div>
+
+                                <div className="grid w-full items-center gap-1.5">
+                                    <Label htmlFor="headline_investor">Investor Persona Headline</Label>
+                                    <Input id="headline_investor" name="headline_investor" defaultValue={house.headline_investor} />
+                                </div>
+
+                                <div className="grid w-full items-center gap-1.5">
+                                    <Label htmlFor="headline_party">Party Persona Headline</Label>
+                                    <Input id="headline_party" name="headline_party" defaultValue={house.headline_party} />
+                                </div>
+
+                                <div className="grid w-full items-center gap-1.5">
+                                    <Label htmlFor="price_display">Price Display</Label>
+                                    <Input id="price_display" name="price_display" defaultValue={house.price_display} />
+                                </div>
+
+                                <Button type="submit">Save Changes</Button>
+                            </form>
+                        </CardContent>
+                    </Card>
+                </TabsContent>
+
+                <TabsContent value="crm">
+                    <Card>
+                        <CardHeader>
+                            <CardTitle>Leads</CardTitle>
+                            <CardDescription>Incoming requests from the landing page.</CardDescription>
+                        </CardHeader>
+                        <CardContent>
+                            <Table>
+                                <TableHeader>
+                                    <TableRow>
+                                        <TableHead>Date</TableHead>
+                                        <TableHead>Phone</TableHead>
+                                        <TableHead>Persona</TableHead>
+                                        <TableHead>Status</TableHead>
+                                    </TableRow>
+                                </TableHeader>
+                                <TableBody>
+                                    {leads.map((lead: Lead) => (
+                                        <TableRow key={lead.id}>
+                                            <TableCell>{new Date(lead.createdAt).toLocaleDateString()}</TableCell>
+                                            <TableCell>{lead.phone}</TableCell>
+                                            <TableCell>{lead.persona}</TableCell>
+                                            <TableCell>{lead.status}</TableCell>
+                                        </TableRow>
+                                    ))}
+                                    {leads.length === 0 && (
+                                        <TableRow>
+                                            <TableCell colSpan={4} className="text-center">No leads yet.</TableCell>
+                                        </TableRow>
+                                    )}
+                                </TableBody>
+                            </Table>
+                        </CardContent>
+                    </Card>
+                </TabsContent>
+            </Tabs>
+        </div>
+    )
+}
