@@ -10,6 +10,7 @@ const playfair = Playfair_Display({ subsets: ["latin"], variable: "--font-playfa
 export const metadata: Metadata = {
   title: "Residence Nikologorskie Dachi | Private Offering",
   description: "A Lloyd Wright inspired estate. 746 sqm of private luxury.",
+  metadataBase: new URL('https://nikologorskaya-villa.info'),
   openGraph: {
     images: [
       {

@@ -4,9 +4,7 @@ import prisma from '@/lib/db'
 export const revalidate = 3600 // Revalidate at most every hour
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-    const baseUrl = process.env.VERCEL_URL
-        ? `https://${process.env.VERCEL_URL}`
-        : 'http://localhost:3000'
+    const baseUrl = 'https://nikologorskaya-villa.info';
 
     // 1. Static Routes
     const staticRoutes: MetadataRoute.Sitemap = [
