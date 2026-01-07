@@ -179,11 +179,11 @@ export const HOUSE_DATA = {
                 ]
             },
             Amenities: [
-                { ru: "Высокая ликвидность", en: "High Liquidity", image: '/photos/feat_abstract_party.png' },
-                { ru: "Рост стоимости", en: "Value Growth", image: '/photos/feat_abstract_party.png' },
-                { ru: "Арендный потенциал", en: "Rental Potential", image: '/photos/feat_abstract_party.png' },
-                { ru: "Премиальная локация", en: "Premium Location", image: '/photos/feat_schools.png' }, // reusing schools for location
-                { ru: "Низкие расходы", en: "Low Expenses", image: '/photos/feat_eco_materials.png' }
+                { ru: "Высокая ликвидность", en: "High Liquidity", image: '/Facade3.jpeg' },
+                { ru: "Рост стоимости", en: "Value Growth", image: '/Stair.jpeg' },
+                { ru: "Арендный потенциал", en: "Rental Potential", image: '/Living2.jpeg' },
+                { ru: "Премиальная локация", en: "Premium Location", image: '/Facade1.jpeg' },
+                { ru: "Низкие расходы", en: "Low Expenses", image: '/Techroom.jpeg' }
             ],
             Detailed_Description: {
                 ru: "Сдержанная стилистика американского архитектора Ллойда Райта. Фасад из кирпича ручной формовки и натуральной меди гарантирует долговечность. Уникальное предложение: площадь фактически 746 м² (по документам 506 м²). Идеальный актив для сохранения капитала.",
@@ -252,11 +252,11 @@ export const HOUSE_DATA = {
                 ]
             },
             Amenities: [
-                { ru: "Кинотеатр", en: "Home Cinema", image: '/photos/cinema.jpg' }, // reuse existing cinema
-                { ru: "Зона BBQ", en: "BBQ Zone", image: '/photos/feat_abstract_party.png' },
-                { ru: "Паркинг на 10 авто", en: "Parking for 10", image: '/photos/feat_security.png' },
-                { ru: "SPA комплекс", en: "SPA Complex", image: '/photos/bento_water.png' },
-                { ru: "Приватность", en: "Privacy", image: '/photos/feat_security.png' }
+                { ru: "Кинотеатр", en: "Home Cinema", image: '/Cinema1.jpeg' },
+                { ru: "Зона BBQ", en: "BBQ Zone", image: '/Openzone.jpeg' },
+                { ru: "Паркинг на 10 авто", en: "Parking for 10", image: '/Garage.jpeg' },
+                { ru: "SPA комплекс", en: "SPA Complex", image: '/Bathroom1.jpeg' },
+                { ru: "Приватность", en: "Privacy", image: '/Facade5.jpeg' }
             ],
             Detailed_Description: {
                 ru: "Это не просто дом, а ваша личная резиденция для развлечений. Огромный атриум для вечеринок, профессиональный кинозал в цоколе и лаунж-зоны на свежем воздухе. Здесь можно устроить шумную вечеринку или расслабиться в кругу близких друзей, не мешая соседям.",
