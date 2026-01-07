@@ -78,6 +78,9 @@ export const HeroSection = () => {
                                 <motion.button
                                     whileHover={{ scale: 1.05 }}
                                     whileTap={{ scale: 0.95 }}
+                                    onClick={() => {
+                                        document.getElementById('alfred-concierge')?.scrollIntoView({ behavior: 'smooth' });
+                                    }}
                                     className="px-8 py-3 bg-primary text-black font-semibold rounded-lg shadow-[0_0_15px_rgba(212,175,55,0.3)] hover:shadow-[0_0_25px_rgba(212,175,55,0.5)] transition-all"
                                 >
                                     {content.CallToAction[language as Language]}

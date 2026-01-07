@@ -6,7 +6,7 @@ import { MapPin, Navigation, Clock } from 'lucide-react';
 import { useState } from 'react';
 
 export const LocationMap = () => {
-    const { getCurrentContent, language } = usePersona();
+    const { getCurrentContent, language, activePersona } = usePersona();
     const content = getCurrentContent();
     const [activeRoute, setActiveRoute] = useState<string | null>(null);
 
@@ -36,6 +36,23 @@ export const LocationMap = () => {
         }
     ];
 
+    const POIs = {
+        Target_Family: [
+            { id: 'school', x: 230, y: 150, label: language === 'ru' ? 'Ломоносовская школа' : 'Lomonosov School', icon: '🎓' },
+            { id: 'park', x: 280, y: 310, label: language === 'ru' ? 'Парк Раздолье' : 'Razdolye Park', icon: '🌳' }
+        ],
+        Target_Investor: [
+            { id: 'village', x: 180, y: 80, label: 'Barvikha Luxury Village', icon: '🛍️' },
+            { id: 'dream', x: 230, y: 120, label: 'Dream House', icon: '💎' }
+        ],
+        Target_Party: [
+            { id: 'city', x: 300, y: 40, label: language === 'ru' ? 'Москва-Сити' : 'Moscow City', icon: '🏙️' },
+            { id: 'rest', x: 180, y: 280, label: language === 'ru' ? 'Рестораны' : 'Restaurants', icon: '🍸' }
+        ]
+    };
+
+    const currentPOIs = POIs[activePersona as keyof typeof POIs] || POIs.Target_Family;
+
     return (
         <section className="relative w-full py-24 bg-[#050505] text-white overflow-hidden">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 md:grid-cols-3 gap-12 items-center">
@@ -62,7 +79,7 @@ export const LocationMap = () => {
                                 <div
                                     key={route.id}
                                     onMouseEnter={() => setActiveRoute(route.id)}
-                                    onMouseLeave={() => setActiveRoute(null)}
+                                    // onMouseLeave={() => setActiveRoute(null)} // Keep active for demo
                                     className={`p-4 rounded-xl border transition-all cursor-pointer flex items-center justify-between
                                         ${activeRoute === route.id
                                             ? 'bg-white/10 border-white/30'
@@ -85,34 +102,40 @@ export const LocationMap = () => {
 
                 {/* Abstract Map */}
                 <div className="col-span-1 md:col-span-2 relative h-[500px] w-full bg-[#0a0a0a] rounded-3xl border border-white/10 overflow-hidden group">
-                    {/* Map Noise/Texture */}
-                    <div className="absolute inset-0 opacity-20 bg-[url('/noise.png')]"></div>
+                    {/* Map Background Image */}
+                    <div className="absolute inset-0">
+                        <img
+                            src="/assets/map_nikolina_custom.png"
+                            alt="Nikolina Gora Map"
+                            className="w-full h-full object-cover opacity-80"
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a0a] via-transparent to-transparent"></div>
+                    </div>
 
-                    <svg className="w-full h-full" viewBox="0 0 400 400" preserveAspectRatio="none">
-                        {/* Grid Lines for style */}
-                        <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
-                            <path d="M 40 0 L 0 0 0 40" fill="none" stroke="rgba(255,255,255,0.05)" strokeWidth="1" />
-                        </pattern>
-                        <rect width="100%" height="100%" fill="url(#grid)" />
+                    {/* Increased viewBox to prevent label clipping */}
+                    <svg className="absolute inset-0 w-full h-full z-10" viewBox="0 0 450 450" preserveAspectRatio="none">
 
-                        {/* Routes */}
+                        {/* Routes aligned with new map roads */}
                         {routes.map((route) => (
                             <motion.path
                                 key={route.id}
-                                d={route.path}
+                                d={route.path // Keep abstract curves, they look like GPS routes
+                                    .replace("M 10 350", "M 10 400") // Start lower
+                                    .replace("T 300 150", "T 280 180")
+                                }
                                 fill="none"
                                 stroke={route.color}
                                 strokeWidth={activeRoute === route.id ? 4 : 2}
-                                strokeOpacity={activeRoute === route.id ? 1 : 0.3}
+                                strokeOpacity={activeRoute === route.id ? 1 : 0.5}
                                 initial={{ pathLength: 0 }}
                                 whileInView={{ pathLength: 1 }}
                                 transition={{ duration: 1.5, ease: "easeInOut" }}
-                                className="transition-all duration-300"
+                                className="transition-all duration-300 drop-shadow-[0_0_8px_rgba(0,0,0,0.8)]"
                             />
                         ))}
 
                         {/* House Marker */}
-                        <foreignObject x="280" y="130" width="40" height="40">
+                        <foreignObject x="250" y="160" width="40" height="40">
                             <motion.div
                                 initial={{ scale: 0 }}
                                 whileInView={{ scale: 1 }}
@@ -125,14 +148,22 @@ export const LocationMap = () => {
                             </motion.div>
                         </foreignObject>
 
-                        {/* MKAD Label/Line (Abstract representation on left) */}
-                        <line x1="10" y1="0" x2="10" y2="400" stroke="white" strokeOpacity="0.1" strokeWidth="2" strokeDasharray="5 5" />
-                        <text x="20" y="380" fill="white" fillOpacity="0.3" fontSize="12" style={{ writingMode: 'vertical-rl' }}>MKAD RING ROAD</text>
+                        {/* Dynamic POIs with adjusted coords */}
+                        {currentPOIs.map((poi) => (
+                            <foreignObject key={poi.id} x={poi.x} y={poi.y} width="160" height="60">
+                                <motion.div
+                                    initial={{ opacity: 0, y: 10 }}
+                                    whileInView={{ opacity: 1, y: 0 }}
+                                    className="flex items-center gap-2 bg-black/80 backdrop-blur-md px-3 py-2 rounded-lg border border-white/20 shadow-xl hover:scale-105 transition-transform cursor-pointer"
+                                >
+                                    <span className="text-xl">{poi.icon}</span>
+                                    <span className="text-xs text-white font-semibold whitespace-nowrap">{poi.label}</span>
+                                </motion.div>
+                            </foreignObject>
+                        ))}
 
                     </svg>
 
-                    {/* Gradient Overlay */}
-                    <div className="absolute inset-0 pointer-events-none bg-gradient-to-l from-[#050505] via-transparent to-transparent"></div>
                 </div>
 
             </div>

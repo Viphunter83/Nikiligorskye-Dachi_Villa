@@ -7,41 +7,7 @@ import { ReactNode } from 'react';
 import Image from 'next/image';
 
 // Reusable Glass Card
-const GlassCard = ({
-    children,
-    className = "",
-    highlight = false,
-    image
-}: {
-    children: ReactNode;
-    className?: string;
-    highlight?: boolean;
-    image?: string;
-}) => (
-    <motion.div
-        whileHover={{ scale: 1.02 }}
-        className={`relative overflow-hidden rounded-2xl border p-8 transition-all duration-300
-            ${highlight
-                ? 'bg-[#D4AF37]/10 border-[#D4AF37]/40 shadow-[0_0_30px_rgba(212,175,55,0.1)]'
-                : 'bg-zinc-900/40 border-white/10 hover:border-white/20 hover:bg-zinc-900/60 shadow-lg'
-            } ${className}`}
-    >
-        {/* Background Image */}
-        {image && (
-            <>
-                <Image
-                    src={image}
-                    alt=""
-                    fill
-                    className="object-cover opacity-60 group-hover:opacity-70 transition-opacity duration-500"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/50 to-black/20" />
-            </>
-        )}
-
-        {children}
-    </motion.div>
-);
+import { GlassCard } from '@/components/ui/GlassCard';
 
 export const EngineeringBento = () => {
     const { getCurrentContent, language } = usePersona();
@@ -66,7 +32,7 @@ export const EngineeringBento = () => {
             title: engineeringFocus?.Title?.[language],
             icon: ShieldCheck,
             text: engineeringFocus?.Text?.[language],
-            // Dynamic card keeps emphasis style without image for contrast
+            image: '/photos/bento_focus.png'
         },
         {
             id: 'health',
@@ -91,8 +57,20 @@ export const EngineeringBento = () => {
     ];
 
     return (
-        <section className="relative w-full py-24 bg-[#0a0a0a] text-white">
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <section className="relative w-full py-24 bg-[#0a0a0a] text-white overflow-hidden">
+            {/* Background Texture */}
+            <div className="absolute inset-0">
+                <Image
+                    src="/assets/bg_texture_luxury.png"
+                    alt=""
+                    fill
+                    className="object-cover opacity-60"
+                    quality={90}
+                />
+                <div className="absolute inset-0 bg-gradient-to-b from-[#0a0a0a] via-black/40 to-[#0a0a0a]"></div>
+            </div>
+
+            <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
                 {/* Section Heading */}
                 <div className="mb-16 text-center">

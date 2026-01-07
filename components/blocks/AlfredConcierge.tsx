@@ -37,7 +37,7 @@ export const AlfredConcierge = () => {
     };
 
     return (
-        <section className="relative w-full py-24 bg-gradient-to-b from-[#050505] to-black flex justify-center items-center">
+        <section id="alfred-concierge" className="relative w-full py-24 bg-gradient-to-b from-[#050505] to-black flex justify-center items-center">
 
             <div className="w-full max-w-md px-4">
                 <div className="relative bg-white/5 border border-white/10 rounded-2xl shadow-2xl backdrop-blur-xl overflow-hidden min-h-[400px] flex flex-col">

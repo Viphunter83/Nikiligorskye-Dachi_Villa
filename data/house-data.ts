@@ -12,7 +12,7 @@ export interface PersonaContent {
     Description?: BilingualText;
     Tags?: BilingualText[];
     CallToAction?: BilingualText;
-    Amenities?: BilingualText[];
+    Amenities?: (BilingualText & { image?: string })[];
     Detailed_Description?: BilingualText;
     SpaceHack_Label?: BilingualText;
     SpaceHack_Desc?: BilingualText;
@@ -69,11 +69,11 @@ export const HOUSE_DATA = {
                 en: "Extra meters mean safe play space on the terrace, without the extra tax burden."
             },
             Amenities: [
-                { ru: "Детская игровая зона", en: "Kids Play Zone" },
-                { ru: "Безопасный периметр", en: "Safe Perimeter" },
-                { ru: "Комната для няни", en: "Nanny Room" },
-                { ru: "Эко-материалы", en: "Eco Materials" },
-                { ru: "Рядом школы", en: "Nearby Schools" }
+                { ru: "Детская игровая зона", en: "Kids Play Zone", image: '/photos/feat_kids_zone.png' },
+                { ru: "Безопасный периметр", en: "Safe Perimeter", image: '/photos/feat_security.png' },
+                { ru: "Комната для няни", en: "Nanny Room", image: '/photos/feat_nanny_room.png' },
+                { ru: "Эко-материалы", en: "Eco Materials", image: '/photos/feat_eco_materials.png' },
+                { ru: "Рядом школы", en: "Nearby Schools", image: '/photos/feat_schools.png' }
             ],
             Detailed_Description: {
                 ru: "Дом спроектирован так, чтобы каждый член семьи чувствовал себя комфортно. Просторная гостиная для общих вечеров, безопасная терраса для детских игр и приватные зоны для отдыха родителей. Интерьеры в неоклассическом стиле с использованием натуральных материалов создают атмосферу уюта и статуса.",
@@ -118,11 +118,11 @@ export const HOUSE_DATA = {
                 en: "Effective cost per sq.m. below market due to 240 m² of unaccounted useful area."
             },
             Amenities: [
-                { ru: "Высокая ликвидность", en: "High Liquidity" },
-                { ru: "Рост стоимости", en: "Value Growth" },
-                { ru: "Арендный потенциал", en: "Rental Potential" },
-                { ru: "Премиальная локация", en: "Premium Location" },
-                { ru: "Низкие расходы", en: "Low Expenses" }
+                { ru: "Высокая ликвидность", en: "High Liquidity", image: '/photos/feat_abstract_party.png' },
+                { ru: "Рост стоимости", en: "Value Growth", image: '/photos/feat_abstract_party.png' },
+                { ru: "Арендный потенциал", en: "Rental Potential", image: '/photos/feat_abstract_party.png' },
+                { ru: "Премиальная локация", en: "Premium Location", image: '/photos/feat_schools.png' }, // reusing schools for location
+                { ru: "Низкие расходы", en: "Low Expenses", image: '/photos/feat_eco_materials.png' }
             ],
             Detailed_Description: {
                 ru: "Сдержанная стилистика американского архитектора Ллойда Райта. Фасад из кирпича ручной формовки и натуральной меди гарантирует долговечность. Уникальное предложение: площадь фактически 746 м² (по документам 506 м²). Идеальный актив для сохранения капитала.",
@@ -167,11 +167,11 @@ export const HOUSE_DATA = {
                 en: "Patios and roof terraces are perfect party locations, extended beyond the living quarters."
             },
             Amenities: [
-                { ru: "Кинотеатр", en: "Home Cinema" },
-                { ru: "Зона BBQ", en: "BBQ Zone" },
-                { ru: "Паркинг на 10 авто", en: "Parking for 10" },
-                { ru: "SPA комплекс", en: "SPA Complex" },
-                { ru: "Приватность", en: "Privacy" }
+                { ru: "Кинотеатр", en: "Home Cinema", image: '/photos/cinema.jpg' }, // reuse existing cinema
+                { ru: "Зона BBQ", en: "BBQ Zone", image: '/photos/feat_abstract_party.png' },
+                { ru: "Паркинг на 10 авто", en: "Parking for 10", image: '/photos/feat_security.png' },
+                { ru: "SPA комплекс", en: "SPA Complex", image: '/photos/bento_water.png' },
+                { ru: "Приватность", en: "Privacy", image: '/photos/feat_security.png' }
             ],
             Detailed_Description: {
                 ru: "Это не просто дом, а ваша личная резиденция для развлечений. Огромный атриум для вечеринок, профессиональный кинозал в цоколе и лаунж-зоны на свежем воздухе. Здесь можно устроить шумную вечеринку или расслабиться в кругу близких друзей, не мешая соседям.",
