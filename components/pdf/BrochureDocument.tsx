@@ -164,15 +164,51 @@ const styles = StyleSheet.create({
         color: '#999999',
         flexDirection: 'row',
         justifyContent: 'space-between',
+    },
+
+    // ANALYTICS BLOCK
+    analyticsContainer: {
+        marginTop: 10,
+        marginBottom: 20,
+        padding: 15,
+        backgroundColor: '#F0F4F8',
+        borderRadius: 4,
+    },
+    analyticsRow: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        marginBottom: 8,
+    },
+    analyticsLabel: {
+        width: '40%',
+        fontSize: 10,
+        color: '#555555',
+    },
+    analyticsBarContainer: {
+        flex: 1,
+        flexDirection: 'row',
+        alignItems: 'center',
+    },
+    analyticsBar: {
+        height: 6,
+        backgroundColor: '#D4AF37', // Gold
+        borderRadius: 3,
+        marginRight: 8,
+    },
+    analyticsValue: {
+        fontSize: 10,
+        fontWeight: 'bold',
+        color: '#111111',
     }
 });
 
 interface BrochureProps {
     persona: PersonaType;
     language?: Language;
+    heroImagePath?: string;
 }
 
-export const BrochureDocument = ({ persona, language = 'en' }: BrochureProps) => {
+export const BrochureDocument = ({ persona, language = 'en', heroImagePath }: BrochureProps) => {
     const content = HOUSE_DATA.Content[persona];
     const meta = HOUSE_DATA.Meta;
     const projectTitle = meta.Project_Name[language];
@@ -198,8 +234,12 @@ export const BrochureDocument = ({ persona, language = 'en' }: BrochureProps) =>
             {/* PAGE 1: COVER */}
             <Page size="A4" style={styles.coverPage}>
                 {/* Background Image - Absolute Position */}
-                {/* Note: In production, ensure these images exist in public/ folder */}
-                {/* For reliability in this demo, we might want to skip Image if path is risky, but let's try */}
+                {heroImagePath && (
+                    <Image
+                        src={heroImagePath}
+                        style={styles.coverBg}
+                    />
+                )}
 
                 <View style={styles.coverContent}>
                     <Text style={styles.projectTitle}>{projectTitle}</Text>
@@ -237,6 +277,28 @@ export const BrochureDocument = ({ persona, language = 'en' }: BrochureProps) =>
                     <Text style={styles.highlightTitle}>{spaceHackLabel}</Text>
                     <Text style={styles.highlightText}>{spaceHackDesc}</Text>
                 </View>
+
+                {/* ANALYTICS SECTION (NEW) */}
+                {content.Analytics && (
+                    <View style={styles.analyticsContainer}>
+                        <Text style={styles.highlightTitle}>{content.Analytics.Title[language]}</Text>
+                        {content.Analytics.Items.map((item, idx) => (
+                            <View key={idx} style={styles.analyticsRow}>
+                                <Text style={styles.analyticsLabel}>{item.label[language]}</Text>
+                                <View style={styles.analyticsBarContainer}>
+                                    <View style={{
+                                        ...styles.analyticsBar,
+                                        width: `${item.barPercent}%`,
+                                        backgroundColor: item.highlight ? '#D4AF37' : '#CCCCCC'
+                                    }} />
+                                    <Text style={styles.analyticsValue}>
+                                        {item.prefix}{item.value}{item.suffix}
+                                    </Text>
+                                </View>
+                            </View>
+                        ))}
+                    </View>
+                )}
 
                 {/* Engineering Box */}
                 <View style={{ ...styles.highlightBox, borderLeftColor: '#0A0A0A' }}>

@@ -21,6 +21,17 @@ export interface PersonaContent {
         Text: BilingualText;
     };
     Location_Highlights?: BilingualText;
+    Analytics?: {
+        Title: BilingualText;
+        Items: Array<{
+            label: BilingualText;
+            value: string;
+            prefix?: string;
+            suffix?: string;
+            barPercent: number; // For visualization
+            highlight?: boolean;
+        }>;
+    };
     Concierge_Greeting?: BilingualText;
 }
 
@@ -67,6 +78,30 @@ export const HOUSE_DATA = {
             SpaceHack_Desc: {
                 ru: "Лишние метры — это безопасное пространство для игр на террасе, за которые не нужно переплачивать налог.",
                 en: "Extra meters mean safe play space on the terrace, without the extra tax burden."
+            },
+            Analytics: {
+                Title: { ru: "Ценность для семьи", en: "Family Value" },
+                Items: [
+                    {
+                        label: { ru: "Эффективная площадь", en: "Effective Area" },
+                        value: "746",
+                        suffix: " м²",
+                        barPercent: 100,
+                        highlight: true
+                    },
+                    {
+                        label: { ru: "Площадь по документам (налог)", en: "Taxable Area" },
+                        value: "506",
+                        suffix: " м²",
+                        barPercent: 67
+                    },
+                    {
+                        label: { ru: "Экономия на налогах (10 лет)", en: "Tax Savings (10yr)" },
+                        value: "~1.2",
+                        suffix: " млн ₽",
+                        barPercent: 30
+                    }
+                ]
             },
             Amenities: [
                 { ru: "Детская игровая зона", en: "Kids Play Zone", image: '/photos/feat_kids_zone.png' },
@@ -117,6 +152,32 @@ export const HOUSE_DATA = {
                 ru: "Эффективная стоимость квадратного метра ниже рынка за счет неучтенных 240 м² полезной площади.",
                 en: "Effective cost per sq.m. below market due to 240 m² of unaccounted useful area."
             },
+            Analytics: {
+                Title: { ru: "Инвестиционный потенциал", en: "Investment Potential" },
+                Items: [
+                    {
+                        label: { ru: "Средняя цена в поселке", en: "Avg Market Price" },
+                        value: "350",
+                        prefix: "$",
+                        suffix: "k / сот.",
+                        barPercent: 100
+                    },
+                    {
+                        label: { ru: "Цена предложения", en: "Offer Price" },
+                        value: "290",
+                        prefix: "$",
+                        suffix: "k / сот.",
+                        barPercent: 82,
+                        highlight: true
+                    },
+                    {
+                        label: { ru: "Прогноз роста (3 года)", en: "Growth Forecast (3yr)" },
+                        value: "+35",
+                        suffix: "%",
+                        barPercent: 35
+                    }
+                ]
+            },
             Amenities: [
                 { ru: "Высокая ликвидность", en: "High Liquidity", image: '/photos/feat_abstract_party.png' },
                 { ru: "Рост стоимости", en: "Value Growth", image: '/photos/feat_abstract_party.png' },
@@ -165,6 +226,30 @@ export const HOUSE_DATA = {
             SpaceHack_Desc: {
                 ru: "Патио и крышные террасы — идеальные локации для вечеринок, вынесенные за пределы жилого контура.",
                 en: "Patios and roof terraces are perfect party locations, extended beyond the living quarters."
+            },
+            Analytics: {
+                Title: { ru: "Event-потенциал", en: "Event Potential" },
+                Items: [
+                    {
+                        label: { ru: "Вместимость (Event)", en: "Event Capacity" },
+                        value: "50+",
+                        suffix: " чел.",
+                        barPercent: 100,
+                        highlight: true
+                    },
+                    {
+                        label: { ru: "Зоны отдыха", en: "Chillout Zones" },
+                        value: "5",
+                        suffix: " локаций",
+                        barPercent: 50
+                    },
+                    {
+                        label: { ru: "Паркинг", en: "Parking" },
+                        value: "10",
+                        suffix: " авто",
+                        barPercent: 20
+                    }
+                ]
             },
             Amenities: [
                 { ru: "Кинотеатр", en: "Home Cinema", image: '/photos/cinema.jpg' }, // reuse existing cinema

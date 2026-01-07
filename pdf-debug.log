@@ -68,3 +68,32 @@
 2026-01-07T13:57:35.704Z: -------------------------------
 2026-01-07T13:57:35.704Z: Generating PDF to temp file: /var/folders/qx/3ftsc0gn5bq386h4hzhkfp580000gn/T/brochure_1767794255704.pdf
 2026-01-07T13:57:35.746Z: PDF generated successfully, size: 25339
+2026-01-07T14:01:28.547Z: --- FONT REGISTRATION DEBUG ---
+2026-01-07T14:01:28.547Z: Base Font Path: /Users/apple/Nikiligorskye Dachi_Villa/public/fonts
+2026-01-07T14:01:28.549Z: DEBUG: Font Path: /Users/apple/Nikiligorskye Dachi_Villa/public/fonts
+2026-01-07T14:01:28.550Z: DEBUG: Regular Exists: true
+2026-01-07T14:01:28.550Z: DEBUG: Regular Base64 (first 20): AAEAAAATAQAABAAwR0RF
+2026-01-07T14:01:28.550Z: ✅ Fonts registered as "BrochureDebug"
+2026-01-07T14:01:28.550Z: -------------------------------
+2026-01-07T14:01:28.551Z: Generating PDF to temp file: /var/folders/qx/3ftsc0gn5bq386h4hzhkfp580000gn/T/brochure_1767794488551.pdf
+2026-01-07T14:01:28.617Z: PDF generated successfully, size: 25813
+2026-01-07T14:01:48.828Z: --- FONT REGISTRATION DEBUG ---
+2026-01-07T14:01:48.828Z: Base Font Path: /Users/apple/Nikiligorskye Dachi_Villa/public/fonts
+2026-01-07T14:01:48.830Z: DEBUG: Font Path: /Users/apple/Nikiligorskye Dachi_Villa/public/fonts
+2026-01-07T14:01:48.830Z: DEBUG: Regular Exists: true
+2026-01-07T14:01:48.830Z: DEBUG: Regular Base64 (first 20): AAEAAAATAQAABAAwR0RF
+2026-01-07T14:01:48.830Z: ✅ Fonts registered as "BrochureDebug"
+2026-01-07T14:01:48.830Z: -------------------------------
+2026-01-07T14:01:48.830Z: Generating PDF to temp file: /var/folders/qx/3ftsc0gn5bq386h4hzhkfp580000gn/T/brochure_1767794508830.pdf
+2026-01-07T14:01:48.830Z: Resolved Hero Image Path: /Users/apple/Nikiligorskye Dachi_Villa/public/Facade1.jpeg
+2026-01-07T14:01:48.876Z: PDF generated successfully, size: 303815
+2026-01-07T14:04:17.174Z: --- FONT REGISTRATION DEBUG ---
+2026-01-07T14:04:17.175Z: Base Font Path: /Users/apple/Nikiligorskye Dachi_Villa/public/fonts
+2026-01-07T14:04:17.176Z: DEBUG: Font Path: /Users/apple/Nikiligorskye Dachi_Villa/public/fonts
+2026-01-07T14:04:17.176Z: DEBUG: Regular Exists: true
+2026-01-07T14:04:17.176Z: DEBUG: Regular Base64 (first 20): AAEAAAATAQAABAAwR0RF
+2026-01-07T14:04:17.176Z: ✅ Fonts registered as "BrochureDebug"
+2026-01-07T14:04:17.176Z: -------------------------------
+2026-01-07T14:04:17.176Z: Generating PDF to temp file: /var/folders/qx/3ftsc0gn5bq386h4hzhkfp580000gn/T/brochure_1767794657176.pdf
+2026-01-07T14:04:17.176Z: Resolved Hero Image Path: /Users/apple/Nikiligorskye Dachi_Villa/public/Facade1.jpeg
+2026-01-07T14:04:17.245Z: PDF generated successfully, size: 306109

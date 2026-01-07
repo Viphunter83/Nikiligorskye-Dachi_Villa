@@ -1,7 +1,7 @@
 import { renderToFile, Font } from '@react-pdf/renderer';
 import { NextResponse } from 'next/server';
 import { BrochureDocument } from '@/components/pdf/BrochureDocument';
-import { PersonaType } from '@/data/house-data';
+import { PersonaType, HOUSE_DATA } from '@/data/house-data';
 import path from 'path';
 import fs from 'fs';
 import os from 'os';
@@ -96,8 +96,13 @@ export async function GET(req: Request) {
 
         logToFile(`Generating PDF to temp file: ${tempFilePath}`);
 
+        // Resolve Image Path
+        const heroImageRelative = HOUSE_DATA.Content[persona]?.HeroImage || '/Facade1.jpeg';
+        const heroImagePath = path.join(process.cwd(), 'public', heroImageRelative.replace(/^\//, ''));
+        logToFile(`Resolved Hero Image Path: ${heroImagePath}`);
+
         // Render to file
-        await renderToFile(<BrochureDocument persona={persona} language={lang} />, tempFilePath);
+        await renderToFile(<BrochureDocument persona={persona} language={lang} heroImagePath={heroImagePath} />, tempFilePath);
 
         // Read buffer
         const buffer = fs.readFileSync(tempFilePath);
