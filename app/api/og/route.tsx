@@ -15,7 +15,7 @@ export async function GET(request: Request) {
 
         // Font loading
         const fontData = await fetch(
-            new URL('https://fonts.gstatic.com/s/playfairdisplay/v37/nuFvD-vYSZviVYUb_rj3ij__anPXJzDwcbmjWBN2PKdFvXDXbtM.woff2', import.meta.url)
+            new URL('https://github.com/google/fonts/raw/main/ofl/playfairdisplay/PlayfairDisplay-Bold.ttf', import.meta.url)
         ).then((res) => res.arrayBuffer());
 
         // Image loading

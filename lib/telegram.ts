@@ -1,6 +1,7 @@
 export async function sendTelegramMessage(message: string): Promise<boolean> {
     const token = process.env.TELEGRAM_BOT_TOKEN;
     const chatIds = process.env.TELEGRAM_CHAT_ID?.split(',').map(id => id.trim()).filter(Boolean);
+    console.log('Attempting to send Telegram to IDs:', chatIds);
 
     if (!token || !chatIds || chatIds.length === 0) {
         console.error('Telegram credentials not configured');
