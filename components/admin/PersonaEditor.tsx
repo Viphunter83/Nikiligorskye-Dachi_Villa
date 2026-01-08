@@ -116,6 +116,26 @@ export function PersonaEditor({ persona, initialData }: PersonaEditorProps) {
                                     <Input value={data.Subheadline.en} onChange={e => updateBilingual('Subheadline', 'en', e.target.value)} />
                                 </div>
                             </div>
+                            <div className="grid grid-cols-2 gap-4">
+                                <div className="space-y-2">
+                                    <Label>Call to Action (RU)</Label>
+                                    <Input value={data.CallToAction?.ru || ''} onChange={e => updateBilingual('CallToAction', 'ru', e.target.value)} />
+                                </div>
+                                <div className="space-y-2">
+                                    <Label>Call to Action (EN)</Label>
+                                    <Input value={data.CallToAction?.en || ''} onChange={e => updateBilingual('CallToAction', 'en', e.target.value)} />
+                                </div>
+                            </div>
+                            <div className="grid grid-cols-2 gap-4 border-t pt-4">
+                                <div className="space-y-2">
+                                    <Label>Concierge Greeting (RU)</Label>
+                                    <Input value={data.Concierge_Greeting?.ru || ''} onChange={e => updateBilingual('Concierge_Greeting', 'ru', e.target.value)} />
+                                </div>
+                                <div className="space-y-2">
+                                    <Label>Concierge Greeting (EN)</Label>
+                                    <Input value={data.Concierge_Greeting?.en || ''} onChange={e => updateBilingual('Concierge_Greeting', 'en', e.target.value)} />
+                                </div>
+                            </div>
                         </CardContent>
                     </Card>
                 </TabsContent>
@@ -168,6 +188,65 @@ export function PersonaEditor({ persona, initialData }: PersonaEditorProps) {
                                 <div className="space-y-2">
                                     <Label>Description (EN)</Label>
                                     <Input value={data.SpaceHack_Desc?.en} onChange={e => updateBilingual('SpaceHack_Desc', 'en', e.target.value)} />
+                                </div>
+                            </div>
+                        </CardContent>
+                    </Card>
+
+                    <Card>
+                        <CardHeader>
+                            <CardTitle>Special Blocks</CardTitle>
+                        </CardHeader>
+                        <CardContent className="space-y-6">
+                            {/* Engineering Focus */}
+                            <div className="space-y-4">
+                                <Label className="font-bold">Engineering Focus Block</Label>
+                                <div className="grid grid-cols-2 gap-4">
+                                    <div className="space-y-2">
+                                        <Label>Title (RU)</Label>
+                                        <Input
+                                            value={data.Engineering_Focus?.Title?.ru || ''}
+                                            onChange={e => handleChange('Engineering_Focus', 'Title', e.target.value, 'ru')}
+                                        />
+                                    </div>
+                                    <div className="space-y-2">
+                                        <Label>Title (EN)</Label>
+                                        <Input
+                                            value={data.Engineering_Focus?.Title?.en || ''}
+                                            onChange={e => handleChange('Engineering_Focus', 'Title', e.target.value, 'en')}
+                                        />
+                                    </div>
+                                </div>
+                                <div className="grid grid-cols-2 gap-4">
+                                    <div className="space-y-2">
+                                        <Label>Text (RU)</Label>
+                                        <Input
+                                            value={data.Engineering_Focus?.Text?.ru || ''}
+                                            onChange={e => handleChange('Engineering_Focus', 'Text', e.target.value, 'ru')}
+                                        />
+                                    </div>
+                                    <div className="space-y-2">
+                                        <Label>Text (EN)</Label>
+                                        <Input
+                                            value={data.Engineering_Focus?.Text?.en || ''}
+                                            onChange={e => handleChange('Engineering_Focus', 'Text', e.target.value, 'en')}
+                                        />
+                                    </div>
+                                </div>
+                            </div>
+
+                            {/* Location Highlights */}
+                            <div className="space-y-4 border-t pt-4">
+                                <Label className="font-bold">Location Highlight</Label>
+                                <div className="grid grid-cols-2 gap-4">
+                                    <div className="space-y-2">
+                                        <Label>Text (RU)</Label>
+                                        <Input value={data.Location_Highlights?.ru || ''} onChange={e => updateBilingual('Location_Highlights', 'ru', e.target.value)} />
+                                    </div>
+                                    <div className="space-y-2">
+                                        <Label>Text (EN)</Label>
+                                        <Input value={data.Location_Highlights?.en || ''} onChange={e => updateBilingual('Location_Highlights', 'en', e.target.value)} />
+                                    </div>
                                 </div>
                             </div>
                         </CardContent>
