@@ -33,6 +33,7 @@ export default async function LocationPage({ params }: { params: Promise<{ slug:
         notFound()
     }
 
+    const cleanTitle = location.title.replace(/Особняк у /i, '');
     const dynamicHeadline = `${location.title} — всего ${location.minutes} минут на авто`
 
     return (
@@ -53,18 +54,25 @@ export default async function LocationPage({ params }: { params: Promise<{ slug:
                             Выбирая особняк в «Никологорских Дачах», вы получаете не только приватность,
                             но и мгновенный доступ к инфраструктуре уровня люкс.
                             <br /><br />
-                            <strong>{location.title}</strong> находится всего в {location.minutes} минутах комфортной езды.
+                            <strong>{cleanTitle}</strong> находится всего в {location.minutes} минутах комфортной езды.
                         </p>
 
-                        <div className="h-[400px] w-full bg-slate-100 rounded-2xl flex items-center justify-center relative overflow-hidden">
-                            {/* Placeholder for Map - will be replaced with real map component */}
-                            <p className="text-slate-400">Интерактивная карта маршрута до объекта: {slug}</p>
+                        <div className="h-[400px] w-full bg-slate-100 rounded-2xl flex items-center justify-center relative overflow-hidden shadow-inner border border-white/10">
+                            <iframe
+                                src={`https://yandex.ru/map-widget/v1/?text=${encodeURIComponent(cleanTitle)}&z=14`}
+                                width="100%"
+                                height="100%"
+                                frameBorder="0"
+                                allowFullScreen={true}
+                                className="w-full h-full grayscale hover:grayscale-0 transition-all duration-700"
+                                style={{ filter: "grayscale(100%) contrast(1.1)" }}
+                            ></iframe>
                         </div>
 
                         <div className="pt-8">
                             <Link href="/#contact">
                                 <Button size="lg" className="rounded-full px-8 text-lg h-14 bg-primary text-primary-foreground hover:bg-primary/90">
-                                    Записаться на просмотр по пути в {location.title}
+                                    Записаться на просмотр по пути в {cleanTitle}
                                 </Button>
                             </Link>
                         </div>
