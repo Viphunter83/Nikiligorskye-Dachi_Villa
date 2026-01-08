@@ -269,7 +269,7 @@ export const AreaComparator = () => {
         <section className="relative py-24 bg-surface-900 overflow-hidden">
             {/* Background Atmosphere - Now Static! */}
             <div className="absolute inset-0 z-0 pointer-events-none">
-                <div className="absolute inset-0 bg-[url('/assets/noise.png')] opacity-10 mix-blend-overlay"></div>
+                <div className="absolute inset-0 bg-[url('/noise.svg')] opacity-10 mix-blend-overlay"></div>
                 <div className="absolute inset-0 bg-gradient-to-b from-surface-950 via-surface-900 to-surface-950 opacity-80"></div>
                 {/* Architectural Grid */}
                 <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.03)_1px,transparent_1px)] bg-[size:100px_100px] [mask-image:radial-gradient(ellipse_at_center,black_40%,transparent_70%)]"></div>

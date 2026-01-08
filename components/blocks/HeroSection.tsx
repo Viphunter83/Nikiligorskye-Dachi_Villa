@@ -113,7 +113,7 @@ export const HeroSection = ({
             />
 
             {/* Grain/Noise Overlay */}
-            <div className="absolute inset-0 z-2 opacity-20 bg-[url('/noise.png')] mix-blend-overlay pointer-events-none" />
+            <div className="absolute inset-0 z-2 opacity-20 bg-[url('/noise.svg')] mix-blend-overlay pointer-events-none" />
 
             <div className="z-10 flex flex-col items-center w-full max-w-4xl px-4 text-center mt-20">
 

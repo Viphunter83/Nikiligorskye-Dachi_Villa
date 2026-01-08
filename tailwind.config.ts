@@ -67,7 +67,7 @@ const config: Config = {
 			},
 			backgroundImage: {
 				'luxury-gradient': 'linear-gradient(to bottom, rgba(10,10,10,0) 0%, #0a0a0a 100%)',
-				noise: "url('/noise.png')"
+				noise: "url('/noise.svg')"
 			},
 			borderRadius: {
 				lg: 'var(--radius)',
