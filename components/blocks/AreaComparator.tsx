@@ -169,6 +169,7 @@ const ScannerFrame = ({ activeLevel, currentLevel, t, areaLabels }: ScannerFrame
                 <div className="absolute top-0 bottom-0 w-[40px] -left-[20px] bg-gradient-to-r from-primary-500/0 via-primary-500/20 to-primary-500/0 blur-md"></div>
             </div>
 
+
             {/* Interactive Slider Area */}
             <input
                 type="range"
@@ -180,7 +181,7 @@ const ScannerFrame = ({ activeLevel, currentLevel, t, areaLabels }: ScannerFrame
                 aria-label="Compare Legal vs Real Area"
             />
 
-            {/* Floating Labels (Dynamic based on level) */}
+            {/* Floating Labels (Desktop Only) */}
             <AnimatePresence>
                 {showRealityLabels && currentLevel.labels.map((label) => (
                     <motion.div
@@ -189,7 +190,7 @@ const ScannerFrame = ({ activeLevel, currentLevel, t, areaLabels }: ScannerFrame
                         animate={{ opacity: 1, y: 0, scale: 1 }}
                         exit={{ opacity: 0, y: -10, scale: 0.9 }}
                         transition={{ duration: 0.4, delay: 0.1 }}
-                        className="absolute z-30 pointer-events-none"
+                        className="hidden md:block absolute z-30 pointer-events-none"
                         style={{
                             left: `${label.x}%`,
                             top: `${label.y}%`
@@ -211,34 +212,33 @@ const ScannerFrame = ({ activeLevel, currentLevel, t, areaLabels }: ScannerFrame
             </AnimatePresence>
 
 
-            {/* Comparative Metrics Panel - Floating on bottom */}
-            <div className="absolute bottom-6 left-6 right-6 flex justify-between items-end pointer-events-none">
-                <div className="bg-black/60 backdrop-blur-md p-4 rounded-xl border border-white/10 text-left">
-                    <p className="text-white/40 text-xs uppercase tracking-wider mb-1">{t.legal}</p>
-                    <div className="text-2xl font-playfair text-white">506 m²</div>
-                    <p className="text-white/40 text-[10px]">{t.legalDesc}</p>
+            {/* Comparative Metrics Panel - Adaptive Layout */}
+            <div className="absolute bottom-4 left-4 right-4 md:bottom-6 md:left-6 md:right-6 flex flex-row justify-between items-end pointer-events-none gap-2">
+                <div className="bg-black/60 backdrop-blur-md p-3 md:p-4 rounded-xl border border-white/10 text-left flex-1 md:flex-none min-w-0">
+                    <p className="text-white/40 text-[10px] md:text-xs uppercase tracking-wider mb-1 truncate">{t.legal}</p>
+                    <div className="text-lg md:text-2xl font-playfair text-white">506 m²</div>
+                    <p className="text-white/40 text-[9px] md:text-[10px] hidden md:block">{t.legalDesc}</p>
                 </div>
 
-                {/* Animated Difference Indicator */}
                 {/* Animated Difference Indicator */}
                 <motion.div
                     initial={{ opacity: 0, scale: 0.8 }}
                     animate={{ opacity: sliderValue > 60 ? 1 : 0, scale: sliderValue > 60 ? 1 : 0.8 }}
-                    className="mb-4 px-4 py-2 font-bold rounded-lg shadow-[0_0_20px_rgba(212,175,55,0.4)] z-50"
+                    className="mb-2 md:mb-4 px-3 py-1.5 md:px-4 md:py-2 text-[10px] md:text-base font-bold rounded-lg shadow-[0_0_20px_rgba(212,175,55,0.4)] z-50 whitespace-nowrap"
                     style={{ backgroundColor: '#D4AF37', color: 'black' }}
                 >
                     {t.diffValue}
                 </motion.div>
 
-                <div className="bg-primary-950/80 backdrop-blur-md p-4 rounded-xl border border-primary-500/30 text-right">
-                    <p className="text-primary-200/60 text-xs uppercase tracking-wider mb-1">{t.real}</p>
-                    <div className="text-2xl font-playfair text-primary-400">746 m²</div>
-                    <p className="text-primary-200/40 text-[10px]">{t.realDesc}</p>
+                <div className="bg-primary-950/80 backdrop-blur-md p-3 md:p-4 rounded-xl border border-primary-500/30 text-right flex-1 md:flex-none min-w-0">
+                    <p className="text-primary-200/60 text-[10px] md:text-xs uppercase tracking-wider mb-1 truncate">{t.real}</p>
+                    <div className="text-lg md:text-2xl font-playfair text-primary-400">746 m²</div>
+                    <p className="text-primary-200/40 text-[9px] md:text-[10px] hidden md:block">{t.realDesc}</p>
                 </div>
             </div>
 
             {/* Caption */}
-            <div className="absolute bottom-2 left-0 right-0 flex justify-center gap-8 text-[10px] text-white/30 font-mono uppercase tracking-widest pointer-events-none">
+            <div className="absolute bottom-1 left-0 right-0 flex justify-center gap-8 text-[8px] md:text-[10px] text-white/30 font-mono uppercase tracking-widest pointer-events-none">
                 <span className={sliderValue < 50 ? "text-primary-400" : ""}>01. {t.legal}</span>
                 <span className="w-px h-3 bg-white/10"></span>
                 <span className={sliderValue > 50 ? "text-primary-400" : ""}>02. {t.real}</span>
@@ -266,7 +266,7 @@ export const AreaComparator = () => {
     const currentLevel = LEVEL_DATA[activeLevel];
 
     return (
-        <section className="relative py-24 bg-surface-900 overflow-hidden">
+        <section className="relative py-16 md:py-24 bg-surface-900 overflow-hidden">
             {/* Background Atmosphere - Now Static! */}
             <div className="absolute inset-0 z-0 pointer-events-none">
                 <div className="absolute inset-0 bg-[url('/noise.svg')] opacity-10 mix-blend-overlay"></div>
@@ -277,29 +277,29 @@ export const AreaComparator = () => {
 
             <div className="container relative z-10 mx-auto px-4">
                 {/* Header */}
-                <div className="text-center mb-12">
+                <div className="text-center mb-8 md:mb-12">
                     <motion.h2
                         initial={{ opacity: 0, y: 20 }}
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true }}
-                        className="text-4xl md:text-5xl font-playfair text-white mb-4"
+                        className="text-3xl md:text-5xl font-playfair text-white mb-4"
                     >
                         {t.title}
                     </motion.h2>
-                    <p className="text-white/60 text-lg max-w-2xl mx-auto">
+                    <p className="text-white/60 text-sm md:text-lg max-w-2xl mx-auto">
                         {t.subtitle}
                     </p>
                 </div>
 
                 {/* Level Switcher */}
-                <div className="flex justify-center mb-8">
-                    <div className="inline-flex bg-surface-800/50 backdrop-blur-md rounded-full p-1 border border-white/10">
+                <div className="flex justify-center mb-6 md:mb-8 overflow-x-auto pb-2">
+                    <div className="inline-flex bg-surface-800/50 backdrop-blur-md rounded-full p-1 border border-white/10 whitespace-nowrap">
                         {(['basement', 'floor1', 'floor2'] as LevelType[]).map((level) => (
                             <button
                                 key={level}
                                 onClick={() => setActiveLevel(level)}
                                 className={`
-                  px-6 py-2 rounded-full text-sm font-medium transition-all duration-300
+                  px-4 md:px-6 py-2 rounded-full text-xs md:text-sm font-medium transition-all duration-300
                   ${activeLevel === level
                                         ? 'bg-primary-500 text-white shadow-[0_0_20px_rgba(212,175,55,0.3)]'
                                         : 'text-white/60 hover:text-white hover:bg-white/5'}
@@ -318,6 +318,16 @@ export const AreaComparator = () => {
                     t={t}
                     areaLabels={areaLabels}
                 />
+
+                {/* Mobile Legend (List of Rooms) */}
+                <div className="md:hidden mt-6 grid grid-cols-2 gap-3">
+                    {currentLevel.labels.map((label) => (
+                        <div key={label.id} className="bg-white/5 border border-white/10 rounded-lg p-3 flex items-center gap-3">
+                            <div className="w-2 h-2 rounded-full bg-primary-500 flex-shrink-0"></div>
+                            <span className="text-sm text-white/80">{areaLabels[label.id as keyof typeof areaLabels]}</span>
+                        </div>
+                    ))}
+                </div>
 
             </div>
         </section>
