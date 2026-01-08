@@ -38,7 +38,7 @@ export const EngineeringBento = ({ photos }: EngineeringBentoProps) => {
             text: language === 'ru'
                 ? 'Котельная Buderus (Германия). Погодозависимая автоматика.'
                 : 'Buderus Boiler (Germany). Weather-dependent automation.',
-            image: photos?.[0] || '/photos/bento_heating.jpg'
+            image: (photos?.[0] || '/photos/bento_heating.jpg').toLowerCase()
         },
         {
             id: 'dynamic',
@@ -47,7 +47,7 @@ export const EngineeringBento = ({ photos }: EngineeringBentoProps) => {
             title: engineeringFocus?.Title?.[language],
             icon: ShieldCheck,
             text: engineeringFocus?.Text?.[language],
-            image: photos?.[1] || '/photos/bento_focus.jpg'
+            image: (photos?.[1] || '/photos/bento_focus.jpg').toLowerCase()
         },
         {
             id: 'health',
@@ -57,7 +57,7 @@ export const EngineeringBento = ({ photos }: EngineeringBentoProps) => {
             text: language === 'ru'
                 ? '5-ступенчатая водоочистка + Приточная вентиляция.'
                 : '5-stage water purification + Fresh air supply.',
-            image: photos?.[2] || '/photos/bento_water.jpg'
+            image: (photos?.[2] || '/photos/bento_water.jpg').toLowerCase()
         },
         {
             id: 'connectivity',
@@ -67,7 +67,7 @@ export const EngineeringBento = ({ photos }: EngineeringBentoProps) => {
             text: language === 'ru'
                 ? 'Оптический канал связи. Бесшовный Wi-Fi на участке и в доме.'
                 : 'Optical fiber channel. Seamless Wi-Fi indoors and outdoors.',
-            image: photos?.[3] || '/photos/bento_tech.jpg'
+            image: (photos?.[3] || '/photos/bento_tech.jpg').toLowerCase()
         }
     ];
 

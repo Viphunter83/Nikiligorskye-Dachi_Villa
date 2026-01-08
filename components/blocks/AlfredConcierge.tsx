@@ -118,7 +118,7 @@ export const AlfredConcierge = ({ background }: AlfredConciergeProps) => {
             {/* Human Luminous Background */}
             <div className="absolute inset-0 z-0">
                 <img
-                    src={background || "/Facade3.jpeg"}
+                    src={(background || "/facade3.jpeg").toLowerCase()}
                     alt="Atmosphere"
                     className="w-full h-full object-cover opacity-100 blur-[1px] contrast-125 brightness-110"
                 />

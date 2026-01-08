@@ -29,7 +29,12 @@ export const HeroSection = ({
     // Ensure hydration match by using default on first render
     const displayPersona = mounted ? activePersona : 'Target_Family';
     const content = getCurrentContent();
-    const heroImage = cmsHeroImage || content.HeroImage || '/living.jpeg'; // CMS > Data > Fallback
+    let rawHeroImage = cmsHeroImage || content.HeroImage || '/living.jpeg';
+    // Fix for Linux case-sensitivity: if local path, ensure lowercase
+    if (rawHeroImage.startsWith('/') && !rawHeroImage.startsWith('//')) {
+        rawHeroImage = rawHeroImage.toLowerCase();
+    }
+    const heroImage = rawHeroImage;
 
     // Smart Headline Logic
     // 1. Get default Russian text for this persona from code (HOUSE_DATA)
