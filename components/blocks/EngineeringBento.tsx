@@ -24,8 +24,9 @@ export const EngineeringBento = ({ photos }: EngineeringBentoProps) => {
     }, []);
 
     // Hydration safe content loading
-    const displayPersona = mounted ? activePersona : 'Target_Family';
-    const content = HOUSE_DATA.Content[displayPersona];
+    // Hydration safe content loading
+    const { getCurrentContent } = usePersona();
+    const content = getCurrentContent();
     const engineeringFocus = content.Engineering_Focus;
 
     const cards = [

@@ -28,12 +28,12 @@ export const HeroSection = ({
 
     // Ensure hydration match by using default on first render
     const displayPersona = mounted ? activePersona : 'Target_Family';
-    const content = HOUSE_DATA.Content[displayPersona];
+    const content = getCurrentContent();
     const heroImage = cmsHeroImage || content.HeroImage || '/Living.jpeg'; // CMS > Data > Fallback
 
     // Smart Headline Logic
     // 1. Get default Russian text for this persona from code (HOUSE_DATA)
-    const defaultRussian = HOUSE_DATA.Content[displayPersona].Headline.ru;
+    const defaultRussian = content.Headline?.ru || HOUSE_DATA.Content[displayPersona].Headline.ru;
 
     // 2. Get what's in the DB/CMS for this persona
     // We assume cmsHeadlines keys match PersonaType (e.g. 'Target_Family') or we map them below

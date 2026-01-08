@@ -4,6 +4,9 @@ import "./globals.css";
 import { cn } from "@/lib/utils";
 import { CookieConsent } from "@/components/ui/CookieConsent";
 import { YandexMetrica } from "@/components/analytics/YandexMetrica";
+import { getHouseProfile } from "@/lib/actions";
+import PersonaProvider from "@/components/providers/PersonaProvider";
+import { HOUSE_DATA, PersonaContent, PersonaType } from "@/data/house-data";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
 const playfair = Playfair_Display({ subsets: ["latin"], variable: "--font-playfair" });
@@ -28,15 +31,22 @@ export const metadata: Metadata = {
   },
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const house = await getHouseProfile();
+
+  // Robust fallback: DB -> File -> Empty (should never happen)
+  const initialData = (house?.cms_data as unknown as Record<PersonaType, PersonaContent>) || HOUSE_DATA.Content;
+
   return (
     <html lang="en" className="dark" suppressHydrationWarning>
       <body className={cn(inter.variable, playfair.variable, "bg-background min-h-screen")} suppressHydrationWarning>
-        {children}
+        <PersonaProvider initialData={initialData}>
+          {children}
+        </PersonaProvider>
         <CookieConsent />
         <YandexMetrica />
       </body>

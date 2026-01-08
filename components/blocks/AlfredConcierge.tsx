@@ -21,7 +21,8 @@ export const AlfredConcierge = ({ background }: AlfredConciergeProps) => {
     }, []);
 
     const displayPersona = mounted ? activePersona : 'Target_Family';
-    const content = HOUSE_DATA.Content[displayPersona];
+    const { getCurrentContent } = usePersona();
+    const content = getCurrentContent();
     const [state, setState] = useState<MessageState>('greeting');
     const inputRef = useRef<HTMLInputElement>(null);
 

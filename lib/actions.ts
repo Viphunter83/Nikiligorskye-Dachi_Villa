@@ -2,6 +2,7 @@
 
 import prisma from './db'
 import { revalidatePath } from 'next/cache'
+import { PersonaType, PersonaContent } from '@/data/house-data'
 
 
 // --- Existing Actions ---
@@ -11,8 +12,13 @@ export async function updateVisuals(formData: FormData) {
     const hero_overlay_opacity = parseInt(formData.get('hero_overlay_opacity') as string)
     const accent_color = formData.get('accent_color') as string
 
-    // CMS Data Construction
+    // Retrieve existing data to preserve other fields
+    const existing = await prisma.houseProfile.findUnique({ where: { slug: 'nikologorskie' } });
+    const currentCms = existing?.cms_data as any || {};
+
+    // Merge or Update
     const cms_data = {
+        ...currentCms,
         engineering: [
             formData.get('eng_img_1') as string || '',
             formData.get('eng_img_2') as string || '',
@@ -20,7 +26,6 @@ export async function updateVisuals(formData: FormData) {
             formData.get('eng_img_4') as string || ''
         ],
         concierge: formData.get('concierge_bg') as string || '',
-        features: [] // Expandable
     }
 
     await prisma.houseProfile.update({
@@ -54,6 +59,31 @@ export async function updateHeadlines(formData: FormData) {
 
     revalidatePath('/')
     revalidatePath('/admin')
+}
+
+export async function updateHouseContent(persona: PersonaType, content: PersonaContent) {
+    // 1. Fetch current data
+    const existing = await prisma.houseProfile.findUnique({ where: { slug: 'nikologorskie' } });
+    if (!existing) throw new Error("House not found");
+
+    const currentCms = existing.cms_data as any || {};
+
+    // 2. Update specific persona content
+    const updatedCms = {
+        ...currentCms,
+        [persona]: content
+    };
+
+    // 3. Save
+    await prisma.houseProfile.update({
+        where: { slug: 'nikologorskie' },
+        data: {
+            cms_data: updatedCms
+        }
+    });
+
+    revalidatePath('/');
+    revalidatePath('/admin');
 }
 
 export async function getLeads() {
