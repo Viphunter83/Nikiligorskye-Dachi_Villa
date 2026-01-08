@@ -62,7 +62,7 @@ export const HOUSE_DATA = {
     // DYNAMIC CONTENT RULES
     Content: {
         Target_Family: {
-            HeroImage: '/Facade1.jpeg',
+            HeroImage: '/facade1.jpeg',
             Headline: {
                 ru: "Родовое гнездо на Новой Риге: Безопасность и приватность",
                 en: "Family Estate on New Riga: Safety & Privacy"
@@ -104,11 +104,11 @@ export const HOUSE_DATA = {
                 ]
             },
             Amenities: [
-                { ru: "Детская игровая зона", en: "Kids Play Zone", image: '/photos/feat_kids_zone.png' },
-                { ru: "Безопасный периметр", en: "Safe Perimeter", image: '/photos/feat_security.png' },
-                { ru: "Комната для няни", en: "Nanny Room", image: '/photos/feat_nanny_room.png' },
-                { ru: "Эко-материалы", en: "Eco Materials", image: '/photos/feat_eco_materials.png' },
-                { ru: "Рядом школы", en: "Nearby Schools", image: '/photos/feat_schools.png' }
+                { ru: "Детская игровая зона", en: "Kids Play Zone", image: '/photos/feat_kids_zone.jpg' },
+                { ru: "Безопасный периметр", en: "Safe Perimeter", image: '/photos/feat_security.jpg' },
+                { ru: "Комната для няни", en: "Nanny Room", image: '/photos/feat_nanny_room.jpg' },
+                { ru: "Эко-материалы", en: "Eco Materials", image: '/photos/feat_eco_materials.jpg' },
+                { ru: "Рядом школы", en: "Nearby Schools", image: '/photos/feat_schools.jpg' }
             ],
             Detailed_Description: {
                 ru: "Дом спроектирован так, чтобы каждый член семьи чувствовал себя комфортно. Просторная гостиная для общих вечеров, безопасная терраса для детских игр и приватные зоны для отдыха родителей. Интерьеры в неоклассическом стиле с использованием натуральных материалов создают атмосферу уюта и статуса.",
@@ -135,7 +135,7 @@ export const HOUSE_DATA = {
             }
         },
         Target_Investor: {
-            HeroImage: '/Facade3.jpeg',
+            HeroImage: '/facade3.jpeg',
             Headline: {
                 ru: "Недооцененный актив Premium-класса",
                 en: "Undervalued Premium Asset"
@@ -179,11 +179,11 @@ export const HOUSE_DATA = {
                 ]
             },
             Amenities: [
-                { ru: "Высокая ликвидность", en: "High Liquidity", image: '/Facade3.jpeg' },
-                { ru: "Рост стоимости", en: "Value Growth", image: '/Stair.jpeg' },
-                { ru: "Арендный потенциал", en: "Rental Potential", image: '/Living2.jpeg' },
-                { ru: "Премиальная локация", en: "Premium Location", image: '/Facade1.jpeg' },
-                { ru: "Низкие расходы", en: "Low Expenses", image: '/Techroom.jpeg' }
+                { ru: "Высокая ликвидность", en: "High Liquidity", image: '/facade3.jpeg' },
+                { ru: "Рост стоимости", en: "Value Growth", image: '/stair.jpeg' },
+                { ru: "Арендный потенциал", en: "Rental Potential", image: '/living2.jpeg' },
+                { ru: "Премиальная локация", en: "Premium Location", image: '/facade1.jpeg' },
+                { ru: "Низкие расходы", en: "Low Expenses", image: '/techroom.jpeg' }
             ],
             Detailed_Description: {
                 ru: "Сдержанная стилистика американского архитектора Ллойда Райта. Фасад из кирпича ручной формовки и натуральной меди гарантирует долговечность. Уникальное предложение: площадь фактически 746 м² (по документам 506 м²). Идеальный актив для сохранения капитала.",
@@ -210,7 +210,7 @@ export const HOUSE_DATA = {
             }
         },
         Target_Party: {
-            HeroImage: '/Cinema1.jpeg',
+            HeroImage: '/cinema1.jpeg',
             Headline: {
                 ru: "Резиденция в стиле Райта с видом на Сити",
                 en: "Wright-Style Residence with City Views"
@@ -252,11 +252,11 @@ export const HOUSE_DATA = {
                 ]
             },
             Amenities: [
-                { ru: "Кинотеатр", en: "Home Cinema", image: '/Cinema1.jpeg' },
-                { ru: "Зона BBQ", en: "BBQ Zone", image: '/photos/bbq_patio_zone.png' },
-                { ru: "Паркинг на 10 авто", en: "Parking for 10", image: '/Garage.jpeg' },
-                { ru: "SPA комплекс", en: "SPA Complex", image: '/Bathroom1.jpeg' },
-                { ru: "Приватность", en: "Privacy", image: '/Facade5.jpeg' }
+                { ru: "Кинотеатр", en: "Home Cinema", image: '/cinema1.jpeg' },
+                { ru: "Зона BBQ", en: "BBQ Zone", image: '/photos/bbq_patio_zone.jpg' },
+                { ru: "Паркинг на 10 авто", en: "Parking for 10", image: '/garage.jpeg' },
+                { ru: "SPA комплекс", en: "SPA Complex", image: '/bathroom1.jpeg' },
+                { ru: "Приватность", en: "Privacy", image: '/facade5.jpeg' }
             ],
             Detailed_Description: {
                 ru: "Это не просто дом, а ваша личная резиденция для развлечений. Огромный атриум для вечеринок, профессиональный кинозал в цоколе и лаунж-зоны на свежем воздухе. Здесь можно устроить шумную вечеринку или расслабиться в кругу близких друзей, не мешая соседям.",

@@ -29,7 +29,7 @@ export const HeroSection = ({
     // Ensure hydration match by using default on first render
     const displayPersona = mounted ? activePersona : 'Target_Family';
     const content = getCurrentContent();
-    const heroImage = cmsHeroImage || content.HeroImage || '/Living.jpeg'; // CMS > Data > Fallback
+    const heroImage = cmsHeroImage || content.HeroImage || '/living.jpeg'; // CMS > Data > Fallback
 
     // Smart Headline Logic
     // 1. Get default Russian text for this persona from code (HOUSE_DATA)

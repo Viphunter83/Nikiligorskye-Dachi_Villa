@@ -29,7 +29,7 @@ interface ScrollyScene {
 const SCENES: ScrollyScene[] = [
     {
         id: 'scene-1',
-        imageSrc: '/Facade5.jpeg',
+        imageSrc: '/facade5.jpeg',
         content: {
             Target_Family: {
                 ru: "Ваша крепость в сосновом лесу. Закрытая территория поселка, круглосуточная охрана и видеонаблюдение по периметру участка обеспечивают полную безопасность для игр детей на свежем воздухе.",
@@ -47,7 +47,7 @@ const SCENES: ScrollyScene[] = [
     },
     {
         id: 'scene-2',
-        imageSrc: '/Living.jpeg',
+        imageSrc: '/living.jpeg',
         content: {
             Target_Family: {
                 ru: "Сердце дома — гостиная со вторым светом (7м). Здесь достаточно воздуха для семейных праздников, а панорамные окна стирают границу с природой, наполняя дом светом.",
@@ -65,7 +65,7 @@ const SCENES: ScrollyScene[] = [
     },
     {
         id: 'scene-3',
-        imageSrc: '/Cinema1.jpeg',
+        imageSrc: '/cinema1.jpeg',
         content: {
             Target_Family: {
                 ru: "Развлечения для всех возрастов. Пока родители отдыхают в SPA-зоне, дети могут смотреть мультфильмы в собственном кинотеатре или играть в безопасной игровой зоне.",
