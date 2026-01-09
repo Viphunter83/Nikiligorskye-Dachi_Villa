@@ -313,6 +313,7 @@ export const AreaComparator = () => {
 
                 {/* Scanner Component - Isolated State */}
                 <ScannerFrame
+                    key={activeLevel}
                     activeLevel={activeLevel}
                     currentLevel={currentLevel}
                     t={t}
